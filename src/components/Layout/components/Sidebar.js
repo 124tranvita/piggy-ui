@@ -1,15 +1,21 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import images from '../../../assets/images';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: 'Dashboard', src: `${images.dashboard}` },
-    { title: 'Profile', src: `${images.profile}` },
-    { title: 'Catalogues', src: `${images.catalogue}`, gap: true },
-    { title: 'Incomes', src: `${images.income}` },
-    { title: 'Spendings', src: `${images.spending}` },
-    { title: 'Reports', src: `${images.report}`, gap: true },
+    { title: 'Dashboard', src: `${images.dashboard}`, path: '/' },
+    { title: 'Profile', src: `${images.profile}`, path: '/profile' },
+    {
+      title: 'Catalogues',
+      src: `${images.catalogue}`,
+      path: '/catalogues',
+      gap: true,
+    },
+    { title: 'Incomes', src: `${images.income}`, path: '/incomes' },
+    { title: 'Spendings', src: `${images.spending}`, path: '/spendings' },
+    { title: 'Reports', src: `${images.report}`, path: '/reports', gap: true },
   ];
 
   return (
@@ -45,8 +51,12 @@ export default function Sidebar() {
 
       <ul className="pt-12">
         {Menus.map((menu, index) => (
-          <li
+          <NavLink
+            to={menu.path}
             key={index}
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? '#EAEAEA' : '',
+            })}
             className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 rounded-md ${
               menu.gap ? 'mt-9' : 'mt-2'
             }`}
@@ -59,7 +69,7 @@ export default function Sidebar() {
             >
               {menu.title}
             </span>
-          </li>
+          </NavLink>
         ))}
       </ul>
     </div>

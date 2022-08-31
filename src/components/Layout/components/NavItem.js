@@ -6,11 +6,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function NavItem({ isUser, data }) {
+export default function UserProfile({ isUser, data }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="flex items-center w-8 h-8 mr-3 text-2xl text-white rounded-full md:mr-0 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600">
+        <Menu.Button className="flex items-center w-8 h-8 mr-3 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
           {isUser ? (
             <img
               src="assets/images/user.svg"
