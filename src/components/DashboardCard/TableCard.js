@@ -1,5 +1,5 @@
 import dateFormat from 'dateformat';
-import numberFormat from '../utils/numberFormat';
+import numberFormat from '../../utils/numberFormat';
 
 export default function TableCard({ title, data, icon, textColor }) {
   return (

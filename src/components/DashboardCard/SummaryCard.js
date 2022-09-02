@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import EditMenu from './EditMenu';
+import EditMenu from '../EditMenu';
 
-export default function Card({ title, amount, icon }) {
+export default function SummaryCard({ title, amount, icon }) {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5 pb-2">
