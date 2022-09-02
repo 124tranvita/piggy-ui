@@ -4,11 +4,14 @@ import Navbar from './components/Navbar';
 export default function Layout({ children }) {
   return (
     <div className="flex">
-      <Sidebar />
-      <div className="w-full">
+      <aside>
+        <Sidebar />
+      </aside>
+
+      <main className="w-full ">
         <Navbar />
-        {children}
-      </div>
+        <div className="overflow-y-auto">{children}</div>
+      </main>
     </div>
   );
 }

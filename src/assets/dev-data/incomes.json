@@ -1,0 +1,48 @@
+{
+  "status": "success",
+  "result": 7,
+  "data": {
+    "data": [
+      {
+        "_id": "63118c23e94f565c3a56a6f8",
+        "name": "Salary 7",
+        "amount": 5500,
+        "createAt": "2022-09-02T04:49:49.941Z",
+        "user": "630d7fcf0152bb05f3971ec1",
+        "id": "63118c23e94f565c3a56a6f8"
+      },
+      {
+        "_id": "63118c2ee94f565c3a56a6fd",
+        "name": "Gift",
+        "amount": 15500,
+        "createAt": "2022-09-02T04:49:49.941Z",
+        "user": "630d7fcf0152bb05f3971ec1",
+        "id": "63118c2ee94f565c3a56a6fd"
+      },
+      {
+        "_id": "63118c3ae94f565c3a56a702",
+        "name": "Check Out",
+        "amount": 20000,
+        "createAt": "2022-09-02T04:49:49.941Z",
+        "user": "630d7fcf0152bb05f3971ec1",
+        "id": "63118c3ae94f565c3a56a702"
+      },
+      {
+        "_id": "630d89ea36fa0e1aeae94143",
+        "name": "payday money",
+        "amount": 5500,
+        "createAt": "2022-08-30T03:53:36.085Z",
+        "user": "630d7fcf0152bb05f3971ec1",
+        "id": "630d89ea36fa0e1aeae94143"
+      },
+      {
+        "_id": "630d828ba63e6e41f05f256a",
+        "name": "loan money user1",
+        "amount": 5000,
+        "createAt": "2022-08-30T03:22:42.432Z",
+        "user": "630d7fcf0152bb05f3971ec1",
+        "id": "630d828ba63e6e41f05f256a"
+      }
+    ]
+  }
+}

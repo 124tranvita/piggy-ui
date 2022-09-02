@@ -21,35 +21,34 @@ export default function Sidebar() {
   return (
     <div
       className={`${
-        open ? 'w-72' : 'w-20'
-      } duration-300 h-screen p-5 pt-5 relative shadow-lg`}
+        open ? 'w-64' : 'w-20'
+      } duration-300 h-screen p-5 pt-4 relative border-r-1 bg-white z-10`}
     >
       <img
         src={images.control}
         alt="control"
-        className={`absolute cursor-pointer rounded-full -right-3 top-20 w-7 border-2 ${
+        className={`absolute cursor-pointer rounded-full -right-3 top-20 w-7 ${
           !open && 'rotate-180'
         }`}
         onClick={() => setOpen(!open)}
       />
-      {/**
-       <div className="flex gap-x-4 items-center">
+
+      <div className="flex gap-x-4 items-center border-b-1 pb-2">
         <img
           src={images.logo}
           alt="logo"
-          className={` cursor-pointer duration-500 w-12`}
+          className={` cursor-pointer duration-500 w-8 h-8`}
         />
         <h1
-          className={`text-gray-800 origin-left font-medium text-xl duration-300 ${
+          className={`text-gray-800 origin-left font-bold text-xl duration-300 ${
             !open && 'scale-0'
           }`}
         >
-          Piggy
+          PiGGY
         </h1>
       </div>
-       */}
 
-      <ul className="pt-12">
+      <ul className="pt-1">
         {Menus.map((menu, index) => (
           <NavLink
             to={menu.path}
@@ -64,8 +63,8 @@ export default function Sidebar() {
             <img src={menu.src} alt={menu.title} className="w-8" />
             <span
               className={`${
-                !open && 'hidden'
-              } origin-left duration-200 text-gray-600 font-bold`}
+                !open && 'scale-0'
+              } origin-left duration-300 text-gray-600 font-bold`}
             >
               {menu.title}
             </span>
