@@ -1,8 +1,16 @@
 import { Menu } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import EditMenu from '../EditMenu';
+import numberFormat from '../../utils/numberFormat';
 
 export default function SummaryCard({ title, amount, icon }) {
+  const incomeBadge = `text-sm font-semibold text-white bg-green-500 rounded-full px-2`;
+  const spendingBadge = `text-sm font-semibold text-white bg-rose-500 rounded-full px-2`;
+  const balanceBadge = `text-sm font-semibold text-white ${
+    amount > 0 ? 'bg-green-500' : 'bg-rose-500'
+  } rounded-full px-2`;
+  const balanceBadgeIcon = amount > 0 ? '\u2713' : 'x';
+
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5 pb-2">
@@ -43,11 +51,17 @@ export default function SummaryCard({ title, amount, icon }) {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            ${amount}
+            {numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(amount)}
           </div>
-          <div className="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">
-            +49%
-          </div>
+          {title.toLowerCase() === 'balance' && (
+            <div className={balanceBadge}>{balanceBadgeIcon}</div>
+          )}
+          {title.toLowerCase() === 'incomes' && (
+            <div className={incomeBadge}>&#8593;</div>
+          )}
+          {title.toLowerCase() === 'spendings' && (
+            <div className={spendingBadge}>&#8595;</div>
+          )}
         </div>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">
           in this month

@@ -18,7 +18,7 @@ export default function LineChartCard() {
     datasets: [
       // Indigo line
       {
-        label: 'Current',
+        label: 'Incomes',
         data: [
           73, 64, 73, 69, 104, 104, 164, 164, 120, 120, 120, 148, 142, 104, 122,
           110, 104, 152, 166, 233, 268, 252, 284, 284, 333, 323,
@@ -33,7 +33,7 @@ export default function LineChartCard() {
       },
       // Blue line
       {
-        label: 'Previous',
+        label: 'Spendings',
         data: [
           184, 86, 42, 378, 42, 243, 38, 120, 0, 0, 42, 0, 84, 0, 276, 0, 124,
           42, 124, 88, 88, 215, 156, 88, 124, 64,
@@ -46,30 +46,16 @@ export default function LineChartCard() {
         pointHoverRadius: 3,
         pointBackgroundColor: tailwindConfig().theme.colors.blue[400],
       },
-      // Green line
-      {
-        label: 'Average',
-        data: [
-          122, 170, 192, 86, 102, 124, 115, 115, 56, 104, 0, 72, 208, 186, 223,
-          188, 114, 162, 200, 150, 118, 118, 76, 122, 230, 268,
-        ],
-        borderColor: tailwindConfig().theme.colors.green[500],
-        fill: false,
-        borderWidth: 2,
-        tension: 0,
-        pointRadius: 0,
-        pointHoverRadius: 3,
-        pointBackgroundColor: tailwindConfig().theme.colors.green[500],
-      },
     ],
   };
 
   return (
     <div className="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100 flex items-center">
-        <h2 className="font-semibold text-slate-800">
-          Sales Over Time (all stores)
-        </h2>
+        <h2 className="font-semibold text-slate-800">Income/Spendings</h2>
+        <div className="text-xs font-semibold text-slate-400  px-2">
+          (per month)
+        </div>
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}

@@ -4,8 +4,11 @@ import numberFormat from '../../utils/numberFormat';
 export default function TableCard({ title, data, icon, textColor }) {
   return (
     <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
-      <header className="px-5 py-4 border-b border-slate-100">
-        <h2>Top {title}</h2>
+      <header className="flex items-center px-5 py-4 border-b border-slate-100">
+        <h2>{title}</h2>
+        <div className="text-xs font-semibold text-slate-400  px-2">
+          (latest 5 records)
+        </div>
       </header>
       <div className="p-3">
         {/* Table */}
