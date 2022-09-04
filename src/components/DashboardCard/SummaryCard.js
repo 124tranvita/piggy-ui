@@ -1,11 +1,10 @@
-import { Menu } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import EditMenu from '../EditMenu';
 import numberFormat from '../../utils/numberFormat';
+import { TbActivityHeartbeat } from 'react-icons/tb';
 
 export default function SummaryCard({ title, amount, icon }) {
-  const incomeBadge = `text-sm font-semibold text-white bg-green-500 rounded-full px-2`;
-  const spendingBadge = `text-sm font-semibold text-white bg-rose-500 rounded-full px-2`;
+  // const incomeBadge = `text-sm font-semibold text-white bg-green-500 rounded-full px-2`;
+  // const spendingBadge = `text-sm font-semibold text-white bg-rose-500 rounded-full px-2`;
   const balanceBadge = `text-sm font-semibold text-white ${
     amount > 0 ? 'bg-green-500' : 'bg-rose-500'
   } rounded-full px-2`;
@@ -18,32 +17,13 @@ export default function SummaryCard({ title, amount, icon }) {
           {/* Icon */}
           <img src={icon} width="32" height="32" alt="icon" />
           {/* Menu button */}
-          <EditMenu className="relative inline-flex">
-            <Menu.Item>
-              <Link
-                className="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3"
-                to="#0"
-              >
-                Option 1
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link
-                className="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3"
-                to="#0"
-              >
-                Option 2
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link
-                className="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3"
-                to="#0"
-              >
-                Remove
-              </Link>
-            </Menu.Item>
-          </EditMenu>
+          <div className="text-md font-semibold text-slate-400 uppercase mb-1">
+            <Link to="#0">
+              <button>
+                <TbActivityHeartbeat />
+              </button>
+            </Link>
+          </div>
         </header>
         <h2 className="text-lg font-semibold text-slate-800 mb-2">{title}</h2>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">
@@ -55,12 +35,6 @@ export default function SummaryCard({ title, amount, icon }) {
           </div>
           {title.toLowerCase() === 'balance' && (
             <div className={balanceBadge}>{balanceBadgeIcon}</div>
-          )}
-          {title.toLowerCase() === 'incomes' && (
-            <div className={incomeBadge}>&#8593;</div>
-          )}
-          {title.toLowerCase() === 'spendings' && (
-            <div className={spendingBadge}>&#8595;</div>
           )}
         </div>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">

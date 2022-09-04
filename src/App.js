@@ -1,25 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import Catalogue from './pages/Catalogue';
-import Income from './pages/Income';
-import Spending from './pages/Spending';
-import Report from './pages/Report';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
+import Layout from './layout';
+import { publicPages, privatePages } from './pages';
 
 function App() {
+  const { user } = useAuthContext();
+
   return (
     <div className="App">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="catalogues" element={<Catalogue />} />
-          <Route path="incomes" element={<Income />} />
-          <Route path="spendings" element={<Spending />} />
-          <Route path="reports" element={<Report />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        {publicPages.map((page, index) => (
+          <Route
+            key={index}
+            path={page.path}
+            element={!user ? <>{page.page}</> : <Navigate to="/" />}
+          />
+        ))}
+
+        {privatePages.map((page, index) => (
+          <Route
+            key={index}
+            path={page.path}
+            element={
+              user ? <Layout>{page.page}</Layout> : <Navigate to="/login" />
+            }
+          />
+        ))}
+      </Routes>
     </div>
   );
 }

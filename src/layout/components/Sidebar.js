@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import images from '../../../assets/images';
+import images from '../../assets/images';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);

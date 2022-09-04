@@ -42,11 +42,7 @@ export default function EditMenu({ children, ...rest }) {
           onClick={() => setDropDownOpen(!dropdownOpen)}
         >
           <span className="sr-only">Menu</span>
-          <svg className="w-8 h-8 fill-current" viewBox="0 0 32 32">
-            <circle cx="16" cy="16" r="2" />
-            <circle cx="10" cy="16" r="2" />
-            <circle cx="22" cy="16" r="2" />
-          </svg>
+          <img src="assets/images/logo.svg" width="32" height="32" alt="" />
         </Menu.Button>
       </div>
 

@@ -1,12 +1,21 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { MdNotificationsNone } from 'react-icons/md';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/useLogout';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function UserProfile({ isUser, data }) {
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -20,7 +29,6 @@ export default function UserProfile({ isUser, data }) {
           ) : (
             <MdNotificationsNone className="w-6 h-6 rounded-full mx-auto bg-emerald-500" />
           )}
-          {/* <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" /> */}
         </Menu.Button>
       </div>
 
@@ -33,22 +41,24 @@ export default function UserProfile({ isUser, data }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-3 px-4">
-            <span className="block text-sm text-gray-900 dark:text-white">
-              Bonnie Green
+        <Menu.Items className=" z-50 absolute right-0 mt-2 w-56 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className=" z-50 py-3 px-4">
+            <span className="z-50 block text-sm text-gray-900 dark:text-white">
+              {user.data.user.name}
             </span>
-            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-              name@flowbite.com
+            <span className="z-50 block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
+              {user.data.user.email}
             </span>
           </div>
-          <div className="py-1">
+          <div className="z-50 py-1">
             <Menu.Item>
               {({ active }) => (
                 <a
                   href="#a"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    active
+                      ? 'z-50 bg-gray-100 text-gray-900'
+                      : 'z-50 text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
@@ -82,21 +92,20 @@ export default function UserProfile({ isUser, data }) {
                 </a>
               )}
             </Menu.Item>
-            <form method="POST" action="#">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    type="submit"
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full px-4 py-2 text-left text-sm'
-                    )}
-                  >
-                    Sign out
-                  </button>
-                )}
-              </Menu.Item>
-            </form>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  type="submit"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block w-full px-4 py-2 text-left text-sm'
+                  )}
+                  onClick={handleClick}
+                >
+                  Sign out
+                </button>
+              )}
+            </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>
