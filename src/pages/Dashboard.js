@@ -12,8 +12,6 @@ export default function Dashboard() {
 
   const { balance, income, spending } = user.data.user;
 
-  console.log(balance, income, spending);
-
   return (
     <div>
       <div className="text-2xl font-semibold">

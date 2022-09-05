@@ -6,13 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { AuthContextProvider } from './context/AuthContext';
+import { NotificationContextProvider } from './context/NotificationContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <App />
+        <NotificationContextProvider>
+          <App />
+        </NotificationContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>

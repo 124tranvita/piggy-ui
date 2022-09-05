@@ -1,4 +1,5 @@
-import NavItem from './NavItem';
+import UserProfile from '../../components/UserProfile';
+import Notification from '../../components/Notification';
 // import images from '../../../assets/images';
 
 export default function Navbar() {
@@ -21,10 +22,10 @@ export default function Navbar() {
           <div className="flex flex-grow items-center">
             <ul className="flex flex-row list-none lg:ml-auto">
               <li className="flex px-2 items-center">
-                <NavItem />
+                <Notification />
               </li>
               <li className="flex pl-2 items-center">
-                <NavItem isUser={true} />
+                <UserProfile />
               </li>
             </ul>
           </div>

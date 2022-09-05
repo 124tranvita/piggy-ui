@@ -30,6 +30,9 @@ module.exports = {
       },
       height: {
         80: '80px',
+        screen80: '80vh',
+        screen60: '60vh',
+        screen40: '40vh',
       },
       minHeight: {
         590: '590px',

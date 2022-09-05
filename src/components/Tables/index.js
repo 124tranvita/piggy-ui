@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const buttonGoToClassName =
   'rounded-full bg-gray-200 px-2 py-1 mx-2 hover:bg-gray-400 cursor-pointer';
@@ -80,13 +81,20 @@ export const Table = ({ columns, data }) => {
   );
 };
 
-export const TablePagination = ({ columns }) => {
+export const TablePagination = ({ columns, catalogueId }) => {
+  const { user } = useAuthContext();
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://jsonplaceholder.typicode.com/posts'
+        `http://192.168.1.236:4000/api/v1/spendings/catalogue/${catalogueId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
 
       if (!response.ok) {
@@ -97,8 +105,8 @@ export const TablePagination = ({ columns }) => {
       return data;
     };
 
-    fetchData().then((data) => setData(data));
-  }, []);
+    fetchData().then((data) => setData(data.data));
+  }, [catalogueId, user.token]);
 
   const {
     getTableProps,
@@ -124,7 +132,7 @@ export const TablePagination = ({ columns }) => {
 
   // Render the UI for your table
   return (
-    <>
+    <div className="overflow-x-auto ">
       {/* <pre>
         <code>
           {JSON.stringify(
@@ -207,7 +215,7 @@ export const TablePagination = ({ columns }) => {
         Pagination can be built however you'd like. 
         This is just a very basic UI implementation:
       */}
-      <div className="pagination pt-2 bg-white pb-3">
+      <div className="bg-gray-50 sm:flex-col p-1">
         <button
           onClick={() => gotoPage(0)}
           disabled={!canPreviousPage}
@@ -269,6 +277,6 @@ export const TablePagination = ({ columns }) => {
           ))}
         </select>
       </div>
-    </>
+    </div>
   );
 };

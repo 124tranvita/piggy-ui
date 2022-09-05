@@ -1,18 +1,20 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { MdNotificationsNone } from 'react-icons/md';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useLogout } from '../../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useLogout } from '../hooks/useLogout';
+import { useClearNotification } from '../hooks/useClearNotification';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function UserProfile({ isUser, data }) {
+export default function UserProfile() {
   const { logout } = useLogout();
+  const { clearNotification } = useClearNotification();
   const { user } = useAuthContext();
 
   const handleClick = () => {
+    clearNotification();
     logout();
   };
 
@@ -20,15 +22,11 @@ export default function UserProfile({ isUser, data }) {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="flex items-center w-8 h-8 mr-3 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
-          {isUser ? (
-            <img
-              src="assets/images/user.svg"
-              className="w-8 h-8 rounded-full"
-              alt="user profile"
-            />
-          ) : (
-            <MdNotificationsNone className="w-6 h-6 rounded-full mx-auto bg-emerald-500" />
-          )}
+          <img
+            src="assets/images/user.svg"
+            className="w-8 h-8 rounded-full"
+            alt="user profile"
+          />
         </Menu.Button>
       </div>
 
@@ -41,12 +39,12 @@ export default function UserProfile({ isUser, data }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className=" z-50 absolute right-0 mt-2 w-56 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className=" z-50 py-3 px-4">
-            <span className="z-50 block text-sm text-gray-900 dark:text-white">
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-3 px-4">
+            <span className="block text-sm text-gray-900 dark:text-white">
               {user.data.user.name}
             </span>
-            <span className="z-50 block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
+            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
               {user.data.user.email}
             </span>
           </div>
