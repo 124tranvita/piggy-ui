@@ -8,14 +8,13 @@ export default function Layout({ children }) {
         <Sidebar />
       </aside>
 
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-slate-100">
+      <header>
         <Navbar />
-        <main>
-          <div className="p-4 sm:px-6 lg:px-8 pt-20 w-full max-w-9xl mx-auto">
-            {children}
-          </div>
-        </main>
-      </div>
+      </header>
+
+      <main className="flex flex-col flex-1 overflow-auto bg-slate-100">
+        <div className="p-4 sm:px-6 lg:px-8 pt-20 mx-4">{children}</div>
+      </main>
     </div>
   );
 }

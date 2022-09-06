@@ -1,0 +1,14 @@
+.banner_wrapper {
+  height: 500px;
+  background-color: aquamarine;
+  position: relative;
+  z-index: 1;
+}
+
+.usermenu_wrapper {
+  position: absolute;
+  height: 500px;
+  width: 200px;
+  background-color: aqua;
+  z-index: 9999;
+}

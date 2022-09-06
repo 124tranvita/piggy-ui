@@ -132,7 +132,7 @@ export const TablePagination = ({ columns, catalogueId }) => {
 
   // Render the UI for your table
   return (
-    <div className="overflow-x-auto ">
+    <div className="overflow-x-auto">
       {/* <pre>
         <code>
           {JSON.stringify(

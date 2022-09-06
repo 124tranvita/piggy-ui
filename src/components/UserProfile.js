@@ -4,6 +4,8 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import { useClearNotification } from '../hooks/useClearNotification';
 
+import '../css/style.css';
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -39,7 +41,8 @@ export default function UserProfile() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        {/* origin-top-right z-10 absolute top-full right-0 min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 enter-done */}
+        <div className="usermenu_wrapper">
           <div className="py-3 px-4">
             <span className="block text-sm text-gray-900 dark:text-white">
               {user.data.user.name}
@@ -49,7 +52,7 @@ export default function UserProfile() {
             </span>
           </div>
           <div className="z-50 py-1">
-            <Menu.Item>
+            <div>
               {({ active }) => (
                 <a
                   href="#a"
@@ -63,8 +66,8 @@ export default function UserProfile() {
                   Account settings
                 </a>
               )}
-            </Menu.Item>
-            <Menu.Item>
+            </div>
+            <div>
               {({ active }) => (
                 <a
                   href="#a"
@@ -76,8 +79,8 @@ export default function UserProfile() {
                   Support
                 </a>
               )}
-            </Menu.Item>
-            <Menu.Item>
+            </div>
+            <div>
               {({ active }) => (
                 <a
                   href="#a"
@@ -89,8 +92,8 @@ export default function UserProfile() {
                   License
                 </a>
               )}
-            </Menu.Item>
-            <Menu.Item>
+            </div>
+            <div>
               {({ active }) => (
                 <button
                   type="submit"
@@ -103,9 +106,9 @@ export default function UserProfile() {
                   Sign out
                 </button>
               )}
-            </Menu.Item>
+            </div>
           </div>
-        </Menu.Items>
+        </div>
       </Transition>
     </Menu>
   );

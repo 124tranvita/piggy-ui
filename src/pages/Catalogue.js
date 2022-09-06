@@ -6,19 +6,25 @@ import {
   AiOutlineEdit,
   AiOutlineDelete,
 } from 'react-icons/ai';
+import { MdOutlineCancel } from 'react-icons/md';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
+
 import { TablePagination } from '../components/Tables';
-import numberFormat from '../utils/numberFormat';
+import Loader from '../components/Loader';
 import CatalogueForm from '../components/Form/CatalogueForm';
+import Banner from '../components/Banner';
+import UserProfile from '../components/UserProfile';
+
+import numberFormat from '../utils/numberFormat';
 
 import { getData, postData, deleteData, patchData } from '../utils/fetchData';
 
 export default function Catalogue() {
   const { user } = useAuthContext();
   const { dispatch } = useNotificationContext();
-  const [isLoading, setIsLoading] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -93,40 +99,45 @@ export default function Catalogue() {
     []
   );
 
-  if (!data) {
-    return <div>Loader</div>;
+  if (data.length === 0) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (
-    <div className="text-2xl font-semibold">
-      <h1>Catalogue</h1>
+    <div className="font-semibold">
+      <Banner />
       <div className="w-full px-2 pt-1">
         {/* Controll button */}
         <div className="sm:flex sm:justify-end sm:items-center mb-8">
           <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-            {/* Edit button */}
-            <button
-              className={`btn ${
-                !openEdit
-                  ? 'bg-green-500 hover:bg-green-600'
-                  : 'bg-red-500 hover:bg-red-600'
-              } text-white flex items-center px-2 rounded-md duration-200`}
-              onClick={() => setOpenEdit(!openEdit)}
-            >
-              <AiOutlineEdit />
-              <span className="p-2 text-base">Edit</span>
-            </button>
             {/* Catalogue modal form */}
             <CatalogueForm
               icon={<AiOutlineAppstoreAdd />}
               title={'Add item'}
               fn={addItem}
-              className="btn bg-green-500 hover:bg-green-600 text-white flex items-center px-2 rounded-md"
+              className="btn bg-emerald-500 hover:bg-emerald-600 text-white flex items-center px-2 rounded-md"
             />
           </div>
         </div>
         {/* Controll button */}
 
+        {/* Catalogue item list */}
+        <div className="flex flex-wrap md:flex-nowrap mx-auto w-full mb-3">
+          <div className="flex w-full justify-between px-4 py-2 text-left text-base font-semibold shadow-lg bg-gray-500 text-white">
+            <span className="w-1/3">Name</span>
+            <span>Create Date</span>
+            <button
+              className={`${openEdit ? 'text-red-500' : ''} duration-200`}
+              onClick={() => setOpenEdit(!openEdit)}
+            >
+              {openEdit ? <MdOutlineCancel /> : <AiOutlineEdit />}
+            </button>
+          </div>
+        </div>
         {data.map((el) => (
           <div
             className="flex flex-wrap md:flex-nowrap mx-auto w-full mb-3"

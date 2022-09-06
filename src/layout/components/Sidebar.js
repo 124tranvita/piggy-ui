@@ -21,7 +21,7 @@ export default function Sidebar() {
   return (
     <div
       className={`${
-        open ? 'w-64' : 'w-20'
+        open ? 'w-20 md:w-64 ' : 'w-20 -ml-20 md:ml-0'
       } duration-300 h-screen p-5 pt-4 relative border-r-1 bg-white z-10`}
     >
       <img
@@ -64,7 +64,7 @@ export default function Sidebar() {
             <span
               className={`${
                 !open && 'scale-0'
-              } origin-left duration-300 text-gray-600 font-bold`}
+              } origin-left duration-300 text-gray-600 font-bold hidden md:block`}
             >
               {menu.title}
             </span>
