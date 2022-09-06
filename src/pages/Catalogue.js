@@ -15,7 +15,6 @@ import { TablePagination } from '../components/Tables';
 import Loader from '../components/Loader';
 import CatalogueForm from '../components/Form/CatalogueForm';
 import Banner from '../components/Banner';
-import UserProfile from '../components/UserProfile';
 
 import numberFormat from '../utils/numberFormat';
 

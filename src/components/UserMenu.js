@@ -4,13 +4,11 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import { useClearNotification } from '../hooks/useClearNotification';
 
-import '../css/style.css';
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function UserProfile() {
+export default function UserMenu() {
   const { logout } = useLogout();
   const { clearNotification } = useClearNotification();
   const { user } = useAuthContext();
@@ -42,35 +40,33 @@ export default function UserProfile() {
         leaveTo="transform opacity-0 scale-95"
       >
         {/* origin-top-right z-10 absolute top-full right-0 min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 enter-done */}
-        <div className="usermenu_wrapper">
+        <Menu.Items className="absolute right-0 z-10 divide-y-1 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-3 px-4">
-            <span className="block text-sm text-gray-900 dark:text-white">
+            <span className="block text-sm text-gray-900 dark:text-white font-bold">
               {user.data.user.name}
             </span>
             <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
               {user.data.user.email}
             </span>
           </div>
-          <div className="z-50 py-1">
-            <div>
+          <div className="py-1">
+            <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#a"
+                  href="#0"
                   className={classNames(
-                    active
-                      ? 'z-50 bg-gray-100 text-gray-900'
-                      : 'z-50 text-gray-700',
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
                   Account settings
                 </a>
               )}
-            </div>
-            <div>
+            </Menu.Item>
+            <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#a"
+                  href="#0"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -79,11 +75,11 @@ export default function UserProfile() {
                   Support
                 </a>
               )}
-            </div>
-            <div>
+            </Menu.Item>
+            <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#a"
+                  href="#0"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -92,23 +88,25 @@ export default function UserProfile() {
                   License
                 </a>
               )}
-            </div>
-            <div>
-              {({ active }) => (
-                <button
-                  type="submit"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block w-full px-4 py-2 text-left text-sm'
-                  )}
-                  onClick={handleClick}
-                >
-                  Sign out
-                </button>
-              )}
-            </div>
+            </Menu.Item>
+            <form method="POST" action="#">
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="submit"
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'block w-full px-4 py-2 text-left text-sm'
+                    )}
+                    onClick={handleClick}
+                  >
+                    Sign out
+                  </button>
+                )}
+              </Menu.Item>
+            </form>
           </div>
-        </div>
+        </Menu.Items>
       </Transition>
     </Menu>
   );

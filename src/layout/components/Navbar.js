@@ -1,4 +1,4 @@
-import UserProfile from '../../components/UserProfile';
+import UserMenu from '../../components/UserMenu';
 import Notification from '../../components/Notification';
 import images from '../../assets/images';
 
@@ -20,7 +20,7 @@ export default function Navbar() {
               <Notification />
             </li>
             <li className="flex pl-2 items-center">
-              <UserProfile />
+              <UserMenu />
             </li>
           </ul>
         </div>
