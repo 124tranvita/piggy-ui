@@ -33,7 +33,7 @@ export const NotificationContextProvider = ({ children }) => {
     notif: [],
   });
 
-  console.log('NotificationContext state: ', state);
+  // console.log('NotificationContext state: ', state);
 
   return (
     <NotificationContext.Provider value={{ ...state, dispatch }}>

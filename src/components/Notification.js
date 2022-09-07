@@ -9,12 +9,6 @@ export default function Notification() {
 
   const unreadNotif = notif.filter((el) => el.unread === true);
 
-  console.log(notif);
-  console.log(
-    'Notif Sorted',
-    notif.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
-  );
-
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>

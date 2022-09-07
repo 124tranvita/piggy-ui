@@ -11,7 +11,7 @@ import { MdOutlineCancel } from 'react-icons/md';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
-import { TablePagination } from '../components/Tables';
+import { TablePagination } from '../components/Table';
 import Loader from '../components/Loader';
 import CatalogueForm from '../components/Form/CatalogueForm';
 import Banner from '../components/Banner';
@@ -98,7 +98,7 @@ export default function Catalogue() {
     []
   );
 
-  if (data.length === 0) {
+  if (!data) {
     return (
       <div>
         <Loader />
@@ -108,7 +108,10 @@ export default function Catalogue() {
 
   return (
     <div className="font-semibold">
-      <Banner />
+      <Banner
+        title={'Catalogues'}
+        description={'Manage your spending by catalogues.'}
+      />
       <div className="w-full px-2 pt-1">
         {/* Controll button */}
         <div className="sm:flex sm:justify-end sm:items-center mb-8">

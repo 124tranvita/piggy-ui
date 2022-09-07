@@ -49,7 +49,7 @@ export const postData = async (path, token, value, dispatch) => {
 };
 
 export const deleteData = async (path, token, id, dispatch) => {
-  const url = PREFIX + path + '/' + id;
+  const url = PREFIX + path;
 
   const response = await fetch(url, {
     method: 'DELETE',
@@ -100,6 +100,7 @@ export const patchData = async (path, token, value, dispatch) => {
 
   data.timestamp = new Date().toISOString();
   data.unread = true;
+  dispatch({ type: 'ADD', payload: data });
 
   return data;
 };
