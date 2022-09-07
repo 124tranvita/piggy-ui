@@ -27,7 +27,7 @@ export const IncomeForm = ({
 
   const pathURL = id ? `incomes/${id}` : 'incomes';
 
-  console.log(isUpdateModal);
+  // console.log(isUpdateModal);
 
   useEffect(() => {
     if (isUpdateModal) setIsOpen(true);

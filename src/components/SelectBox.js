@@ -1,7 +1,9 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import dateFormat from 'dateformat';
 import { FiFilter, FiCheck } from 'react-icons/fi';
+
+import { useFilterContext } from '../hooks/useFilterContext';
 
 const date = new Date();
 
@@ -34,12 +36,14 @@ const options = [
 ];
 
 export default function SelectBox({ fn, ...props }) {
-  const [selected, setSelected] = useState(options[0]);
+  const { filterIncome, dispatch } = useFilterContext();
+  const [selected, setSelected] = useState(
+    options.find((el) => el.period === filterIncome.period)
+  );
 
-  useEffect(() => {
-    fn(selected);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected.period]);
+  const hanldeClick = (el) => {
+    dispatch({ type: 'SET_INCOME', payload: el });
+  };
 
   return (
     <div {...props}>
@@ -62,10 +66,11 @@ export default function SelectBox({ fn, ...props }) {
                   key={index}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                      active ? 'bg-green-100' : 'text-gray-900'
                     }`
                   }
                   value={el}
+                  onClick={() => hanldeClick(el)}
                 >
                   {({ selected }) => (
                     <>

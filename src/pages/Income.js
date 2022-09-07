@@ -5,29 +5,24 @@ import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 
 import EditMenu from '../components/EditMenu';
 import Loader from '../components/Loader';
+import SelectBox from '../components/SelectBox';
+import Banner from '../components/Banner';
 import { IncomeForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
-import Banner from '../components/Banner';
 import { TableAdvanced } from '../components/Table';
-import SelectBox from '../components/SelectBox';
 
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useFilterContext } from '../hooks/useFilterContext';
+import { useIsLoadingContext } from '../hooks/useIsLoadingContext';
 
 import { getData } from '../utils/fetchData';
 import numberFormat from '../utils/numberFormat';
 
-const defaultPeriod = {
-  period: 'Last 7 Days',
-  from: dateFormat(
-    new Date(new Date().setDate(new Date().getDate() - 7)),
-    'yyyy-mm-dd'
-  ),
-  to: dateFormat(new Date(), 'yyyy-mm-dd'),
-};
-
 export default function Income() {
   const { user } = useAuthContext();
-  const [isLoading, setIsLoading] = useState(false);
+  const { filterIncome } = useFilterContext();
+  const { isLoading, dispatch } = useIsLoadingContext();
+
   const [data, setData] = useState([]);
 
   // For update/delete modal
@@ -35,54 +30,45 @@ export default function Income() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [rowData, setRowData] = useState({});
 
-  // For load data by period time
-  const [selected, setSelected] = useState(defaultPeriod);
-
-  console.log('Income selected: ', selected);
-  const handleGetSelectedData = (value) => {
-    setSelected(value);
-  };
-
-  const handleDelete = (row) => {
-    setRowData(row);
-    setOpenConfirm(true);
-  };
-
-  const handleUpdate = (row) => {
+  const handleOpenUpdateModal = (row) => {
     setRowData(row);
     setOpenModal(true);
   };
 
-  const updateCurrentData = (result) => {
+  const handleOpenDeleteModal = (row) => {
+    setRowData(row);
+    setOpenConfirm(true);
+  };
+
+  const updateDataAfterPOST = (result) => {
     setData(data.concat(result));
   };
 
-  const updateData = (result) => {
+  const updateDataAfterPATCH = (result) => {
     const updatedData = data.map((el) => {
       if (el.id === result.id) el = result;
       return el;
     });
-
     setData(updatedData);
   };
 
-  const updateDataAfterDelete = (id) => {
+  const updateDataAfterDELETE = (id) => {
     const updatedData = data.filter((el) => el.id !== id);
     setData(updatedData);
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    if (selected.from && selected.to) {
-      getData(
-        `incomes/from/${selected.from}/to/${selected.to}`,
-        user.token
-      ).then((result) => {
-        setData(result.data.data);
-        setIsLoading(false);
-      });
-    }
-  }, [selected.from, selected.to, user.token]);
+    dispatch({ type: 'SET_TRUE' });
+    getData(
+      `incomes/from/${filterIncome.from}/to/${filterIncome.to}`,
+      user.token
+    ).then((result) => {
+      setData(result.data.data);
+      dispatch({ type: 'SET_FALSE' });
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterIncome.from, filterIncome.to, user.token]);
 
   const columns = useMemo(
     () => [
@@ -121,7 +107,7 @@ export default function Income() {
               <Menu.Item>
                 <button
                   className="font-medium text-sm text-gray-500 hover:text-gray-600 flex py-1 px-3 w-full"
-                  onClick={() => handleUpdate(row.original)}
+                  onClick={() => handleOpenUpdateModal(row.original)}
                 >
                   Update
                 </button>
@@ -129,9 +115,9 @@ export default function Income() {
               <Menu.Item>
                 <button
                   className="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3 w-full"
-                  onClick={() => handleDelete(row.original)}
+                  onClick={() => handleOpenDeleteModal(row.original)}
                 >
-                  Remove
+                  Delete
                 </button>
               </Menu.Item>
             </EditMenu>
@@ -157,16 +143,10 @@ export default function Income() {
         <IncomeForm
           icon={<AiOutlineAppstoreAdd />}
           title={'Add'}
-          fn={updateCurrentData}
+          fn={updateDataAfterPOST}
           className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
         />
-        <SelectBox
-          fn={handleGetSelectedData}
-          className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
-        />
-        {/* <select className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md">
-          filter
-        </select> */}
+        <SelectBox className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md" />
       </div>
 
       <TableAdvanced columns={columns} data={data} />
@@ -176,7 +156,7 @@ export default function Income() {
           isOpen={openModal}
           setIsOpen={setOpenModal}
           data={rowData}
-          fn={updateData}
+          fn={updateDataAfterPATCH}
         />
       )}
 
@@ -185,7 +165,7 @@ export default function Income() {
           isOpen={openConfirm}
           setIsOpen={setOpenConfirm}
           id={rowData.id}
-          fn={updateDataAfterDelete}
+          fn={updateDataAfterDELETE}
         />
       )}
     </div>
