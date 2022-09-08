@@ -10,26 +10,36 @@ import images from '../assets/images';
 import Loader from '../components/Loader';
 
 import { useAuthContext } from '../hooks/useAuthContext';
-import { useIsLoadingContext } from '../hooks/useIsLoadingContext';
+import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import { getData } from '../utils/fetchData';
 
 export default function Dashboard() {
   const { user } = useAuthContext();
-  const { isLoading, dispatch } = useIsLoadingContext();
+  const { isLoading, dispatch } = useNotificationContext();
 
   const [data, setData] = useState({});
 
   console.log(data);
 
-  // const { balance, income, spending } = user.data.user;
-
   useEffect(() => {
-    dispatch({ type: 'SET_TRUE' });
-    getData('users/user-stats', user.token).then((result) => {
-      setData(result.data.data);
-      dispatch({ type: 'SET_FALSE' });
-    });
+    dispatch({ type: 'SET_ISLOADING', payload: true });
+    getData('users/user-stats', user.token)
+      .then((result) => {
+        setData(result.data.data);
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      })
+      .catch((err) => {
+        const data = {
+          status: 'failed',
+          timestamp: new Date().toISOString(),
+          unread: true,
+          message: err.message,
+        };
+
+        dispatch({ type: 'ADD', payload: data });
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

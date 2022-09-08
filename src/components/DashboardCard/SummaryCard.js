@@ -3,8 +3,6 @@ import numberFormat from '../../utils/numberFormat';
 import { TbActivityHeartbeat } from 'react-icons/tb';
 
 export default function SummaryCard({ title, amount, icon }) {
-  // const incomeBadge = `text-sm font-semibold text-white bg-green-500 rounded-full px-2`;
-  // const spendingBadge = `text-sm font-semibold text-white bg-rose-500 rounded-full px-2`;
   const balanceBadge = `text-sm font-semibold text-white ${
     amount > 0 ? 'bg-green-500' : 'bg-rose-500'
   } rounded-full px-2`;
@@ -31,7 +29,11 @@ export default function SummaryCard({ title, amount, icon }) {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            {numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(amount)}
+            {amount
+              ? numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
+                  amount
+                )
+              : numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(0)}
           </div>
           {title.toLowerCase() === 'balance' && (
             <div className={balanceBadge}>{balanceBadgeIcon}</div>

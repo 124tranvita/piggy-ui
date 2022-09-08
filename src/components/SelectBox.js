@@ -14,23 +14,23 @@ const lastYear = new Date(new Date().setDate(date.getDate() - 360));
 const options = [
   {
     period: 'Last 7 Days',
-    from: last7days,
-    to: date,
+    from: last7days.toISOString(),
+    to: date.toISOString(),
   },
   {
     period: 'Last Month',
-    from: lastMonth,
-    to: date,
+    from: lastMonth.toISOString(),
+    to: date.toISOString(),
   },
   {
     period: 'Last 6 Months',
-    from: lastSixMonth,
-    to: date,
+    from: lastSixMonth.toISOString(),
+    to: date.toISOString(),
   },
   {
     period: 'In Year',
-    from: lastYear,
-    to: date,
+    from: lastYear.toISOString(),
+    to: date.toISOString(),
   },
 ];
 
@@ -39,6 +39,8 @@ export default function SelectBox({ fn, ...props }) {
   const [selected, setSelected] = useState(
     options.find((el) => el.period === filterIncome.period)
   );
+
+  console.log('Selected: ', selected);
 
   const hanldeClick = (el) => {
     dispatch({ type: 'SET_INCOME', payload: el });

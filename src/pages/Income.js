@@ -13,15 +13,16 @@ import { TableAdvanced } from '../components/Table';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useFilterContext } from '../hooks/useFilterContext';
-import { useIsLoadingContext } from '../hooks/useIsLoadingContext';
+import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import { getData } from '../utils/fetchData';
 import numberFormat from '../utils/numberFormat';
+import { updateDataAfterPOST } from '../utils/updateDataAfterFetch';
 
 export default function Income() {
   const { user } = useAuthContext();
   const { filterIncome } = useFilterContext();
-  const { isLoading, dispatch } = useIsLoadingContext();
+  const { isLoading, dispatch } = useNotificationContext();
 
   const [data, setData] = useState([]);
 
@@ -40,9 +41,9 @@ export default function Income() {
     setOpenConfirm(true);
   };
 
-  const updateDataAfterPOST = (result) => {
-    setData(data.concat(result));
-  };
+  // const updateDataAfterPOST = (result) => {
+  //   setData(data.concat(result));
+  // };
 
   const updateDataAfterPATCH = (result) => {
     const updatedData = data.map((el) => {
@@ -58,14 +59,27 @@ export default function Income() {
   };
 
   useEffect(() => {
-    dispatch({ type: 'SET_TRUE' });
+    dispatch({ type: 'SET_ISLOADING', payload: true });
     getData(
       `incomes/from/${filterIncome.from}/to/${filterIncome.to}`,
-      user.token
-    ).then((result) => {
-      setData(result.data.data);
-      dispatch({ type: 'SET_FALSE' });
-    });
+      user.token,
+      dispatch
+    )
+      .then((result) => {
+        setData(result.data.data);
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      })
+      .catch((err) => {
+        const data = {
+          status: 'failed',
+          timestamp: new Date().toISOString(),
+          unread: true,
+          message: err.message,
+        };
+
+        dispatch({ type: 'ADD', payload: data });
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterIncome.from, filterIncome.to, user.token]);
 
@@ -127,6 +141,8 @@ export default function Income() {
     []
   );
 
+  console.log('render income page');
+
   if (isLoading) {
     return (
       <>
@@ -142,7 +158,7 @@ export default function Income() {
         <IncomeForm
           icon={<AiOutlineAppstoreAdd />}
           title={'Add'}
-          fn={updateDataAfterPOST}
+          fn={(result) => updateDataAfterPOST(result, setData, data)}
           className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
         />
         <SelectBox className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md" />

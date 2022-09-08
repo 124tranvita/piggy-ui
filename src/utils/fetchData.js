@@ -1,6 +1,6 @@
 const PREFIX = 'http://192.168.1.236:4000/api/v1/';
 
-export const getData = async (path, token) => {
+export const getData = async (path, token, dispatch) => {
   const url = PREFIX + path;
 
   const response = await fetch(url, {
@@ -10,11 +10,11 @@ export const getData = async (path, token) => {
     },
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
     throw new Error(`HTTP Error! Status: ${response.status}`);
   }
-
-  const data = await response.json();
 
   return data;
 };

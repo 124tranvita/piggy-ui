@@ -16,13 +16,15 @@ export const FilterContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(filterReducer, {
     filterIncome: {
       period: 'Last Month',
-      from: new Date(new Date().setDate(new Date().getDate() - 30)),
-      to: new Date(),
+      from: new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      ).toISOString(),
+      to: new Date().toISOString(),
     },
     filterSpending: {
       period: 'Last Month',
-      from: new Date().setDate(new Date().getDate() - 30),
-      to: new Date(),
+      from: new Date().setDate(new Date().getDate() - 30).toISOString(),
+      to: new Date().toISOString(),
     },
   });
 
