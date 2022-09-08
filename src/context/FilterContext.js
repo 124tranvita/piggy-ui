@@ -1,5 +1,4 @@
 import { createContext, useReducer } from 'react';
-import dateFormat from 'dateformat';
 
 export const FilterContext = createContext();
 
@@ -16,20 +15,14 @@ export const filterReducer = (state, action) => {
 export const FilterContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(filterReducer, {
     filterIncome: {
-      period: 'Last 7 Days',
-      from: dateFormat(
-        new Date(new Date().setDate(new Date().getDate() - 7)),
-        'yyyy-mm-dd'
-      ),
-      to: dateFormat(new Date(), 'yyyy-mm-dd'),
+      period: 'Last Month',
+      from: new Date(new Date().setDate(new Date().getDate() - 30)),
+      to: new Date(),
     },
     filterSpending: {
-      period: 'Last 7 Days',
-      from: dateFormat(
-        new Date(new Date().setDate(new Date().getDate() - 7)),
-        'yyyy-mm-dd'
-      ),
-      to: dateFormat(new Date(), 'yyyy-mm-dd'),
+      period: 'Last Month',
+      from: new Date().setDate(new Date().getDate() - 30),
+      to: new Date(),
     },
   });
 

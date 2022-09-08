@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import dateFormat from 'dateformat';
+
 import TableCard from '../components/DashboardCard/TableCard';
 import SummaryCard from '../components/DashboardCard/SummaryCard';
 import LineChartCard from '../components/DashboardCard/LineChartCard';
@@ -6,12 +9,39 @@ import Banner from '../components/Banner';
 import images from '../assets/images';
 import INCOMES from '../assets/dev-data/incomes.json';
 
+import Loader from '../components/Loader';
+
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useIsLoadingContext } from '../hooks/useIsLoadingContext';
+
+import { getData } from '../utils/fetchData';
 
 export default function Dashboard() {
   const { user } = useAuthContext();
+  const { isLoading, dispatch } = useIsLoadingContext();
 
-  const { balance, income, spending } = user.data.user;
+  const [data, setData] = useState({});
+
+  console.log(data);
+
+  // const { balance, income, spending } = user.data.user;
+
+  useEffect(() => {
+    dispatch({ type: 'SET_TRUE' });
+    getData('users/user-stats', user.token).then((result) => {
+      setData(result.data.data);
+      dispatch({ type: 'SET_FALSE' });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
 
   return (
     <div>
@@ -21,23 +51,31 @@ export default function Dashboard() {
           description={`Wellcome back, ${user.data.user.name}!`}
         />
         <div className="grid grid-cols-12 gap-6">
-          <SummaryCard title={'BALANCE'} amount={balance} icon={images.logo} />
-          <SummaryCard title={'INCOMES'} amount={income} icon={images.income} />
+          <SummaryCard
+            title={'BALANCE'}
+            amount={data.balance}
+            icon={images.logo}
+          />
+          <SummaryCard
+            title={'INCOMES'}
+            amount={data.income}
+            icon={images.income}
+          />
           <SummaryCard
             title={'SPENDINGS'}
-            amount={spending}
+            amount={data.spending}
             icon={images.spending}
           />
           <LineChartCard />
           <TableCard
             title={'Incomes'}
-            data={INCOMES.data.data}
+            data={data.incomes}
             icon={images.income}
             textColor={'text-green-500'}
           />
           <TableCard
             title={'Spendings'}
-            data={INCOMES.data.data}
+            data={data.spendings}
             icon={images.spending}
             textColor={'text-rose-500'}
           />

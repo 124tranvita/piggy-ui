@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import dateFormat from 'dateformat';
 import { FiFilter, FiCheck } from 'react-icons/fi';
 
 import { useFilterContext } from '../hooks/useFilterContext';
@@ -15,23 +14,23 @@ const lastYear = new Date(new Date().setDate(date.getDate() - 360));
 const options = [
   {
     period: 'Last 7 Days',
-    from: dateFormat(last7days, 'yyyy-mm-dd'),
-    to: dateFormat(date, 'yyyy-mm-dd'),
+    from: last7days,
+    to: date,
   },
   {
     period: 'Last Month',
-    from: dateFormat(lastMonth, 'yyyy-mm-dd'),
-    to: dateFormat(date, 'yyyy-mm-dd'),
+    from: lastMonth,
+    to: date,
   },
   {
     period: 'Last 6 Months',
-    from: dateFormat(lastSixMonth, 'yyyy-mm-dd'),
-    to: dateFormat(date, 'yyyy-mm-dd'),
+    from: lastSixMonth,
+    to: date,
   },
   {
     period: 'In Year',
-    from: dateFormat(lastYear, 'yyyy-mm-dd'),
-    to: dateFormat(date, 'yyyy-mm-dd'),
+    from: lastYear,
+    to: date,
   },
 ];
 

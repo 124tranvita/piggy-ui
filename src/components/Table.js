@@ -364,7 +364,7 @@ export const TableAdvanced = ({ columns, data }) => {
         pageIndex: 0,
         pageSize: 10,
         hiddenColumns: ['id'],
-        sortBy: [{ columnId: 'createAt', desc: false }],
+        sortBy: [{ columnId: 'createAt', desc: true }],
       },
     },
     useGlobalFilter,

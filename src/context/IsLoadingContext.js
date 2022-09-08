@@ -17,7 +17,7 @@ export const IsLoadingContextProvider = ({ children }) => {
     isLoading: false,
   });
 
-  console.log('IsLoadingContext state: ', state);
+  // console.log('IsLoadingContext state: ', state);
 
   return (
     <IsLoadingContext.Provider value={{ ...state, dispatch }}>

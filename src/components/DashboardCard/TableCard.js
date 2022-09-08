@@ -31,35 +31,41 @@ export default function TableCard({ title, data, icon, textColor }) {
             {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
-              {data.map((el) => (
-                <tr key={el.id}>
-                  <td className="p-2">
-                    <div className="flex items-center">
-                      <img
-                        className="shrink-0 mr-2"
-                        src={icon}
-                        alt="logo"
-                        width="36"
-                        height="36"
-                      />
-                      <div className="text-slate-800">{el.name}</div>
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div className="text-center">
-                      {dateFormat(el.createAt, 'yyyy-mm-dd')}
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <div className={`text-center ${textColor}`}>
-                      {numberFormat({
-                        locale: 'en-US',
-                        currency: 'USD',
-                      }).format(el.amount)}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {data &&
+                data.slice(0, 5).map((el) => (
+                  <tr key={el._id}>
+                    <td className="p-2">
+                      <div className="flex items-center">
+                        <img
+                          className="shrink-0 mr-2"
+                          src={icon}
+                          alt="logo"
+                          width="36"
+                          height="36"
+                        />
+                        <div className="text-slate-800">{el.name}</div>
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div className="text-center">
+                        {dateFormat(el.createAt, 'yyyy-mm-dd')}
+                      </div>
+                    </td>
+                    <td className="p-2">
+                      <div className={`text-center ${textColor}`}>
+                        {el.amount === 0 || el.total === 0
+                          ? numberFormat({
+                              locale: 'vi-VN',
+                              currency: 'VND',
+                            }).format(0)
+                          : numberFormat({
+                              locale: 'vi-VN',
+                              currency: 'VND',
+                            }).format(el.amount ? el.amount : el.total)}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
