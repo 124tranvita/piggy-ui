@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import dateFormat from 'dateformat';
 
 import TableCard from '../components/DashboardCard/TableCard';
 import SummaryCard from '../components/DashboardCard/SummaryCard';
@@ -7,7 +6,6 @@ import LineChartCard from '../components/DashboardCard/LineChartCard';
 import DoughnutChartCard from '../components/DashboardCard/DoughnutChartCard';
 import Banner from '../components/Banner';
 import images from '../assets/images';
-import INCOMES from '../assets/dev-data/incomes.json';
 
 import Loader from '../components/Loader';
 
@@ -66,7 +64,7 @@ export default function Dashboard() {
             amount={data.spending}
             icon={images.spending}
           />
-          <LineChartCard />
+          <LineChartCard data={data} />
           <TableCard
             title={'Incomes'}
             data={data.incomes}

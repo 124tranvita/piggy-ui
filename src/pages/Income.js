@@ -66,7 +66,6 @@ export default function Income() {
       setData(result.data.data);
       dispatch({ type: 'SET_FALSE' });
     });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterIncome.from, filterIncome.to, user.token]);
 

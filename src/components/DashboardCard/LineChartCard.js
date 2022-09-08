@@ -1,7 +1,7 @@
 import LineChart from '../Charts/LineChart';
 import tailwindConfig from '../../utils/tailwindConfig';
 
-export default function LineChartCard() {
+export default function LineChartCard({ data }) {
   const chartData = {
     labels: [
       '01-01-2022',

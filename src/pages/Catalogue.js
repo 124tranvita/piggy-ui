@@ -23,7 +23,6 @@ import { getData, postData, deleteData, patchData } from '../utils/fetchData';
 export default function Catalogue() {
   const { user } = useAuthContext();
   const { dispatch } = useNotificationContext();
-  // const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [openEdit, setOpenEdit] = useState(false);
 
