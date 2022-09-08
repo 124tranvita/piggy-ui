@@ -23,7 +23,9 @@ export const FilterContextProvider = ({ children }) => {
     },
     filterSpending: {
       period: 'Last Month',
-      from: new Date().setDate(new Date().getDate() - 30).toISOString(),
+      from: new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      ).toISOString(),
       to: new Date().toISOString(),
     },
   });

@@ -17,7 +17,11 @@ import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import { getData } from '../utils/fetchData';
 import numberFormat from '../utils/numberFormat';
-import { updateDataAfterPOST } from '../utils/updateDataAfterFetch';
+import {
+  updateDataAfterPOST,
+  updateDataAfterPATCH,
+  updateDataAfterDELETE,
+} from '../utils/updateDataAfterFetch';
 
 export default function Income() {
   const { user } = useAuthContext();
@@ -26,9 +30,14 @@ export default function Income() {
 
   const [data, setData] = useState([]);
 
-  // For update/delete modal
+  /** Re-sort the data by data createAt */
+  data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
+
+  /** Track openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+
+  /** Set the row data when click on table row */
   const [rowData, setRowData] = useState({});
 
   const handleOpenUpdateModal = (row) => {
@@ -41,23 +50,7 @@ export default function Income() {
     setOpenConfirm(true);
   };
 
-  // const updateDataAfterPOST = (result) => {
-  //   setData(data.concat(result));
-  // };
-
-  const updateDataAfterPATCH = (result) => {
-    const updatedData = data.map((el) => {
-      if (el.id === result.id) el = result;
-      return el;
-    });
-    setData(updatedData);
-  };
-
-  const updateDataAfterDELETE = (id) => {
-    const updatedData = data.filter((el) => el.id !== id);
-    setData(updatedData);
-  };
-
+  /** Get data from the DB when the component is first load */
   useEffect(() => {
     dispatch({ type: 'SET_ISLOADING', payload: true });
     getData(
@@ -83,6 +76,7 @@ export default function Income() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterIncome.from, filterIncome.to, user.token]);
 
+  /** Define the table columns for incomes data */
   const columns = useMemo(
     () => [
       {
@@ -141,8 +135,7 @@ export default function Income() {
     []
   );
 
-  console.log('render income page');
-
+  /** Show loader while data is fetching */
   if (isLoading) {
     return (
       <>
@@ -153,25 +146,30 @@ export default function Income() {
 
   return (
     <div className="font-semibold">
+      {/* Banner */}
       <Banner title={'Incomes'} description={'Manage all your incomes.'} />
       <div className="flex w-36 justify-between">
+        {/* Add item button */}
         <IncomeForm
           icon={<AiOutlineAppstoreAdd />}
           title={'Add'}
           fn={(result) => updateDataAfterPOST(result, setData, data)}
           className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
         />
+        {/* Period time SelectBox */}
         <SelectBox className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md" />
       </div>
 
+      {/* Table data */}
       <TableAdvanced columns={columns} data={data} />
 
+      {/* Modal for update income and delete income */}
       {openModal && (
         <UpdateModalForm
           isOpen={openModal}
           setIsOpen={setOpenModal}
           data={rowData}
-          fn={updateDataAfterPATCH}
+          fn={(result) => updateDataAfterPATCH(result, setData, data)}
         />
       )}
 
@@ -180,7 +178,7 @@ export default function Income() {
           isOpen={openConfirm}
           setIsOpen={setOpenConfirm}
           id={rowData.id}
-          fn={updateDataAfterDELETE}
+          fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
         />
       )}
     </div>
