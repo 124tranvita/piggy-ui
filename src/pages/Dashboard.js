@@ -13,6 +13,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import { getData } from '../utils/fetchData';
+import { PageTransition } from '../utils/Transition';
 
 export default function Dashboard() {
   const { user } = useAuthContext();
@@ -52,7 +53,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
+    <PageTransition>
       <div className="font-semibold">
         <Banner
           title={'Dashboard'}
@@ -90,6 +91,6 @@ export default function Dashboard() {
           <DoughnutChartCard />
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }

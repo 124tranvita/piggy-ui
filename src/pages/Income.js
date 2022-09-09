@@ -18,6 +18,7 @@ import { useNotificationContext } from '../hooks/useNotificationContext';
 import { getData } from '../utils/fetchData';
 import numberFormat from '../utils/numberFormat';
 import { MyTextInput } from '../utils/FormikField';
+import { PageTransition } from '../utils/Transition';
 import {
   updateDataAfterPOST,
   updateDataAfterPATCH,
@@ -163,7 +164,7 @@ export default function Income() {
   }
 
   return (
-    <div className="font-semibold">
+    <PageTransition>
       {/* Banner */}
       <Banner title={'Incomes'} description={'Manage all your incomes.'} />
       <div className="flex w-44 justify-between">
@@ -223,6 +224,6 @@ export default function Income() {
           fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
         />
       </div>
-    </div>
+    </PageTransition>
   );
 }

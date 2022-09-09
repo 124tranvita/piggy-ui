@@ -42,8 +42,6 @@ export default function SelectBox({ fn, ...props }) {
     options.find((el) => el.period === filterIncome.period)
   );
 
-  console.log('Selected: ', selected);
-
   const hanldeClick = (el) => {
     dispatch({ type: 'SET_INCOME', payload: el });
   };

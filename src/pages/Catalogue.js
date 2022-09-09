@@ -2,34 +2,27 @@ import { useState, useMemo, useEffect } from 'react';
 import dateFormat from 'dateformat';
 import * as Yup from 'yup';
 import { Menu } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/solid';
-import {
-  AiOutlineAppstoreAdd,
-  AiOutlineEdit,
-  AiOutlineDelete,
-} from 'react-icons/ai';
-import { MdOutlineCancel } from 'react-icons/md';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
-import { TablePagination } from '../components/Table';
 import Loader from '../components/Loader';
-import CatalogueForm from '../components/Form/CatalogueForm';
 import Banner from '../components/Banner';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
 import EditMenu from '../components/EditMenu';
 
-import { getData, postData, deleteData, patchData } from '../utils/fetchData';
+import { getData } from '../utils/fetchData';
 import { MyTextInput } from '../utils/FormikField';
+import { PageTransition } from '../utils/Transition';
 import {
   updateDataAfterPOST,
   updateDataAfterPATCH,
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
 
+/** Configure for Add item Formik */
 const initialValues = {
   name: '',
 };
@@ -67,26 +60,6 @@ export default function Catalogue() {
     setRowData(row);
     setOpenConfirm(true);
   };
-
-  // console.log('Catalogues Data: ', data);
-
-  // const deleteItem = (path, id) => {
-  //   deleteData(path, user.token, id, dispatch).then((result) => {
-  //     getData('catalogues', user.token).then((data) => setData(data.data.data));
-  //   });
-  // };
-
-  // const updateItem = (path, value) => {
-  //   patchData(path, user.token, value, dispatch).then((result) => {
-  //     getData('catalogues', user.token).then((data) => setData(data.data.data));
-  //   });
-  // };
-
-  // const addItem = (path, value) => {
-  //   postData(path, user.token, value, dispatch).then((result) => {
-  //     setData(data.concat(result.data));
-  //   });
-  // };
 
   /** Get data from the DB when the component is first load */
   useEffect(() => {
@@ -164,7 +137,7 @@ export default function Catalogue() {
   }
 
   return (
-    <div className="font-semibold">
+    <PageTransition>
       <Banner
         title={'Catalogues'}
         description={'Manage your spending by catalogues.'}
@@ -221,6 +194,6 @@ export default function Catalogue() {
           fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
         />
       </div>
-    </div>
+    </PageTransition>
   );
 }
