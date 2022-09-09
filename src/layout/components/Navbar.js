@@ -5,7 +5,7 @@ import images from '../../assets/images';
 export default function Navbar() {
   return (
     <div>
-      <nav className="flex items-center justify-between px-6 py-3 mb-3 fixed top-0 right-0 z-50 w-screen border-b-1 bg-white">
+      <nav className="flex items-center justify-between px-6 py-3 mb-3 fixed top-0 right-0 z-50 w-screen border-b-1 bg-white shadow-md">
         <div className="w-full flex justify-between lg:w-auto lg:static lg:block lg:justify-items-start">
           <a href="#home" className="flex items-center">
             <img src={images.logo} className="mr-3 h-6 sm:h-9" alt="MMO Logo" />

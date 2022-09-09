@@ -22,7 +22,7 @@ export default function Sidebar() {
     <div
       className={`${
         open ? 'w-20 md:w-64 ' : 'w-20 -ml-20 md:ml-0'
-      } duration-300 h-screen p-5 pt-4 relative border-r-1 bg-white z-10`}
+      } duration-300 h-screen p-5 pt-5 relative border-r-1 bg-white z-10`}
     >
       <img
         src={images.control}
