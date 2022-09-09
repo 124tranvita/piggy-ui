@@ -1,13 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import dateFormat from 'dateformat';
+import * as Yup from 'yup';
 import { Menu } from '@headlessui/react';
-import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 
 import EditMenu from '../components/EditMenu';
 import Loader from '../components/Loader';
 import SelectBox from '../components/SelectBox';
 import Banner from '../components/Banner';
-import { IncomeForm } from '../components/DialogForm';
+import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
 import { TableAdvanced } from '../components/Table';
 
@@ -17,11 +17,29 @@ import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import { getData } from '../utils/fetchData';
 import numberFormat from '../utils/numberFormat';
+import { MyTextInput } from '../utils/FormikField';
 import {
   updateDataAfterPOST,
   updateDataAfterPATCH,
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
+
+/** Configure for Add item Formik */
+const initialValues = {
+  name: '',
+  createAt: dateFormat(new Date(), 'yyyy-mm-dd'),
+  amount: 0,
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .min(2, 'Name must be greater or equal to 2 characters')
+    .max(16, 'Name mus be lesser or equal to 16 characters.')
+    .required('Required'),
+  createAt: Yup.date()
+    .max(new Date(), 'Create date must lesser or equal to current day.')
+    .required('Yêu cầu nhập'),
+});
 
 export default function Income() {
   const { user } = useAuthContext();
@@ -148,14 +166,25 @@ export default function Income() {
     <div className="font-semibold">
       {/* Banner */}
       <Banner title={'Incomes'} description={'Manage all your incomes.'} />
-      <div className="flex w-36 justify-between">
+      <div className="flex w-44 justify-between">
         {/* Add item button */}
-        <IncomeForm
-          icon={<AiOutlineAppstoreAdd />}
-          title={'Add'}
+        <AddDialogForm
+          path={'incomes'}
           fn={(result) => updateDataAfterPOST(result, setData, data)}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
           className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
-        />
+        >
+          <MyTextInput
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="Salary, Save, Loan..."
+          />
+          <MyTextInput label="Date" name="createAt" type="date" />
+          <MyTextInput label="Amount" name="amount" type="number" />
+        </AddDialogForm>
+
         {/* Period time SelectBox */}
         <SelectBox className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md" />
       </div>
