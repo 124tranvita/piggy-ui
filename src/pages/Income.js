@@ -39,7 +39,7 @@ const validationSchema = Yup.object({
     .required('Required'),
   createAt: Yup.date()
     .max(new Date(), 'Create date must lesser or equal to current day.')
-    .required('Yêu cầu nhập'),
+    .required('Required'),
 });
 
 export default function Income() {
@@ -187,7 +187,11 @@ export default function Income() {
         </AddDialogForm>
 
         {/* Period time SelectBox */}
-        <SelectBox className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md" />
+        <SelectBox
+          filter={filterIncome}
+          actionType={'SET_INCOME'}
+          className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
+        />
       </div>
 
       {/* Table data */}

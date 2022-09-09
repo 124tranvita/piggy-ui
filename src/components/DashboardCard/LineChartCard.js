@@ -45,9 +45,6 @@ export default function LineChartCard({ user }) {
   const enhancedIncomeData = getDataByLabel(labels, incomeData);
   const enhancedSpendingData = getDataByLabel(labels, spendingData);
 
-  console.log('SPENDING DATA: ', spendingData);
-  console.log('ARR: ', enhancedSpendingData);
-
   const chartData = {
     labels: labels,
     datasets: [

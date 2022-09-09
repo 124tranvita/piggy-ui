@@ -4,12 +4,16 @@ import { FiFilter, FiCheck } from 'react-icons/fi';
 
 import { useFilterContext } from '../hooks/useFilterContext';
 
-const date = new Date();
+/** Because the different time zone when save the new item to mongoDB
+ * Current new Date() in client will be deplay with the Date() on mongoDB for few minutes
+ * Temporay fix by query from the last <num> days to the next day instead of to the current day.
+ */
 
-const last7days = new Date(new Date().setDate(date.getDate() - 7));
-const lastMonth = new Date(new Date().setDate(date.getDate() - 30));
-const lastSixMonth = new Date(new Date().setDate(date.getDate() - 180));
-const lastYear = new Date(new Date().setDate(date.getDate() - 365));
+const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
+const last7days = new Date(new Date().setDate(new Date().getDate() - 7));
+const lastMonth = new Date(new Date().setDate(new Date().getDate() - 30));
+const lastSixMonth = new Date(new Date().setDate(new Date().getDate() - 180));
+const lastYear = new Date(new Date().setDate(new Date().getDate() - 365));
 
 // date.setDate(date.getDate() + 1);
 
@@ -17,33 +21,33 @@ const options = [
   {
     period: 'Last 7 Days',
     from: last7days.toISOString(),
-    to: date.toISOString(),
+    to: tomorrow.toISOString(),
   },
   {
     period: 'Last Month',
     from: lastMonth.toISOString(),
-    to: date.toISOString(),
+    to: tomorrow.toISOString(),
   },
   {
     period: 'Last 6 Months',
     from: lastSixMonth.toISOString(),
-    to: date.toISOString(),
+    to: tomorrow.toISOString(),
   },
   {
     period: 'In Year',
     from: lastYear.toISOString(),
-    to: date.toISOString(),
+    to: tomorrow.toISOString(),
   },
 ];
 
-export default function SelectBox({ fn, ...props }) {
-  const { filterIncome, dispatch } = useFilterContext();
+export default function SelectBox({ filter, actionType, ...props }) {
+  const { dispatch } = useFilterContext();
   const [selected, setSelected] = useState(
-    options.find((el) => el.period === filterIncome.period)
+    options.find((el) => el.period === filter.period)
   );
 
   const hanldeClick = (el) => {
-    dispatch({ type: 'SET_INCOME', payload: el });
+    dispatch({ type: actionType, payload: el });
   };
 
   return (

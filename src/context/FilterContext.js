@@ -12,6 +12,12 @@ export const filterReducer = (state, action) => {
       return state;
   }
 };
+
+/** Because the different time zone when save the new item to mongoDB
+ * Current new Date() in client will be deplay with the Date() on mongoDB for few minutes
+ * Temporay fix by query from the last <num> days to the next day instead of to the current day.
+ */
+
 export const FilterContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(filterReducer, {
     filterIncome: {
@@ -19,14 +25,14 @@ export const FilterContextProvider = ({ children }) => {
       from: new Date(
         new Date().setDate(new Date().getDate() - 30)
       ).toISOString(),
-      to: new Date().toISOString(),
+      to: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString(),
     },
     filterSpending: {
       period: 'Last Month',
       from: new Date(
         new Date().setDate(new Date().getDate() - 30)
       ).toISOString(),
-      to: new Date().toISOString(),
+      to: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString(),
     },
   });
 

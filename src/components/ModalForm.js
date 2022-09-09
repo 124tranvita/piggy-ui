@@ -29,7 +29,12 @@ export const UpdateModalForm = ({
     initialValues.createAt = dateFormat(data.createAt, 'yyyy-mm-dd');
   }
 
-  const pathURL = `${path}/${data.id}`;
+  /** Temporary solution for set initial values of catalogues list where data.catalogue is Object */
+  if (data.catalogue) {
+    initialValues.catalogue = data.catalogue.id;
+  }
+
+  const pathURL = `${path}/${data.id ?? data._id}`;
 
   const handleSubmit = (value) => {
     setIsLoading(true);

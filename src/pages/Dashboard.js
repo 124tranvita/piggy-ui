@@ -21,8 +21,6 @@ export default function Dashboard() {
 
   const [data, setData] = useState({});
 
-  console.log(data);
-
   useEffect(() => {
     dispatch({ type: 'SET_ISLOADING', payload: true });
     getData('users/user-stats', user.token)
