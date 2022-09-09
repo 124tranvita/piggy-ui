@@ -74,7 +74,7 @@ export default function Dashboard() {
             amount={data.spending}
             icon={images.spending}
           />
-          <LineChartCard data={data} />
+          <LineChartCard user={user} />
           <TableCard
             title={'Incomes'}
             data={data.incomes}

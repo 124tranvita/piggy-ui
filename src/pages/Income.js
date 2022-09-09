@@ -163,24 +163,25 @@ export default function Income() {
       {/* Table data */}
       <TableAdvanced columns={columns} data={data} />
 
-      {/* Modal for update income and delete income */}
-      {openModal && (
+      <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
         <UpdateModalForm
           isOpen={openModal}
           setIsOpen={setOpenModal}
+          path={'incomes'}
           data={rowData}
           fn={(result) => updateDataAfterPATCH(result, setData, data)}
         />
-      )}
+      </div>
 
-      {openConfirm && (
+      <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
         <ConfirmModal
           isOpen={openConfirm}
           setIsOpen={setOpenConfirm}
+          path={'incomes'}
           id={rowData.id}
           fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
         />
-      )}
+      </div>
     </div>
   );
 }

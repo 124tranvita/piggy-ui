@@ -38,7 +38,7 @@ export const NotificationContextProvider = ({ children }) => {
     isLoading: false,
   });
 
-  console.log('NotificationContext state: ', state);
+  // console.log('NotificationContext state: ', state);
 
   return (
     <NotificationContext.Provider value={{ ...state, dispatch }}>

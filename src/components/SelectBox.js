@@ -9,7 +9,9 @@ const date = new Date();
 const last7days = new Date(new Date().setDate(date.getDate() - 7));
 const lastMonth = new Date(new Date().setDate(date.getDate() - 30));
 const lastSixMonth = new Date(new Date().setDate(date.getDate() - 180));
-const lastYear = new Date(new Date().setDate(date.getDate() - 360));
+const lastYear = new Date(new Date().setDate(date.getDate() - 365));
+
+// date.setDate(date.getDate() + 1);
 
 const options = [
   {

@@ -50,7 +50,7 @@ export default function LineChart({ data, width, height }) {
             ticks: {
               maxTicksLimit: 5,
               callback: (value) =>
-                numberFormat({ locale: 'vi-US', currency: 'USD' }).format(
+                numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
                   value
                 ),
             },
@@ -83,7 +83,7 @@ export default function LineChart({ data, width, height }) {
             callbacks: {
               title: () => false, // Disable tooltip title
               label: (context) =>
-                numberFormat({ locale: 'en-US', currency: 'USD' }).format(
+                numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
                   context.parsed.y
                 ),
             },
