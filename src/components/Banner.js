@@ -1,7 +1,6 @@
-import '../css/style.css';
 import { BsCardChecklist } from 'react-icons/bs';
 
-export default function Banner({ title, description }) {
+export default function Banner({ title, description, icon }) {
   return (
     <div className="flex justify-between relative bg-gradient-to-r from-emerald-500 to-green-400 text-white p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
       <div>
@@ -9,7 +8,7 @@ export default function Banner({ title, description }) {
         <p className="text-sm mb-0">{description}</p>
       </div>
       <div className="absolute -bottom-4 right-3 text-6xl md:text-8xl md:-bottom-5 text-neutral-100">
-        <BsCardChecklist />
+        {icon ? icon : <BsCardChecklist />}
       </div>
     </div>
   );

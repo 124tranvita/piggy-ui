@@ -2,9 +2,10 @@ import { Fragment, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 
+import { LoaderButton } from './Loader';
+
 import { postData } from '../utils/fetchData';
 import { DiaglogTransition } from '../utils/Transition';
-import { ButtonLoader } from '../utils/ButtonLoader';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
@@ -74,7 +75,7 @@ export const AddDialogForm = ({
                 type="submit"
                 className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
-                <ButtonLoader isLoading={isLoading} />
+                <LoaderButton isLoading={isLoading} />
                 Submit
               </button>
             </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { CgImport } from 'react-icons/cg';
 import dateFormat from 'dateformat';
 import * as Yup from 'yup';
 import { Menu } from '@headlessui/react';
@@ -154,80 +155,86 @@ export default function Income() {
     []
   );
 
-  /** Show loader while data is fetching */
-  if (isLoading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
-  }
-
   return (
-    <PageTransition>
+    <>
       {/* Banner */}
-      <Banner title={'Incomes'} description={'Manage all your incomes.'} />
-      <div className="flex w-44 justify-between">
-        {/* Add item button */}
-        <AddDialogForm
-          path={'incomes'}
-          fn={(result) => updateDataAfterPOST(result, setData, data)}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
-        >
-          <MyTextInput
-            label="Name"
-            name="name"
-            type="text"
-            placeholder="Salary, Save, Loan..."
-          />
-          <MyTextInput label="Date" name="createAt" type="date" />
-          <MyTextInput label="Amount" name="amount" type="number" />
-        </AddDialogForm>
+      <Banner
+        title={'Incomes'}
+        description={'Manage all your incomes.'}
+        icon={<CgImport />}
+      />
 
-        {/* Period time SelectBox */}
-        <SelectBox
-          filter={filterIncome}
-          actionType={'SET_INCOME'}
-          className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
-        />
-      </div>
+      <PageTransition>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="flex w-44 justify-between">
+              {/* Add item button */}
+              <AddDialogForm
+                path={'incomes'}
+                fn={(result) => updateDataAfterPOST(result, setData, data)}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+              >
+                <MyTextInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Salary, Save, Loan..."
+                />
+                <MyTextInput label="Date" name="createAt" type="date" />
+                <MyTextInput label="Amount" name="amount" type="number" />
+              </AddDialogForm>
 
-      {/* Table data */}
-      <TableAdvanced columns={columns} data={data} />
+              {/* Period time SelectBox */}
+              <SelectBox
+                filter={filterIncome}
+                actionType={'SET_INCOME'}
+                className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
+              />
+            </div>
 
-      {/* Edit and Remove Modal */}
-      <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
-        <UpdateModalForm
-          isOpen={openModal}
-          setIsOpen={setOpenModal}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          path={'incomes'}
-          data={rowData}
-          fn={(result) => updateDataAfterPATCH(result, setData, data)}
-        >
-          <MyTextInput
-            label="Name"
-            name="name"
-            type="text"
-            placeholder="Salary, Save, Loan..."
-          />
-          <MyTextInput label="Date" name="createAt" type="date" />
-          <MyTextInput label="Amount" name="amount" type="number" />
-        </UpdateModalForm>
-      </div>
+            {/* Table data */}
+            <TableAdvanced columns={columns} data={data} />
 
-      <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
-        <ConfirmModal
-          isOpen={openConfirm}
-          setIsOpen={setOpenConfirm}
-          path={'incomes'}
-          id={rowData.id}
-          fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
-        />
-      </div>
-    </PageTransition>
+            {/* Edit and Remove Modal */}
+            <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
+              <UpdateModalForm
+                isOpen={openModal}
+                setIsOpen={setOpenModal}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                path={'incomes'}
+                data={rowData}
+                fn={(result) => updateDataAfterPATCH(result, setData, data)}
+              >
+                <MyTextInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Salary, Save, Loan..."
+                />
+                <MyTextInput label="Date" name="createAt" type="date" />
+                <MyTextInput label="Amount" name="amount" type="number" />
+              </UpdateModalForm>
+            </div>
+
+            <div
+              className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}
+            >
+              <ConfirmModal
+                isOpen={openConfirm}
+                setIsOpen={setOpenConfirm}
+                path={'incomes'}
+                id={rowData.id}
+                fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
+              />
+            </div>
+          </>
+        )}
+      </PageTransition>
+    </>
   );
 }

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import dateFormat from 'dateformat';
 
+import { LoaderButton } from './Loader';
+
 import { DiaglogTransition } from '../utils/Transition';
 import { patchData, deleteData } from '../utils/fetchData';
-import { ButtonLoader } from '../utils/ButtonLoader';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
@@ -78,7 +79,7 @@ export const UpdateModalForm = ({
                 type="submit"
                 className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
-                <ButtonLoader isLoading={isLoading} />
+                <LoaderButton isLoading={isLoading} />
                 Submit
               </button>
             </div>
@@ -130,7 +131,7 @@ export const ConfirmModal = ({ isOpen, setIsOpen, path, id, fn }) => {
             className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             onClick={handleDelete}
           >
-            <ButtonLoader isLoading={isLoading} />
+            <LoaderButton isLoading={isLoading} />
             Yes
           </button>
         </div>

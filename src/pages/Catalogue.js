@@ -127,73 +127,75 @@ export default function Catalogue() {
     []
   );
 
-  /** Show loader while data is fetching */
-  if (isLoading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
-  }
-
   return (
-    <PageTransition>
+    <>
       <Banner
         title={'Catalogues'}
         description={'Manage your spending by catalogues.'}
       />
-      <div className="flex w-44 justify-between">
-        {/* Add item button */}
-        <AddDialogForm
-          path={'catalogues'}
-          fn={(result) => updateDataAfterPOST(result, setData, data)}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
-        >
-          <MyTextInput
-            label="Name"
-            name="name"
-            type="text"
-            placeholder="Salary, Save, Loan..."
-          />
-        </AddDialogForm>
-      </div>
 
-      {/* Table data */}
-      <TableAdvanced columns={columns} data={data} />
+      <PageTransition>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="flex w-44 justify-between">
+              {/* Add item button */}
+              <AddDialogForm
+                path={'catalogues'}
+                fn={(result) => updateDataAfterPOST(result, setData, data)}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+              >
+                <MyTextInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Salary, Save, Loan..."
+                />
+              </AddDialogForm>
+            </div>
 
-      {/* Edit and Remove Modal */}
-      <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
-        {/* Edit modal */}
-        <UpdateModalForm
-          isOpen={openModal}
-          setIsOpen={setOpenModal}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          path={'catalogues'}
-          data={rowData}
-          fn={(result) => updateDataAfterPATCH(result, setData, data)}
-        >
-          <MyTextInput
-            label="Name"
-            name="name"
-            type="text"
-            placeholder="Salary, Save, Loan..."
-          />
-        </UpdateModalForm>
-      </div>
+            {/* Table data */}
+            <TableAdvanced columns={columns} data={data} />
 
-      {/* Delete modal */}
-      <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
-        <ConfirmModal
-          isOpen={openConfirm}
-          setIsOpen={setOpenConfirm}
-          path={'catalogues'}
-          id={rowData.id}
-          fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
-        />
-      </div>
-    </PageTransition>
+            {/* Edit and Remove Modal */}
+            <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
+              {/* Edit modal */}
+              <UpdateModalForm
+                isOpen={openModal}
+                setIsOpen={setOpenModal}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                path={'catalogues'}
+                data={rowData}
+                fn={(result) => updateDataAfterPATCH(result, setData, data)}
+              >
+                <MyTextInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Salary, Save, Loan..."
+                />
+              </UpdateModalForm>
+            </div>
+
+            {/* Delete modal */}
+            <div
+              className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}
+            >
+              <ConfirmModal
+                isOpen={openConfirm}
+                setIsOpen={setOpenConfirm}
+                path={'catalogues'}
+                id={rowData.id}
+                fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
+              />
+            </div>
+          </>
+        )}
+      </PageTransition>
+    </>
   );
 }

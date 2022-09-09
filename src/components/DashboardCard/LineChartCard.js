@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import LineChart from '../Charts/LineChart';
 import tailwindConfig from '../../utils/tailwindConfig';
 
-import { getData } from '../../utils/fetchData';
+import Loader from '../Loader';
 
+import { getData } from '../../utils/fetchData';
 import { getDatesInRange, getDataByLabel } from '../../utils/Utils';
+import { PageTransition } from '../../utils/Transition';
 
 export default function LineChartCard({ user }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,26 +21,33 @@ export default function LineChartCard({ user }) {
   const labels = getDatesInRange(last15days, today);
 
   useEffect(() => {
-    setIsLoading(true);
-    getData(
-      `incomes/incomes-by-month/${today.getMonth() + 1}`,
-      user.token
-    ).then((result) => {
-      setIncomeData(result.data.data);
-      setIsLoading(false);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchData = async () => {
+      setIsLoading(true);
+      /** Chanining the request to both of Catalogues and Spendings
+       * Catalogues list is need when add spending
+       */
+      try {
+        const [incomes, spendings] = await Promise.all([
+          getData(
+            `incomes/incomes-by-month/${today.getMonth() + 1}`,
+            user.token
+          ),
+          getData(
+            `spendings/spendings-by-month/${today.getMonth() + 1}`,
+            user.token
+          ),
+        ]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    getData(
-      `spendings/spendings-by-month/${today.getMonth() + 1}`,
-      user.token
-    ).then((result) => {
-      setSpendingData(result.data.data);
-      setIsLoading(false);
-    });
+        setIncomeData(incomes.data.data);
+        setSpendingData(spendings.data.data);
+
+        setIsLoading(false);
+      } catch (err) {
+        /** Add some more information for failed object then dispatch to NotificationContext */
+      }
+    };
+
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,20 +84,6 @@ export default function LineChartCard({ user }) {
     ],
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
-        <header className="px-5 py-4 border-b border-slate-100 flex items-center">
-          <h2 className="font-semibold text-slate-800">Income/Spendings</h2>
-          <div className="text-xs font-semibold text-slate-400  px-2">
-            (per month)
-          </div>
-        </header>
-        <span className="sr-only">Loading...</span>
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100 flex items-center">
@@ -99,7 +94,15 @@ export default function LineChartCard({ user }) {
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
-      <LineChart data={chartData} width={595} height={248} />
+      <div style={{ height: '300px' }}>
+        {isLoading ? (
+          <span className="sr-only">Loading....</span>
+        ) : (
+          <div className=" transition duration-300">
+            <LineChart data={chartData} width={595} height={248} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

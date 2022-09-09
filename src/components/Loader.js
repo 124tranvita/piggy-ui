@@ -1,7 +1,7 @@
 export default function Loader() {
   return (
-    <div className="fixed inset-0 bg-black/30 z-50" aria-hidden="true">
-      <div className="fixed top-4 left-0 right-0 flex items-center justify-center p-4">
+    <div className="relative inset-0 shadow-lg z-50" aria-hidden="true">
+      <div className="absolute inset-0 mx-auto flex items-center justify-center p-4">
         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
           <div role="status">
             <svg
