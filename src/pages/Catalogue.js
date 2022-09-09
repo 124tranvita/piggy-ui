@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import dateFormat from 'dateformat';
+import * as Yup from 'yup';
+import { Menu } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 import {
   AiOutlineAppstoreAdd,
@@ -15,52 +17,108 @@ import { TablePagination } from '../components/Table';
 import Loader from '../components/Loader';
 import CatalogueForm from '../components/Form/CatalogueForm';
 import Banner from '../components/Banner';
-
-import numberFormat from '../utils/numberFormat';
+import { TableAdvanced } from '../components/Table';
+import { AddDialogForm } from '../components/DialogForm';
+import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
+import EditMenu from '../components/EditMenu';
 
 import { getData, postData, deleteData, patchData } from '../utils/fetchData';
+import { MyTextInput } from '../utils/FormikField';
+import {
+  updateDataAfterPOST,
+  updateDataAfterPATCH,
+  updateDataAfterDELETE,
+} from '../utils/updateDataAfterFetch';
+
+const initialValues = {
+  name: '',
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .min(2, 'Name must be greater or equal to 2 characters')
+    .max(16, 'Name mus be lesser or equal to 16 characters.')
+    .required('Required'),
+});
 
 export default function Catalogue() {
   const { user } = useAuthContext();
-  const { dispatch } = useNotificationContext();
+  const { isLoading, dispatch } = useNotificationContext();
+
   const [data, setData] = useState([]);
-  const [openEdit, setOpenEdit] = useState(false);
+
+  data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
+
+  console.log(data);
+
+  /** Track openUpdateModal and openDeleteConfirmModal */
+  const [openModal, setOpenModal] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+
+  /** Set the row data when click on table row */
+  const [rowData, setRowData] = useState({});
+
+  const handleOpenUpdateModal = (row) => {
+    setRowData(row);
+    setOpenModal(true);
+  };
+
+  const handleOpenDeleteModal = (row) => {
+    setRowData(row);
+    setOpenConfirm(true);
+  };
 
   // console.log('Catalogues Data: ', data);
 
-  const deleteItem = (path, id) => {
-    deleteData(path, user.token, id, dispatch).then((result) => {
-      getData('catalogues', user.token).then((data) => setData(data.data.data));
-    });
-  };
+  // const deleteItem = (path, id) => {
+  //   deleteData(path, user.token, id, dispatch).then((result) => {
+  //     getData('catalogues', user.token).then((data) => setData(data.data.data));
+  //   });
+  // };
 
-  const updateItem = (path, value) => {
-    patchData(path, user.token, value, dispatch).then((result) => {
-      getData('catalogues', user.token).then((data) => setData(data.data.data));
-    });
-  };
+  // const updateItem = (path, value) => {
+  //   patchData(path, user.token, value, dispatch).then((result) => {
+  //     getData('catalogues', user.token).then((data) => setData(data.data.data));
+  //   });
+  // };
 
-  const addItem = (path, value) => {
-    postData(path, user.token, value, dispatch).then((result) => {
-      setData(data.concat(result.data));
-    });
-  };
+  // const addItem = (path, value) => {
+  //   postData(path, user.token, value, dispatch).then((result) => {
+  //     setData(data.concat(result.data));
+  //   });
+  // };
 
+  /** Get data from the DB when the component is first load */
   useEffect(() => {
-    if (user) {
-      getData('catalogues', user.token).then((data) => setData(data.data.data));
-    }
-  }, []);
+    dispatch({ type: 'SET_ISLOADING', payload: true });
+    getData(`catalogues`, user.token, dispatch)
+      .then((result) => {
+        setData(result.data.data);
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      })
+      .catch((err) => {
+        const data = {
+          status: 'failed',
+          timestamp: new Date().toISOString(),
+          unread: true,
+          message: err.message,
+        };
+
+        dispatch({ type: 'ADD', payload: data });
+        dispatch({ type: 'SET_ISLOADING', payload: false });
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.token]);
 
   const columns = useMemo(
     () => [
       {
-        Header: 'Name',
-        accessor: 'name',
+        Header: 'Id',
+        accessor: 'id',
       },
       {
-        Header: 'Description',
-        accessor: 'description',
+        Header: 'Name',
+        accessor: 'name',
       },
       {
         Header: 'Date',
@@ -68,28 +126,27 @@ export default function Catalogue() {
         Cell: (props) => <div>{dateFormat(props.value, 'yyyy-mm-dd')}</div>,
       },
       {
-        Header: 'Price',
-        accessor: 'price',
-        Cell: (props) => (
+        Header: 'EDIT',
+        Cell: ({ row }) => (
           <div>
-            {numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-              props.value
-            )}
-          </div>
-        ),
-      },
-      {
-        Header: 'Quantity',
-        accessor: 'quantity',
-      },
-      {
-        Header: 'Total',
-        accessor: 'total',
-        Cell: (props) => (
-          <div>
-            {numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-              props.value
-            )}
+            <EditMenu className="relative inline-flex">
+              <Menu.Item>
+                <button
+                  className="font-medium text-sm text-gray-500 hover:text-gray-600 flex py-1 px-3 w-full"
+                  onClick={() => handleOpenUpdateModal(row.original)}
+                >
+                  Update
+                </button>
+              </Menu.Item>
+              <Menu.Item>
+                <button
+                  className="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3 w-full"
+                  onClick={() => handleOpenDeleteModal(row.original)}
+                >
+                  Delete
+                </button>
+              </Menu.Item>
+            </EditMenu>
           </div>
         ),
       },
@@ -97,11 +154,12 @@ export default function Catalogue() {
     []
   );
 
-  if (!data) {
+  /** Show loader while data is fetching */
+  if (isLoading) {
     return (
-      <div>
+      <>
         <Loader />
-      </div>
+      </>
     );
   }
 
@@ -111,98 +169,58 @@ export default function Catalogue() {
         title={'Catalogues'}
         description={'Manage your spending by catalogues.'}
       />
-      <div className="w-full px-2 pt-1">
-        {/* Controll button */}
-        <div className="sm:flex sm:justify-end sm:items-center mb-8">
-          <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-            {/* Catalogue modal form */}
-            <CatalogueForm
-              icon={<AiOutlineAppstoreAdd />}
-              title={'Add item'}
-              fn={addItem}
-              className="btn bg-emerald-500 hover:bg-emerald-600 text-white flex items-center px-2 rounded-md"
-            />
-          </div>
-        </div>
-        {/* Controll button */}
+      <div className="flex w-44 justify-between">
+        {/* Add item button */}
+        <AddDialogForm
+          path={'catalogues'}
+          fn={(result) => updateDataAfterPOST(result, setData, data)}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+        >
+          <MyTextInput
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="Salary, Save, Loan..."
+          />
+        </AddDialogForm>
+      </div>
 
-        {/* Catalogue item list */}
-        <div className="flex flex-wrap md:flex-nowrap mx-auto w-full mb-3">
-          <div className="flex w-full justify-between px-4 py-2 text-left text-base font-semibold shadow-lg bg-gray-500 text-white">
-            <span className="w-1/3">Name</span>
-            <span>Create Date</span>
-            <button
-              className={`${openEdit ? 'text-red-500' : ''} duration-200`}
-              onClick={() => setOpenEdit(!openEdit)}
-            >
-              {openEdit ? <MdOutlineCancel /> : <AiOutlineEdit />}
-            </button>
-          </div>
-        </div>
-        {data.map((el) => (
-          <div
-            className="flex flex-wrap md:flex-nowrap mx-auto w-full mb-3"
-            key={el.id}
-          >
-            <div className="w-full">
-              <DisclosureWithTable columns={columns} catalogue={el} />
-            </div>
-            {/* Edit/Delete button */}
-            <div
-              className={`${
-                !openEdit ? 'hidden' : ''
-              } flex justify-between items-center duration-300 mt-1 md:mt-0`}
-            >
-              {/* Edit button */}
-              <CatalogueForm
-                icon={<AiOutlineEdit />}
-                fn={updateItem}
-                itemName={el.name}
-                itemId={el.id}
-                className="btn mx-1 bg-sky-500 hover:bg-sky-600 text-white flex items-center py-1 px-2 rounded-md"
-              />
-              {/* Delete button */}
-              <button
-                className="btn bg-red-500 hover:bg-red-600 text-white flex items-center px-2 rounded-md"
-                onClick={() => deleteItem('catalogues', el.id)}
-              >
-                <span className="py-1">
-                  <AiOutlineDelete />
-                </span>
-              </button>
-            </div>
-            {/* Edit/Delete button */}
-          </div>
-        ))}
+      {/* Table data */}
+      <TableAdvanced columns={columns} data={data} />
+
+      {/* Edit and Remove Modal */}
+      <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
+        {/* Edit modal */}
+        <UpdateModalForm
+          isOpen={openModal}
+          setIsOpen={setOpenModal}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          path={'catalogues'}
+          data={rowData}
+          fn={(result) => updateDataAfterPATCH(result, setData, data)}
+        >
+          <MyTextInput
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="Salary, Save, Loan..."
+          />
+        </UpdateModalForm>
+      </div>
+
+      {/* Delete modal */}
+      <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
+        <ConfirmModal
+          isOpen={openConfirm}
+          setIsOpen={setOpenConfirm}
+          path={'catalogues'}
+          id={rowData.id}
+          fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
+        />
       </div>
     </div>
-  );
-}
-
-function DisclosureWithTable({ columns, catalogue }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <button
-        className="flex w-full justify-between bg-white px-4 py-2 text-left text-base text-slate-500 font-semibold shadow-lg  hover:bg-slate-200 focus:outline-none focus-visible:ring focus-visible:ring-slate-500 focus-visible:ring-opacity-75"
-        onClick={() => setOpen(!open)}
-      >
-        <span className="w-1/3">{catalogue.name.toUpperCase()}</span>
-        <span>{dateFormat(catalogue.createAt, 'yyyy-mm-dd')}</span>
-        <ChevronUpIcon
-          className={`${
-            open ? 'rotate-180 transform' : ''
-          }h-5 w-5 text-green-500`}
-        />
-      </button>
-      <div
-        className={`${
-          !open ? 'hidden' : ''
-        } pb-2 text-sm text-gray-500 duration-200`}
-      >
-        <TablePagination columns={columns} catalogueId={catalogue.id} />
-      </div>
-    </>
   );
 }

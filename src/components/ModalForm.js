@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import dateFormat from 'dateformat';
 
-import { MyTextInput } from '../utils/FormikField';
 import { DiaglogTransition } from '../utils/Transition';
 import { patchData, deleteData } from '../utils/fetchData';
 import { ButtonLoader } from '../utils/ButtonLoader';
@@ -11,10 +9,25 @@ import { ButtonLoader } from '../utils/ButtonLoader';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
-export const UpdateModalForm = ({ isOpen, setIsOpen, path, data, fn }) => {
+export const UpdateModalForm = ({
+  children,
+  isOpen,
+  setIsOpen,
+  initialValues,
+  validationSchema,
+  path,
+  data,
+  fn,
+}) => {
   const { user } = useAuthContext();
   const { dispatch } = useNotificationContext();
+
   const [isLoading, setIsLoading] = useState(false);
+
+  if (data) {
+    initialValues = { ...initialValues, ...data };
+    initialValues.createAt = dateFormat(data.createAt, 'yyyy-mm-dd');
+  }
 
   const pathURL = `${path}/${data.id}`;
 
@@ -30,12 +43,6 @@ export const UpdateModalForm = ({ isOpen, setIsOpen, path, data, fn }) => {
     closeModal();
   };
 
-  const initialValues = {
-    name: data.name,
-    createAt: dateFormat(data.createAt, 'yyyy-mm-dd'),
-    amount: data.amount,
-  };
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -45,35 +52,17 @@ export const UpdateModalForm = ({ isOpen, setIsOpen, path, data, fn }) => {
       <DiaglogTransition isOpen={isOpen}>
         <Formik
           initialValues={initialValues}
-          validationSchema={Yup.object({
-            name: Yup.string()
-              .min(2, 'Name must be greater or equal to 2 characters')
-              .max(16, 'Name mus be lesser or equal to 16 characters.')
-              .required('Required'),
-            createAt: Yup.date()
-              .max(
-                new Date(),
-                'Create date must lesser or equal to current day.'
-              )
-              .required('Yêu cầu nhập'),
-          })}
+          validationSchema={validationSchema}
           onSubmit={(value, { setSubmitting }) => {
             setSubmitting(false);
             handleSubmit(value);
           }}
         >
           <Form>
-            <MyTextInput
-              label="Name"
-              name="name"
-              type="text"
-              placeholder="Salary, Save, Loan..."
-            />
-            <MyTextInput label="Date" name="createAt" type="date" />
-            <MyTextInput label="Amount" name="amount" type="number" />
+            {children}
             <div className="flex justify-end">
               <button
-                type="submit"
+                type="button"
                 className="inline-flex justify-center items-center mt-4 mr-2 rounded-md border border-transparent bg-rose-200 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-rose-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 onClick={closeModal}
               >
@@ -82,7 +71,6 @@ export const UpdateModalForm = ({ isOpen, setIsOpen, path, data, fn }) => {
 
               <button
                 type="submit"
-                disabled={isLoading}
                 className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 <ButtonLoader isLoading={isLoading} />

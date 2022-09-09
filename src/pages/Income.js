@@ -192,14 +192,26 @@ export default function Income() {
       {/* Table data */}
       <TableAdvanced columns={columns} data={data} />
 
+      {/* Edit and Remove Modal */}
       <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
         <UpdateModalForm
           isOpen={openModal}
           setIsOpen={setOpenModal}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
           path={'incomes'}
           data={rowData}
           fn={(result) => updateDataAfterPATCH(result, setData, data)}
-        />
+        >
+          <MyTextInput
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="Salary, Save, Loan..."
+          />
+          <MyTextInput label="Date" name="createAt" type="date" />
+          <MyTextInput label="Amount" name="amount" type="number" />
+        </UpdateModalForm>
       </div>
 
       <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
