@@ -37,15 +37,34 @@ export const UpdateModalForm = ({
 
   const pathURL = `${path}/${data.id ?? data._id}`;
 
-  const handleSubmit = (value) => {
-    setIsLoading(true);
-
-    patchData(pathURL, user.token, value, dispatch).then((result) => {
+  const handleSubmit = async (value) => {
+    try {
+      setIsLoading(true);
+      const result = await patchData(pathURL, user.token, value, dispatch);
       fn(result.data.data);
       setIsLoading(false);
-    });
+    } catch (error) {
+      const data = {
+        status: 'failed',
+        timestamp: new Date().toISOString(),
+        unread: true,
+        message: `Server unavailable. ${error.message} data.`,
+      };
 
-    setIsLoading(false);
+      dispatch({ type: 'ADD', payload: data });
+      setIsLoading(false);
+    }
+    // setIsLoading(true);
+
+    // patchData(pathURL, user.token, value, dispatch)
+    //   .then((result) => {
+    //     fn(result.data.data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false);
+    //   });
+
     closeModal();
   };
 
@@ -79,7 +98,9 @@ export const UpdateModalForm = ({
                 type="submit"
                 className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
-                <LoaderButton isLoading={isLoading} />
+                <span className={`${!isLoading ? 'hidden' : ''} duration-300`}>
+                  <LoaderButton />
+                </span>
                 Submit
               </button>
             </div>
@@ -105,7 +126,6 @@ export const ConfirmModal = ({ isOpen, setIsOpen, path, id, fn }) => {
       setIsLoading(false);
     });
 
-    setIsLoading(false);
     closeModal();
   };
 
@@ -131,7 +151,9 @@ export const ConfirmModal = ({ isOpen, setIsOpen, path, id, fn }) => {
             className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             onClick={handleDelete}
           >
-            <LoaderButton isLoading={isLoading} />
+            <span className={`${!isLoading ? 'hidden' : ''} duration-300`}>
+              <LoaderButton />
+            </span>
             Yes
           </button>
         </div>

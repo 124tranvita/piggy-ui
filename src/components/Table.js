@@ -7,6 +7,7 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
 } from 'react-table';
+import { TbTableImport, TbTableExport } from 'react-icons/tb';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -36,7 +37,7 @@ function GlobalFilter({
           onChange(e.target.value);
         }}
         placeholder={'Search'}
-        className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-300 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+        className="appearance-none border-b-1 block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
       />
     </span>
   );
@@ -332,7 +333,13 @@ export const TablePagination = ({ columns, catalogueId }) => {
   );
 };
 
-export const TableAdvanced = ({ columns, data }) => {
+export const TableAdvanced = ({
+  columns,
+  data,
+  title,
+  icon,
+  iconTextColor,
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -411,12 +418,42 @@ export const TableAdvanced = ({ columns, data }) => {
           )}
         </code>
       </pre> */}
+
+      {/* Header of the table */}
+      <header className="flex items-center py-4 border-b border-slate-200">
+        <div className="flex items-center">
+          <div className={`text-4xl mr-3 ${iconTextColor}`}>{icon}</div>
+          <h2 className="font-semibold">{title.toUpperCase()}</h2>
+        </div>
+        <div className="text-xs text-slate-400 px-1 md:px-2">
+          (Last 30 days)
+        </div>
+      </header>
+
+      {/* Page select and filter of table */}
       <div className="my-2 flex sm:flxe-row flex-col">
-        <div className="flex flex-row mb-1 sm:mb-0">
+        <div className="flex justify-end flex-row mb-1 sm:mb-0">
+          {/* Global filtering */}
+          <div className="block relative">
+            <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4 fill-current text-gray-400"
+              >
+                <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+              </svg>
+            </span>
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </div>
+
           {/* Select showing page */}
-          <div className="relative">
+          <div className="relative mr-3">
             <select
-              className=" appearance-none h-full rounded-l border block w-full bg-white border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className=" appearance-none h-full border-b-1 block w-full bg-white text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-slate-100"
               value={pageSize}
               onChange={(e) => {
                 setPageSize(Number(e.target.value));
@@ -438,29 +475,13 @@ export const TableAdvanced = ({ columns, data }) => {
               </svg>
             </div>
           </div>
-          {/* Global filtering */}
-          <div className="block relative">
-            <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4 fill-current text-gray-400"
-              >
-                <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
-              </svg>
-            </span>
-            <GlobalFilter
-              preGlobalFilteredRows={preGlobalFilteredRows}
-              globalFilter={state.globalFilter}
-              setGlobalFilter={setGlobalFilter}
-            />
-          </div>
         </div>
       </div>
-      {/* table div */}
-      <div className="inline-block min-w-full shadow rounded-md overflow-hidden">
+      {/* Main of table */}
+      <div className="inline-block min-w-full overflow-hidden py-2">
         {/* w-full text-sm text-left text-gray-500 dark:text-gray-400 */}
-        <table {...getTableProps()} className="min-w-full leading-normal">
-          <thead>
+        <table {...getTableProps()} className="table-auto w-full">
+          <thead className="text-xs uppercase text-slate-500 bg-slate-50 rounded-sm">
             {
               // Loop over the header rows
               headerGroups.map((headerGroup) => (
@@ -475,7 +496,7 @@ export const TableAdvanced = ({ columns, data }) => {
                           column.getSortByToggleProps()
                         )}
                         scope="col"
-                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider"
+                        className="font-semibold text-left p-2"
                       >
                         {
                           // Render the header
@@ -496,7 +517,10 @@ export const TableAdvanced = ({ columns, data }) => {
             }
           </thead>
           {/* Apply the table body props */}
-          <tbody {...getTableBodyProps()}>
+          <tbody
+            {...getTableBodyProps()}
+            className="text-sm font-medium divide-y divide-slate-100"
+          >
             {
               // Loop over the table rows
               page.map((row) => {
@@ -504,7 +528,10 @@ export const TableAdvanced = ({ columns, data }) => {
                 prepareRow(row);
                 return (
                   // Apply the row props
-                  <tr {...row.getRowProps()}>
+                  <tr
+                    {...row.getRowProps()}
+                    className="bg-white hover:bg-slate-100"
+                  >
                     {
                       // Loop over the rows cells
                       row.cells.map((cell) => {
@@ -512,7 +539,7 @@ export const TableAdvanced = ({ columns, data }) => {
                         return (
                           <td
                             {...cell.getCellProps()}
-                            className="px-4 py-4 border-b border-gray-200 bg-white text-sm font-normal"
+                            className="p-2 text-sm font-normal"
                           >
                             {
                               // Render the cell contents
@@ -529,7 +556,7 @@ export const TableAdvanced = ({ columns, data }) => {
           </tbody>
         </table>
 
-        <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+        <div className="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between">
           <span className="text-xs xs:text-sm text-gray-900">
             Showing{' '}
             <strong>
@@ -541,14 +568,14 @@ export const TableAdvanced = ({ columns, data }) => {
             <button
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
-              className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"
+              className="text-sm border-b-1 mx-2 cursor-pointer hover:text-gray-400 text-gray-800 font-semibold py-2 px-4"
             >
               {'Prev'}
             </button>{' '}
             <button
               onClick={() => nextPage()}
               disabled={!canNextPage}
-              className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"
+              className="text-sm border-b-1 mx-2 cursor-pointer hover:text-gray-400 text-gray-800 font-semibold py-2 px-4"
             >
               {'Next'}
             </button>

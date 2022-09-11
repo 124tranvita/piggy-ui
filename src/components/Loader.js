@@ -1,8 +1,8 @@
 export default function Loader() {
   return (
-    <div className="relative inset-0 shadow-lg z-50" aria-hidden="true">
+    <div className="relative inset-0 z-50" aria-hidden="true">
       <div className="absolute inset-0 mx-auto flex items-center justify-center p-4">
-        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
           <div role="status">
             <svg
               aria-hidden="true"
@@ -28,13 +28,10 @@ export default function Loader() {
   );
 }
 
-export const LoaderButton = ({ isLoading }) => {
+export const LoaderButton = () => {
   return (
     <>
-      <div
-        role="status"
-        className={`${!isLoading ? 'hidden' : ''} duration-200`}
-      >
+      <div role="status">
         <svg
           aria-hidden="true"
           className="mr-2 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

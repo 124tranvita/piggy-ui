@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import { FiFilter, FiCheck } from 'react-icons/fi';
+import { MdFilterList, MdCheck } from 'react-icons/md';
 
 import { useFilterContext } from '../hooks/useFilterContext';
 
@@ -54,9 +54,9 @@ export default function SelectBox({ filter, actionType, ...props }) {
     <div {...props}>
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-pointer rounded-lg py-2 px-4 text-white text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">
-              <FiFilter />
+          <Listbox.Button className="relative w-full cursor-pointer px-2">
+            <span className="block truncate text-2xl">
+              <MdFilterList />
             </span>
           </Listbox.Button>
           <Transition
@@ -65,7 +65,7 @@ export default function SelectBox({ filter, actionType, ...props }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-52 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 mt-1 right-0 max-h-60 w-52 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {options.map((el, index) => (
                 <Listbox.Option
                   key={index}
@@ -88,7 +88,7 @@ export default function SelectBox({ filter, actionType, ...props }) {
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <FiCheck className="h-5 w-5" aria-hidden="true" />
+                          <MdCheck className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
                     </>

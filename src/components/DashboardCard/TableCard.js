@@ -1,14 +1,27 @@
 import dateFormat from 'dateformat';
 import numberFormat from '../../utils/numberFormat';
+import { TbTableImport, TbTableExport } from 'react-icons/tb';
+import { MdOutlineImportExport } from 'react-icons/md';
 
-export default function TableCard({ title, data, icon, textColor }) {
+export default function TableCard({ title, data, textColor }) {
   return (
-    <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
-      <header className="flex items-center px-5 py-4 border-b border-slate-100">
-        <h2>{title}</h2>
-        <div className="text-xs font-semibold text-slate-400  px-2">
-          (latest 5 records)
+    <div className="col-span-full xl:col-span-6 bg-white">
+      <header className="flex items-center px-5 py-4 border-b border-slate-200">
+        <div
+          className={`text-4xl mr-3 ${
+            title.toLowerCase() === 'incomes'
+              ? 'text-emerald-500'
+              : 'text-rose-500'
+          }`}
+        >
+          {title.toLowerCase() === 'incomes' ? (
+            <TbTableImport />
+          ) : (
+            <TbTableExport />
+          )}
         </div>
+        <h2>{title}</h2>
+        <div className="text-xs text-slate-400  px-2">(last 5 records)</div>
       </header>
       <div className="p-3">
         {/* Table */}
@@ -36,13 +49,15 @@ export default function TableCard({ title, data, icon, textColor }) {
                   <tr key={el._id}>
                     <td className="p-2">
                       <div className="flex items-center">
-                        <img
-                          className="shrink-0 mr-2"
-                          src={icon}
-                          alt="logo"
-                          width="36"
-                          height="36"
-                        />
+                        <div
+                          className={`${
+                            title.toLowerCase() === 'incomes'
+                              ? 'text-emerald-500'
+                              : 'text-red-500'
+                          } mr-1 text-2xl`}
+                        >
+                          <MdOutlineImportExport />
+                        </div>
                         <div className="text-slate-800">{el.name}</div>
                       </div>
                     </td>

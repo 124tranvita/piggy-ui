@@ -1,13 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
-import { CgImport } from 'react-icons/cg';
 import dateFormat from 'dateformat';
 import * as Yup from 'yup';
 import { Menu } from '@headlessui/react';
+import { MdOutlineTrendingUp } from 'react-icons/md';
 
 import EditMenu from '../components/EditMenu';
 import Loader from '../components/Loader';
 import SelectBox from '../components/SelectBox';
-import Banner from '../components/Banner';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
 import { TableAdvanced } from '../components/Table';
@@ -156,27 +155,20 @@ export default function Income() {
   );
 
   return (
-    <>
-      {/* Banner */}
-      <Banner
-        title={'Incomes'}
-        description={'Manage all your incomes.'}
-        icon={<CgImport />}
-      />
-
+    <div className="relative">
       <PageTransition>
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            <div className="flex w-44 justify-between">
+            <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}
               <AddDialogForm
                 path={'incomes'}
                 fn={(result) => updateDataAfterPOST(result, setData, data)}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+                className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
               >
                 <MyTextInput
                   label="Name"
@@ -192,12 +184,18 @@ export default function Income() {
               <SelectBox
                 filter={filterIncome}
                 actionType={'SET_INCOME'}
-                className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
+                className="bg-white text-slate-500 hover:text-slate-600 flex items-center mx-4"
               />
             </div>
 
             {/* Table data */}
-            <TableAdvanced columns={columns} data={data} />
+            <TableAdvanced
+              columns={columns}
+              data={data}
+              title={'Incomes'}
+              icon={<MdOutlineTrendingUp />}
+              iconTextColor={'text-emerald-500'}
+            />
 
             {/* Edit and Remove Modal */}
             <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
@@ -235,6 +233,6 @@ export default function Income() {
           </>
         )}
       </PageTransition>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
-import { CgExport } from 'react-icons/cg';
 import { Menu } from '@headlessui/react';
 import dateFormat from 'dateformat';
 import * as Yup from 'yup';
+import { MdOutlineTrendingDown } from 'react-icons/md';
 
-import Banner from '../components/Banner';
 import Loader from '../components/Loader';
 import EditMenu from '../components/EditMenu';
 import SelectBox from '../components/SelectBox';
@@ -198,19 +197,14 @@ export default function Spending() {
   );
 
   return (
-    <>
+    <div className="relative">
       {/* Banner */}
-      <Banner
-        title={'Spendings'}
-        description={'Manage all your spendings.'}
-        icon={<CgExport />}
-      />
       <PageTransition>
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            <div className="flex w-44 justify-between">
+            <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}
               <AddDialogForm
                 path={'spendings'}
@@ -219,7 +213,7 @@ export default function Spending() {
                 }
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+                className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
               >
                 <MyTextInput
                   label="Name"
@@ -250,12 +244,18 @@ export default function Spending() {
               <SelectBox
                 filter={filterSpending}
                 actionType={'SET_SPENDING'}
-                className=" bg-emerald-500 hover:bg-emerald-600 flex items-center rounded-md"
+                className=" bg-white text-slate-500 hover:text-slate-600 flex items-center mx-4"
               />
             </div>
 
-            {/* Table data */}
-            <TableAdvanced columns={columns} data={spendingData} />
+            {/* Table area */}
+            <TableAdvanced
+              columns={columns}
+              data={spendingData}
+              title={'Spendings'}
+              icon={<MdOutlineTrendingDown />}
+              iconTextColor={'text-rose-500'}
+            />
 
             {/* Edit and Remove Modal */}
             <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
@@ -315,6 +315,6 @@ export default function Spending() {
           </>
         )}
       </PageTransition>
-    </>
+    </div>
   );
 }

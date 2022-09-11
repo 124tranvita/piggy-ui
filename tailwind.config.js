@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      backgroundImage: {
+        'footer-texture': "url('/img/footer-texture.png')",
+      },
       backgroundColor: {
         'main-bg': '#FAFBFB',
         'main-dark-bg': '#20232A',
@@ -41,7 +44,8 @@ module.exports = {
         'dark-purple': '#081A51',
         'light-white': 'rgba(255,255,255,0.17)',
         'radiant-green': 'linear-gradient(to bottom right, #9be15d, #00e3ae)',
-        'light-blue': 'rgba(241,245,249,1)',
+        'gnews-border': '#66615b',
+        'gnews-color': '#5e72e4',
       },
       boxShadow: {
         DEFAULT:

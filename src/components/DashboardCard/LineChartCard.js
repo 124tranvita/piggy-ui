@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import LineChart from '../Charts/LineChart';
 import tailwindConfig from '../../utils/tailwindConfig';
-
-import Loader from '../Loader';
+import { RiLineChartLine } from 'react-icons/ri';
 
 import { getData } from '../../utils/fetchData';
 import { getDatesInRange, getDataByLabel } from '../../utils/Utils';
-import { PageTransition } from '../../utils/Transition';
 
 export default function LineChartCard({ user }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -85,12 +83,13 @@ export default function LineChartCard({ user }) {
   };
 
   return (
-    <div className="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
-      <header className="px-5 py-4 border-b border-slate-100 flex items-center">
-        <h2 className="font-semibold text-slate-800">Income/Spendings</h2>
-        <div className="text-xs font-semibold text-slate-400  px-2">
-          (per month)
+    <div className="flex flex-col col-span-full bg-white">
+      <header className="px-5 py-4 border-b border-slate-200 flex items-center">
+        <div className="text-4xl mr-3 text-orange-500">
+          <RiLineChartLine />
         </div>
+        <h2 className="font-semibold text-slate-800">Income/Spendings</h2>
+        <div className="text-xs text-slate-400  px-2">(Last 15 days)</div>
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}

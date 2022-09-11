@@ -2,16 +2,17 @@ import { useState, useMemo, useEffect } from 'react';
 import dateFormat from 'dateformat';
 import * as Yup from 'yup';
 import { Menu } from '@headlessui/react';
+import { MdOutlineList } from 'react-icons/md';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import Loader from '../components/Loader';
-import Banner from '../components/Banner';
+import EditMenu from '../components/EditMenu';
+import SelectBox from '../components/SelectBox';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
-import EditMenu from '../components/EditMenu';
 
 import { getData } from '../utils/fetchData';
 import { MyTextInput } from '../utils/FormikField';
@@ -128,25 +129,20 @@ export default function Catalogue() {
   );
 
   return (
-    <>
-      <Banner
-        title={'Catalogues'}
-        description={'Manage your spending by catalogues.'}
-      />
-
+    <div className="relative">
       <PageTransition>
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            <div className="flex w-44 justify-between">
+            <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}
               <AddDialogForm
                 path={'catalogues'}
                 fn={(result) => updateDataAfterPOST(result, setData, data)}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="btn p-2 bg-emerald-500 hover:bg-emerald-600 text-white flex items-center rounded-md"
+                className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
               >
                 <MyTextInput
                   label="Name"
@@ -158,7 +154,13 @@ export default function Catalogue() {
             </div>
 
             {/* Table data */}
-            <TableAdvanced columns={columns} data={data} />
+            <TableAdvanced
+              columns={columns}
+              data={data}
+              title={'Catalogues'}
+              icon={<MdOutlineList />}
+              iconTextColor={'text-orange-500'}
+            />
 
             {/* Edit and Remove Modal */}
             <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
@@ -196,6 +198,6 @@ export default function Catalogue() {
           </>
         )}
       </PageTransition>
-    </>
+    </div>
   );
 }

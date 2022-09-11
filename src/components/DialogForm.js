@@ -1,6 +1,6 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import { AiOutlineAppstoreAdd } from 'react-icons/ai';
+import { MdAddchart } from 'react-icons/md';
 
 import { LoaderButton } from './Loader';
 
@@ -32,7 +32,7 @@ export const AddDialogForm = ({
       setIsLoading(false);
     });
 
-    setIsLoading(false);
+    // setIsLoading(false);
     closeModal();
   };
 
@@ -47,8 +47,9 @@ export const AddDialogForm = ({
   return (
     <>
       <button {...rest} onClick={openModal}>
-        <AiOutlineAppstoreAdd />
-        <span className="mx-2">Add item</span>
+        <span className="text-2xl">
+          <MdAddchart />
+        </span>
       </button>
       <DiaglogTransition isOpen={isOpen}>
         {/* FORM */}
@@ -75,7 +76,9 @@ export const AddDialogForm = ({
                 type="submit"
                 className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
-                <LoaderButton isLoading={isLoading} />
+                <span className={`${!isLoading ? 'hidden' : ''} duration-300`}>
+                  <LoaderButton />
+                </span>
                 Submit
               </button>
             </div>

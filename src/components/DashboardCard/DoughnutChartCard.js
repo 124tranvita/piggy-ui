@@ -24,7 +24,7 @@ export default function DoughnutChartCard() {
   };
 
   return (
-    <div className="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
+    <div className="flex flex-col col-span-full bg-white ">
       <header className="px-5 py-4 border-b border-slate-100">
         <h2 className="font-semibold text-slate-800">Catalogues</h2>
       </header>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { AiOutlineDashboard } from 'react-icons/ai';
+import {
+  MdBarChart,
+  MdOutlineTrendingUp,
+  MdOutlineTrendingDown,
+} from 'react-icons/md';
 
 import TableCard from '../components/DashboardCard/TableCard';
 import SummaryCard from '../components/DashboardCard/SummaryCard';
 import LineChartCard from '../components/DashboardCard/LineChartCard';
 import DoughnutChartCard from '../components/DashboardCard/DoughnutChartCard';
-import Banner from '../components/Banner';
-import images from '../assets/images';
 
 import Loader from '../components/Loader';
 
@@ -45,43 +47,38 @@ export default function Dashboard() {
 
   return (
     <>
-      <Banner
-        title={'Dashboard'}
-        description={`Wellcome back, ${user.data.user.name}!`}
-        icon={<AiOutlineDashboard />}
-      />
-
       <PageTransition>
         {isLoading ? (
           <Loader />
         ) : (
           <div className="grid grid-cols-12 gap-6">
             <SummaryCard
-              title={'BALANCE'}
+              title={'Balance'}
               amount={data.balance}
-              icon={images.logo}
+              icon={<MdBarChart />}
+              iconColor={'text-blue-500'}
             />
             <SummaryCard
-              title={'INCOMES'}
+              title={'Incomes'}
               amount={data.income}
-              icon={images.income}
+              icon={<MdOutlineTrendingUp />}
+              iconColor={'text-emerald-500'}
             />
             <SummaryCard
-              title={'SPENDINGS'}
+              title={'Spendings'}
               amount={data.spending}
-              icon={images.spending}
+              icon={<MdOutlineTrendingDown />}
+              iconColor={'text-rose-500'}
             />
             <LineChartCard user={user} />
             <TableCard
               title={'Incomes'}
               data={data.incomes}
-              icon={images.income}
-              textColor={'text-green-500'}
+              textColor={'text-emerald-500'}
             />
             <TableCard
               title={'Spendings'}
               data={data.spendings}
-              icon={images.spending}
               textColor={'text-rose-500'}
             />
 
