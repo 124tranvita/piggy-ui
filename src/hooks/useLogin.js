@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
 
+import { PREFIX } from '../utils/fetchData';
+
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -10,17 +12,14 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch(
-      'http://192.168.1.236:4000/api/v1/users/login',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
+    const response = await fetch(`${PREFIX}users/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
 
     const json = await response.json();
 

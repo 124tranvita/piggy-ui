@@ -1,4 +1,4 @@
-const PREFIX = 'http://192.168.1.236:4000/api/v1/';
+export const PREFIX = 'http://192.168.1.236:4000/api/v1/';
 
 export const getData = async (path, token, dispatch) => {
   const url = PREFIX + path;

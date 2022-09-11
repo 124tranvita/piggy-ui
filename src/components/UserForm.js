@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -60,24 +59,24 @@ export default function UserForm() {
             label="Name"
             name="name"
             type="text"
-            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-400"
+            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
           />
 
           {/* Password */}
           <MyPasswordInput
             label="Current Password"
             name="passwordCurrent"
-            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-400"
+            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
           />
           <MyPasswordInput
             label="Password"
             name="password"
-            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-400"
+            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
           />
           <MyPasswordInput
             label="Passwor Confirm"
             name="passwordConfirm"
-            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-400"
+            className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
           />
           {/* Password */}
 

@@ -65,7 +65,7 @@ export const MySelect = ({ label, ...props }) => {
   );
 };
 
-export const MyPasswordInput = ({ label, ...props }) => {
+export const MyPasswordInput = ({ label, eyeColor, ...props }) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -74,13 +74,12 @@ export const MyPasswordInput = ({ label, ...props }) => {
       <div className="relative">
         <label
           htmlFor={props.id || props.name}
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          className="block mb-2 text-sm font-medium text-slate-900 dark:text-slate-300"
         >
           {label}
         </label>
         <input
-          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          type={showPassword ? 'password' : 'text'}
+          type={!showPassword ? 'password' : 'text'}
           {...field}
           {...props}
         />
@@ -89,10 +88,12 @@ export const MyPasswordInput = ({ label, ...props }) => {
         ) : null}
 
         <span
-          className="absolute right-1 cursor-pointer top-10"
+          className={`absolute right-1 cursor-pointer top-10 ${
+            eyeColor ? eyeColor : 'text-violet-600'
+          }`}
           onClick={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          {!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
         </span>
       </div>
     </>
