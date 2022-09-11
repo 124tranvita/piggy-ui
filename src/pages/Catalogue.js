@@ -9,7 +9,6 @@ import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import Loader from '../components/Loader';
 import EditMenu from '../components/EditMenu';
-import SelectBox from '../components/SelectBox';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -43,8 +42,6 @@ export default function Catalogue() {
 
   data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
 
-  console.log(data);
-
   /** Track openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -70,12 +67,12 @@ export default function Catalogue() {
         setData(result.data.data);
         dispatch({ type: 'SET_ISLOADING', payload: false });
       })
-      .catch((err) => {
+      .catch((error) => {
         const data = {
           status: 'failed',
           timestamp: new Date().toISOString(),
           unread: true,
-          message: err.message,
+          message: `Server unavailable. ${error.message} data.`,
         };
 
         dispatch({ type: 'ADD', payload: data });

@@ -81,12 +81,12 @@ export default function Income() {
         setData(result.data.data);
         dispatch({ type: 'SET_ISLOADING', payload: false });
       })
-      .catch((err) => {
+      .catch((error) => {
         const data = {
           status: 'failed',
           timestamp: new Date().toISOString(),
           unread: true,
-          message: err.message,
+          message: `Server unavailable. ${error.message} data.`,
         };
 
         dispatch({ type: 'ADD', payload: data });

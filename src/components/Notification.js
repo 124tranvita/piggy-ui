@@ -12,7 +12,7 @@ export default function Notification() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="flex items-center bg-emerald-500 w-8 h-8 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
+        <Menu.Button className="flex items-center bg-blue-500 w-8 h-8 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
           <AiOutlineBell className="ml-1" />
         </Menu.Button>
       </div>

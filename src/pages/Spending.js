@@ -94,13 +94,13 @@ export default function Spending() {
         setCatalogueData(catalogues.data.data);
 
         dispatch({ type: 'SET_ISLOADING', payload: false });
-      } catch (err) {
+      } catch (error) {
         /** Add some more information for failed object then dispatch to NotificationContext */
         const data = {
           status: 'failed',
           timestamp: new Date().toISOString(),
           unread: true,
-          message: err.message,
+          message: `Server unavailable. ${error.message} data.`,
         };
 
         dispatch({ type: 'ADD', payload: data });
