@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useField } from 'formik';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 // Follow the Formik document
 export const MyTextInput = ({ label, ...props }) => {
@@ -60,5 +62,39 @@ export const MySelect = ({ label, ...props }) => {
         <div className="text-sm text-red-500">{meta.error}</div>
       ) : null}
     </div>
+  );
+};
+
+export const MyPasswordInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <>
+      <div className="relative">
+        <label
+          htmlFor={props.id || props.name}
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          {label}
+        </label>
+        <input
+          className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          type={showPassword ? 'password' : 'text'}
+          {...field}
+          {...props}
+        />
+        {meta.touched && meta.error ? (
+          <div className="text-sm text-red-500">{meta.error}</div>
+        ) : null}
+
+        <span
+          className="absolute right-1 cursor-pointer top-10"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+        </span>
+      </div>
+    </>
   );
 };

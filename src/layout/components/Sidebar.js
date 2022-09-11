@@ -37,7 +37,7 @@ export default function Sidebar() {
         onClick={() => setOpen(!open)}
       /> */}
       <div
-        className={`absolute cursor-pointer rounded-full -right-3 top-11 text-2xl text-blue-500 ${
+        className={`absolute cursor-pointer rounded-full -right-3 text-2xl text-blue-500 ${
           !open && 'rotate-180'
         }`}
         onClick={() => setOpen(!open)}
