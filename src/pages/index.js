@@ -6,10 +6,12 @@ import Catalogue from './Catalogue';
 import Income from './Income';
 import Spending from './Spending';
 import Report from './Report';
+import Error from './Error';
 
 export const publicPages = [
   { page: <Login />, path: 'login' },
   { page: <Signup />, path: 'signup' },
+  { page: <Error />, path: '*' },
 ];
 
 export const privatePages = [
@@ -19,4 +21,5 @@ export const privatePages = [
   { page: <Income />, path: 'incomes' },
   { page: <Spending />, path: 'spendings' },
   { page: <Report />, path: 'reports' },
+  { page: <Error />, path: '*' },
 ];

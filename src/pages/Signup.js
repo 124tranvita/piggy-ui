@@ -46,12 +46,12 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center pt-5 h-full">
-        <div className="w-1/2 hidden md:block duration-300">
+      <div className="flex justify-between items-center pt-5 fixed inset-0">
+        <div className="w-full mb:w-1/2 hidden md:block duration-300">
           <img src={images.signup} alt="login" className="w-full" />
         </div>
-        <div className="w-1/2 mx-auto flex justify-center">
-          <div className="lg:w-1/2">
+        <div className="w-full mb:w-1/2 flex justify-center">
+          <div className="w-2/3 lg:w-1/2">
             <header className="flex justify-center text-center font-bold text-2xl mb-10 text-violet-500">
               <h1>
                 PiGGY, <br /> the happiness!
@@ -103,6 +103,7 @@ const Signup = () => {
                   <button
                     type="submit"
                     className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    disabled={isLoading}
                   >
                     <span
                       className={`${!isLoading ? 'hidden' : ''} duration-300`}
