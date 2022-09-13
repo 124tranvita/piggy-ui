@@ -9,7 +9,8 @@ import TableCard from '../components/DashboardCard/TableCard';
 import SummaryCard from '../components/DashboardCard/SummaryCard';
 import LineChartCard from '../components/DashboardCard/LineChartCard';
 import DoughnutChartCard from '../components/DashboardCard/DoughnutChartCard';
-import { Loader, NoDataPlaceHolder } from '../components/Loader';
+import { Loader } from '../components/Loader';
+import { NoDataError } from '../components/Error';
 
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
@@ -44,7 +45,7 @@ export default function Dashboard() {
     <>
       <PageTransition>
         {!data ? (
-          <NoDataPlaceHolder />
+          <NoDataError />
         ) : (
           <div className="grid grid-cols-12 gap-6">
             {/* Summary Cards */}

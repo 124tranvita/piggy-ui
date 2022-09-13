@@ -6,7 +6,8 @@ import { MdOutlineTrendingDown } from 'react-icons/md';
 
 import EditMenu from '../components/EditMenu';
 import SelectBox from '../components/SelectBox';
-import { Loader, NoDataPlaceHolder } from '../components/Loader';
+import { Loader } from '../components/Loader';
+import { NoCatalogueError } from '../components/Error';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -24,7 +25,6 @@ import {
   updateDataAfterPATCH,
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
-import { data } from 'autoprefixer';
 
 /** Formik initial configuration */
 const initialValues = {
@@ -209,8 +209,8 @@ export default function Spending() {
     <div className="relative">
       {/* Banner */}
       <PageTransition>
-        {!spendingData[0] ? (
-          <NoDataPlaceHolder />
+        {!catalogueData[0] ? (
+          <NoCatalogueError />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">

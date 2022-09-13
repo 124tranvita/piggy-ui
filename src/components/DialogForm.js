@@ -24,15 +24,19 @@ export const AddDialogForm = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (value) => {
+  const handleSubmit = async (value) => {
     setIsLoading(true);
 
-    postData(path, user.token, value, dispatch).then((result) => {
-      fn(result.data);
-      setIsLoading(false);
-    });
+    const result = await postData(path, user.token, value, dispatch);
 
-    // setIsLoading(false);
+    if (!result) {
+      setIsLoading(false);
+      closeModal();
+    }
+
+    fn(result.data);
+    setIsLoading(false);
+
     closeModal();
   };
 

@@ -8,7 +8,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
 import EditMenu from '../components/EditMenu';
-import { Loader, NoDataPlaceHolder } from '../components/Loader';
+import { Loader } from '../components/Loader';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -115,18 +115,11 @@ export default function Catalogue() {
     []
   );
 
-  if (isLoading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
-  }
   return (
     <div className="relative">
       <PageTransition>
-        {!data[0] ? (
-          <NoDataPlaceHolder />
+        {isLoading ? (
+          <Loader />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">

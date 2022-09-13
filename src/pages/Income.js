@@ -6,7 +6,7 @@ import { MdOutlineTrendingUp } from 'react-icons/md';
 
 import EditMenu from '../components/EditMenu';
 import SelectBox from '../components/SelectBox';
-import { Loader, NoDataPlaceHolder } from '../components/Loader';
+import { Loader } from '../components/Loader';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
 import { TableAdvanced } from '../components/Table';
@@ -138,19 +138,11 @@ export default function Income() {
     []
   );
 
-  if (isLoading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
-  }
-
   return (
     <div className="relative">
       <PageTransition>
-        {!data[0] ? (
-          <NoDataPlaceHolder />
+        {isLoading ? (
+          <Loader />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">

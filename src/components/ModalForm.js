@@ -48,17 +48,6 @@ export const UpdateModalForm = ({
 
     fn(result.data.data);
     setIsLoading(false);
-    //
-    // setIsLoading(true);
-
-    // patchData(pathURL, user.token, value, dispatch)
-    //   .then((result) => {
-    //     fn(result.data.data);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     setIsLoading(false);
-    //   });
 
     closeModal();
   };
@@ -117,7 +106,7 @@ export const ConfirmModal = ({ isOpen, setIsOpen, path, id, fn }) => {
   const handleDelete = (value) => {
     setIsLoading(true);
 
-    deleteData(pathURL, user.token, id, dispatch).then((result) => {
+    deleteData(pathURL, user.token, dispatch).then((result) => {
       fn(id);
       setIsLoading(false);
     });
