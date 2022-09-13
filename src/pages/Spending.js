@@ -54,6 +54,7 @@ export default function Spending() {
 
   const [spendingData, setSpendingData] = useState([]);
   const [catalogueData, setCatalogueData] = useState([]);
+  const [isNoCatalogue, setIsNoCatalogue] = useState(true);
 
   /** Re-sort the data by data createAt */
   spendingData.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
@@ -76,8 +77,8 @@ export default function Spending() {
   };
 
   useEffect(() => {
+    dispatch({ type: 'SET_ISLOADING', payload: true });
     const fetchData = async () => {
-      dispatch({ type: 'SET_ISLOADING', payload: true });
       /** Chanining the request to both of Catalogues and Spendings
        * Catalogues list is need when add spending
        */
@@ -90,6 +91,8 @@ export default function Spending() {
             dispatch
           ),
         ]);
+
+        if (catalogues.result === 0) setIsNoCatalogue(false);
 
         setSpendingData(spendings.data.data);
         setCatalogueData(catalogues.data.data);
@@ -197,22 +200,24 @@ export default function Spending() {
     []
   );
 
-  if (isLoading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
-  }
-
   return (
     <div className="relative">
       {/* Banner */}
       <PageTransition>
-        {!catalogueData[0] ? (
-          <NoCatalogueError />
+        {isLoading ? (
+          <Loader />
         ) : (
           <>
+            {/* Warning */}
+            <div
+              className={`flex justify-center ${
+                isNoCatalogue ? 'hidden' : 'block'
+              } duration-300`}
+            >
+              <h2 className="rounded-md px-2 text-sm text-white bg-rose-500">
+                You must have at least one catalogue item to continue.
+              </h2>
+            </div>
             <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}
               <AddDialogForm

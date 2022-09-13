@@ -53,7 +53,7 @@ export default function Dashboard() {
               title={'Balance'}
               amount={data.balance}
               icon={<MdBarChart />}
-              iconColor={'text-blue-500'}
+              iconColor={'text-orange-500'}
             />
             <SummaryCard
               title={'Incomes'}

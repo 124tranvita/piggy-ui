@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import LineChart from '../Charts/LineChart';
 import tailwindConfig from '../../utils/tailwindConfig';
 import { RiLineChartLine } from 'react-icons/ri';
@@ -10,9 +11,14 @@ const last15days = new Date(new Date().setDate(new Date().getDate() - 15));
 const labels = getDatesInRange(last15days, today);
 
 export default function LineChartCard({ incomes, spendings }) {
+  const [incomeData, setIncomeData] = useState([]);
+  const [spendingData, setSpendingData] = useState([]);
+
   /**Map the data to the chart's labels */
-  const incomeData = getDataByLabel(labels, incomes);
-  const spendingData = getDataByLabel(labels, spendings);
+  useMemo(() => {
+    setIncomeData(getDataByLabel(labels, incomes));
+    setSpendingData(getDataByLabel(labels, spendings));
+  }, [incomes, spendings]);
 
   /**Define the chart's data */
   const chartData = {

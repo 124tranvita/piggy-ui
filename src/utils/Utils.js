@@ -66,15 +66,11 @@ export const getDataByLabel = (labels, data) => {
     matchByCreateAtArr.push(matchByCreateAtObj[property]);
   }
 
-  // console.log('ENHANCED DATA: ', matchByCreateAtArr);
-
   for (let value of labels) {
     value = dateFormat(value, 'yyyy-mm-dd');
     const result = matchByCreateAtArr.filter(
       (el) => dateFormat(el.createAt, 'yyyy-mm-dd') === value
     );
-
-    console.log('RESULT: ', result);
 
     if (result[0]) {
       dataArray.push(result[0].price ?? result[0].amount);
@@ -82,8 +78,6 @@ export const getDataByLabel = (labels, data) => {
       dataArray.push(0);
     }
   }
-
-  // console.log('FINAL DATA: ', dataArray);
 
   return dataArray;
 };
