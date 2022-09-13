@@ -45,17 +45,45 @@ export const getDatesInRange = (startDate, endDate) => {
 
 export const getDataByLabel = (labels, data) => {
   const dataArray = [];
+  const matchByCreateAtArr = [];
 
-  for (const value of labels) {
-    const labelDay = dateFormat(value, 'yyyy-mm-dd');
-    const result = data.find((el) => el.day === labelDay);
+  // console.log('FUNCTION DATA: ', data);
+  // console.log('FUNCTION LABEL: ', labels);
 
-    if (result) {
-      dataArray.push(result.sumAmount);
+  const matchByCreateAtObj = data.reduce((obj, { createAt, amount, price }) => {
+    if (amount) {
+      obj[createAt] = obj[createAt] || { createAt, amount };
+      obj[createAt].amount = obj[createAt].amount + amount;
+    } else {
+      obj[createAt] = obj[createAt] || { createAt, price };
+      obj[createAt].price = obj[createAt].price + price;
+    }
+
+    return obj;
+  }, {});
+
+  for (const property in matchByCreateAtObj) {
+    matchByCreateAtArr.push(matchByCreateAtObj[property]);
+  }
+
+  // console.log('ENHANCED DATA: ', matchByCreateAtArr);
+
+  for (let value of labels) {
+    value = dateFormat(value, 'yyyy-mm-dd');
+    const result = matchByCreateAtArr.filter(
+      (el) => dateFormat(el.createAt, 'yyyy-mm-dd') === value
+    );
+
+    console.log('RESULT: ', result);
+
+    if (result[0]) {
+      dataArray.push(result[0].price ?? result[0].amount);
     } else {
       dataArray.push(0);
     }
   }
+
+  // console.log('FINAL DATA: ', dataArray);
 
   return dataArray;
 };

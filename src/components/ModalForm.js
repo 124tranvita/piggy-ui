@@ -38,22 +38,17 @@ export const UpdateModalForm = ({
   const pathURL = `${path}/${data.id ?? data._id}`;
 
   const handleSubmit = async (value) => {
-    try {
-      setIsLoading(true);
-      const result = await patchData(pathURL, user.token, value, dispatch);
-      fn(result.data.data);
-      setIsLoading(false);
-    } catch (error) {
-      const data = {
-        status: 'failed',
-        timestamp: new Date().toISOString(),
-        unread: true,
-        message: `Server unavailable. ${error.message} data.`,
-      };
+    setIsLoading(true);
+    const result = await patchData(pathURL, user.token, value, dispatch);
 
-      dispatch({ type: 'ADD', payload: data });
+    if (!result) {
       setIsLoading(false);
+      closeModal();
     }
+
+    fn(result.data.data);
+    setIsLoading(false);
+    //
     // setIsLoading(true);
 
     // patchData(pathURL, user.token, value, dispatch)

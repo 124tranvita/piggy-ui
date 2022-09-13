@@ -4,9 +4,9 @@ import dateFormat from 'dateformat';
 import * as Yup from 'yup';
 import { MdOutlineTrendingDown } from 'react-icons/md';
 
-import Loader from '../components/Loader';
 import EditMenu from '../components/EditMenu';
 import SelectBox from '../components/SelectBox';
+import { Loader, NoDataPlaceHolder } from '../components/Loader';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -24,6 +24,7 @@ import {
   updateDataAfterPATCH,
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
+import { data } from 'autoprefixer';
 
 /** Formik initial configuration */
 const initialValues = {
@@ -196,12 +197,20 @@ export default function Spending() {
     []
   );
 
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
+
   return (
     <div className="relative">
       {/* Banner */}
       <PageTransition>
-        {isLoading ? (
-          <Loader />
+        {!spendingData[0] ? (
+          <NoDataPlaceHolder />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">

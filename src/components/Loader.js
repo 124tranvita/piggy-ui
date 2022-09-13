@@ -1,4 +1,6 @@
-export default function Loader() {
+import { TbFaceIdError } from 'react-icons/tb';
+
+export const Loader = () => {
   return (
     <div className="relative inset-0 z-50" aria-hidden="true">
       <div className="absolute inset-0 mx-auto flex items-center justify-center p-4">
@@ -26,7 +28,7 @@ export default function Loader() {
       </div>
     </div>
   );
-}
+};
 
 export const LoaderButton = () => {
   return (
@@ -49,6 +51,31 @@ export const LoaderButton = () => {
           />
         </svg>
       </div>{' '}
+    </>
+  );
+};
+
+export const NoDataPlaceHolder = () => {
+  /**Reload page */
+  function refreshPage() {
+    window.location.reload(false);
+  }
+  return (
+    <>
+      <div className="flex flex-col justify-center items-center h-screen80">
+        <div className=" text-6xl text-slate-800">
+          <TbFaceIdError />
+        </div>
+        <h1 className="font-bold text-xl text-slate-800">
+          Oops! Something went wrong!
+        </h1>
+        <button
+          onClick={refreshPage}
+          className="btn border-1 py-2 px-4 rounded-md bg-rose-500 hover:bg-rose-400 text-white mt-4"
+        >
+          Reload
+        </button>
+      </div>
     </>
   );
 };

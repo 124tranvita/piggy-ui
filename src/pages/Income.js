@@ -5,8 +5,8 @@ import { Menu } from '@headlessui/react';
 import { MdOutlineTrendingUp } from 'react-icons/md';
 
 import EditMenu from '../components/EditMenu';
-import Loader from '../components/Loader';
 import SelectBox from '../components/SelectBox';
+import { Loader, NoDataPlaceHolder } from '../components/Loader';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
 import { TableAdvanced } from '../components/Table';
@@ -71,27 +71,11 @@ export default function Income() {
 
   /** Get data from the DB when the component is first load */
   useEffect(() => {
-    dispatch({ type: 'SET_ISLOADING', payload: true });
     getData(
       `incomes/from/${filterIncome.from}/to/${filterIncome.to}`,
       user.token,
       dispatch
-    )
-      .then((result) => {
-        setData(result.data.data);
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      })
-      .catch((error) => {
-        const data = {
-          status: 'failed',
-          timestamp: new Date().toISOString(),
-          unread: true,
-          message: `Server unavailable. ${error.message} data.`,
-        };
-
-        dispatch({ type: 'ADD', payload: data });
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      });
+    ).then((result) => setData(result.data.data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterIncome.from, filterIncome.to, user.token]);
 
@@ -154,11 +138,19 @@ export default function Income() {
     []
   );
 
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
+
   return (
     <div className="relative">
       <PageTransition>
-        {isLoading ? (
-          <Loader />
+        {!data[0] ? (
+          <NoDataPlaceHolder />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">

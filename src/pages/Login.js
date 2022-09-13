@@ -61,12 +61,14 @@ const Login = () => {
                   label="Email"
                   name="email"
                   type="email"
+                  disabled={isLoading}
                   className="bg-white appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-emerald-500"
                 />
                 {/* Password */}
                 <MyPasswordInput
                   label="Password"
                   name="password"
+                  disabled={isLoading}
                   eyeColor={'text-emerald-500'}
                   className="appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-emerald-600"
                 />

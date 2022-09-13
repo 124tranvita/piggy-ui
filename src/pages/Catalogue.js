@@ -7,8 +7,8 @@ import { MdOutlineList } from 'react-icons/md';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNotificationContext } from '../hooks/useNotificationContext';
 
-import Loader from '../components/Loader';
 import EditMenu from '../components/EditMenu';
+import { Loader, NoDataPlaceHolder } from '../components/Loader';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -22,7 +22,7 @@ import {
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
 
-/** Configure for Add item Formik */
+/** Formik initial settings for adding catalogue item*/
 const initialValues = {
   name: '',
 };
@@ -35,20 +35,24 @@ const validationSchema = Yup.object({
 });
 
 export default function Catalogue() {
+  /**Get contexts states */
   const { user } = useAuthContext();
   const { isLoading, dispatch } = useNotificationContext();
 
+  /**State to set data from API response */
   const [data, setData] = useState([]);
 
+  /**Sort the data array by createAt value */
   data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
 
   /** Track openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  /** Set the row data when click on table row */
+  /** State to set the row data when click on table row */
   const [rowData, setRowData] = useState({});
 
+  /**Handler function to open/close modal and set the row data */
   const handleOpenUpdateModal = (row) => {
     setRowData(row);
     setOpenModal(true);
@@ -59,25 +63,11 @@ export default function Catalogue() {
     setOpenConfirm(true);
   };
 
-  /** Get data from the DB when the component is first load */
+  /** Get catalogues data from server */
   useEffect(() => {
-    dispatch({ type: 'SET_ISLOADING', payload: true });
-    getData(`catalogues`, user.token, dispatch)
-      .then((result) => {
-        setData(result.data.data);
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      })
-      .catch((error) => {
-        const data = {
-          status: 'failed',
-          timestamp: new Date().toISOString(),
-          unread: true,
-          message: `Server unavailable. ${error.message} data.`,
-        };
-
-        dispatch({ type: 'ADD', payload: data });
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      });
+    getData(`catalogues`, user.token, dispatch).then((result) => {
+      setData(result.data.data);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
 
@@ -125,11 +115,18 @@ export default function Catalogue() {
     []
   );
 
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
   return (
     <div className="relative">
       <PageTransition>
-        {isLoading ? (
-          <Loader />
+        {!data[0] ? (
+          <NoDataPlaceHolder />
         ) : (
           <>
             <div className="flex justify-end absolute right-0 top-10">
