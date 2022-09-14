@@ -57,7 +57,7 @@ export default function Spending() {
   const [catalogueData, setCatalogueData] = useState([]);
 
   /**State to check if user already have an item in catalogues or not */
-  const [isNoCatalogue, setIsNoCatalogue] = useState(true);
+  const [isNoCatalogue, setIsNoCatalogue] = useState(false);
 
   /**Sort the data array by createAt value */
   spendingData.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
@@ -96,7 +96,7 @@ export default function Spending() {
       ]);
 
       /**Check user's catalogue's item */
-      if (catalogues.result === 0) setIsNoCatalogue(false);
+      if (catalogues.result === 0) setIsNoCatalogue(true);
 
       setSpendingData(spendings.data.data);
       setCatalogueData(catalogues.data.data);
@@ -200,7 +200,7 @@ export default function Spending() {
             {/* Catalogue's item warning */}
             <div
               className={`flex justify-center ${
-                isNoCatalogue ? 'hidden' : 'block'
+                isNoCatalogue ? 'block' : 'hidden'
               } duration-300`}
             >
               <h2 className="rounded-md px-2 text-sm text-white bg-rose-500">
@@ -219,6 +219,7 @@ export default function Spending() {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
+                disabled={isNoCatalogue}
               >
                 <MyTextInput
                   label="Name"

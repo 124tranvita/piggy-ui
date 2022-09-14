@@ -103,13 +103,19 @@ export const ConfirmModal = ({ isOpen, setIsOpen, path, id, fn }) => {
 
   const pathURL = `${path}/${id}`;
 
-  const handleDelete = (value) => {
+  const handleDelete = async (value) => {
     setIsLoading(true);
 
-    deleteData(pathURL, user.token, dispatch).then((result) => {
-      fn(id);
+    const result = await deleteData(pathURL, user.token, dispatch);
+
+    if (!result) {
       setIsLoading(false);
-    });
+      closeModal();
+      return;
+    }
+
+    fn(id);
+    setIsLoading(false);
 
     closeModal();
   };

@@ -88,17 +88,7 @@ export const postData = async (path, token, value, dispatch) => {
 
     return data;
   } catch (error) {
-    /**Add additional information to error object */
-    const enhancedErrData = {
-      status: 500,
-      timestamp: new Date().toISOString(),
-      unread: true,
-    };
-
-    /**Dispatch error data to NotificationContext */
-    dispatch({ type: 'ADD', payload: enhancedErrData });
-    /**Show toast notification */
-    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
+    console.log(error.message);
   }
 };
 
@@ -138,19 +128,11 @@ export const deleteData = async (path, token, dispatch) => {
     /**Show toast notification */
     dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
 
+    console.log('DELETE FETCH DATA: ', data);
+
     return data;
   } catch (error) {
-    /**Add additional information to error object */
-    const enhancedErrData = {
-      status: 500,
-      timestamp: new Date().toISOString(),
-      unread: true,
-    };
-
-    /**Dispatch error data to NotificationContext */
-    dispatch({ type: 'ADD', payload: enhancedErrData });
-    /**Show toast notification */
-    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
+    console.log(error.message);
   }
 };
 
@@ -191,16 +173,17 @@ export const patchData = async (path, token, value, dispatch) => {
 
     return data;
   } catch (error) {
-    /**Add additional information to error object */
-    const enhancedErrData = {
-      status: 500,
-      timestamp: new Date().toISOString(),
-      unread: true,
-    };
+    console.log(error.message);
+    // /**Add additional information to error object */
+    // const enhancedErrData = {
+    //   status: 500,
+    //   timestamp: new Date().toISOString(),
+    //   unread: true,
+    // };
 
-    /**Dispatch error data to NotificationContext */
-    dispatch({ type: 'ADD', payload: enhancedErrData });
-    /**Show toast notification */
-    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
+    // /**Dispatch error data to NotificationContext */
+    // dispatch({ type: 'ADD', payload: enhancedErrData });
+    // /**Show toast notification */
+    // dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
   }
 };

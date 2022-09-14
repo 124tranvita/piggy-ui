@@ -20,7 +20,8 @@ export const notificationReducer = (state, action) => {
       return {
         ...state,
         notif: state.notif.map((el) => {
-          return { ...el, unread: false };
+          el.unread = false;
+          return el;
         }),
       };
     case 'CLEAR':
