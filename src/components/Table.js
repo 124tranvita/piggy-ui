@@ -516,52 +516,51 @@ export const TableAdvanced = ({
             }
           </thead>
           {/* Apply the table body props */}
-          {!data[0] ? (
-            <tbody className="flex justify-start mt-5 text-slate-500 text-xs">
-              No data found!
-            </tbody>
-          ) : (
-            <tbody
-              {...getTableBodyProps()}
-              className="text-sm font-medium divide-y divide-slate-100"
-            >
-              {
-                // Loop over the table rows
-                page.map((row) => {
-                  // Prepare the row for display
-                  prepareRow(row);
-                  return (
-                    // Apply the row props
-                    <tr
-                      {...row.getRowProps()}
-                      className="bg-white hover:bg-slate-100"
-                    >
-                      {
-                        // Loop over the rows cells
-                        row.cells.map((cell) => {
-                          // Apply the cell props
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              className="p-2 text-sm font-normal"
-                            >
-                              {
-                                // Render the cell contents
-                                cell.render('Cell')
-                              }
-                            </td>
-                          );
-                        })
-                      }
-                    </tr>
-                  );
-                })
-              }
-            </tbody>
-          )}
+          <tbody
+            {...getTableBodyProps()}
+            className="text-sm font-medium divide-y divide-slate-100"
+          >
+            {
+              // Loop over the table rows
+              page.map((row) => {
+                // Prepare the row for display
+                prepareRow(row);
+                return (
+                  // Apply the row props
+                  <tr
+                    {...row.getRowProps()}
+                    className="bg-white hover:bg-slate-100"
+                  >
+                    {
+                      // Loop over the rows cells
+                      row.cells.map((cell) => {
+                        // Apply the cell props
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            className="p-2 text-sm font-normal"
+                          >
+                            {
+                              // Render the cell contents
+                              cell.render('Cell')
+                            }
+                          </td>
+                        );
+                      })
+                    }
+                  </tr>
+                );
+              })
+            }
+          </tbody>
         </table>
 
         <div className="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between">
+          {!data[0] && (
+            <div className="text-sm mb-3 text-slate-800">
+              No record was found!
+            </div>
+          )}
           <span className="text-xs xs:text-sm text-gray-900">
             Showing{' '}
             <strong>

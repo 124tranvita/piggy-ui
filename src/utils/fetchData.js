@@ -20,10 +20,12 @@ export const getData = async (path, token, dispatch) => {
     /**Check if response ok or not */
     if (!response.ok) {
       /**Add aditional information to response object */
-      data.timestamp = new Date().toISOString();
-      data.unread = true;
+      response.timestamp = new Date().toISOString();
+      response.unread = true;
       /**Dispatch response data to NotificationContext */
-      dispatch({ type: 'ADD', payload: data });
+      dispatch({ type: 'ADD', payload: response });
+      /**Show toast notification */
+      dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
 
@@ -34,16 +36,17 @@ export const getData = async (path, token, dispatch) => {
   } catch (error) {
     /**Add additional information to error object */
     const enhancedErrData = {
-      status: 'failed',
+      status: 500,
       timestamp: new Date().toISOString(),
       unread: true,
-      message: `Server unavailable. ${error.message} data.`,
     };
 
-    /**Dispatch error data to NotificationContext */
-    dispatch({ type: 'ADD', payload: enhancedErrData });
     /**Set global isLoading to false */
     dispatch({ type: 'SET_ISLOADING', payload: false });
+    /**Dispatch error data to NotificationContext */
+    dispatch({ type: 'ADD', payload: enhancedErrData });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
   }
 };
 
@@ -66,31 +69,36 @@ export const postData = async (path, token, value, dispatch) => {
     /**Check if response ok or not */
     if (!response.ok) {
       /**Add aditional information to response object */
-      data.timestamp = new Date().toISOString();
-      data.unread = true;
+      response.timestamp = new Date().toISOString();
+      response.unread = true;
       /**Dispatch response data to NotificationContext */
-      dispatch({ type: 'ADD', payload: data });
+      dispatch({ type: 'ADD', payload: response });
+      /**Show toast notification */
+      dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
 
     /**Add aditional information to response object */
-    data.timestamp = new Date().toISOString();
-    data.unread = true;
+    response.timestamp = new Date().toISOString();
+    response.unread = true;
     /**Dispatch response data to NotificationContext */
-    dispatch({ type: 'ADD', payload: data });
+    dispatch({ type: 'ADD', payload: response });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
 
     return data;
   } catch (error) {
     /**Add additional information to error object */
     const enhancedErrData = {
-      status: 'failed',
+      status: 500,
       timestamp: new Date().toISOString(),
       unread: true,
-      message: `Server unavailable. ${error.message} data.`,
     };
 
     /**Dispatch error data to NotificationContext */
     dispatch({ type: 'ADD', payload: enhancedErrData });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
   }
 };
 
@@ -112,34 +120,37 @@ export const deleteData = async (path, token, dispatch) => {
     /**Check if response ok or not */
     if (!response.ok) {
       /**Add aditional information to response object */
-      data.timestamp = new Date().toISOString();
-      data.unread = true;
+      response.timestamp = new Date().toISOString();
+      response.unread = true;
       /**Dispatch response data to NotificationContext */
-      dispatch({ type: 'ADD', payload: data });
+      dispatch({ type: 'ADD', payload: response });
+      /**Show toast notification */
+      dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
 
     /**Create notification object as DELETE not response anything */
-    const notif = {
-      status: data.status,
-      timestamp: new Date().toISOString(),
-      unread: true,
-    };
+    response.timestamp = new Date().toISOString();
+    response.unread = true;
+
     /**Dispatch notification data to NotificationContext */
-    dispatch({ type: 'ADD', payload: notif });
+    dispatch({ type: 'ADD', payload: response });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
 
     return data;
   } catch (error) {
     /**Add additional information to error object */
     const enhancedErrData = {
-      status: 'failed',
+      status: 500,
       timestamp: new Date().toISOString(),
       unread: true,
-      message: `Server unavailable. ${error.message} data.`,
     };
 
     /**Dispatch error data to NotificationContext */
     dispatch({ type: 'ADD', payload: enhancedErrData });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
   }
 };
 
@@ -161,30 +172,35 @@ export const patchData = async (path, token, value, dispatch) => {
     /**Check if response ok or not */
     if (!response.ok) {
       /**Add aditional information to response object */
-      data.timestamp = new Date().toISOString();
-      data.unread = true;
+      response.timestamp = new Date().toISOString();
+      response.unread = true;
       /**Dispatch response data to NotificationContext */
-      dispatch({ type: 'ADD', payload: data });
+      dispatch({ type: 'ADD', payload: response });
+      /**Show toast notification */
+      dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
 
     /**Add aditional information to response object */
-    data.timestamp = new Date().toISOString();
-    data.unread = true;
+    response.timestamp = new Date().toISOString();
+    response.unread = true;
     /**Dispatch response data to NotificationContext */
-    dispatch({ type: 'ADD', payload: data });
+    dispatch({ type: 'ADD', payload: response });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
 
     return data;
   } catch (error) {
     /**Add additional information to error object */
     const enhancedErrData = {
-      status: 'failed',
+      status: 500,
       timestamp: new Date().toISOString(),
       unread: true,
-      message: `Server unavailable. ${error.message} data.`,
     };
 
     /**Dispatch error data to NotificationContext */
     dispatch({ type: 'ADD', payload: enhancedErrData });
+    /**Show toast notification */
+    dispatch({ type: 'SET_ISTOASTOPEN', payload: true });
   }
 };

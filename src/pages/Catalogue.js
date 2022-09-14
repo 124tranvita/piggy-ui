@@ -22,7 +22,7 @@ import {
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
 
-/** Formik initial settings for adding catalogue item*/
+/**Formik initial settings for adding catalogue item*/
 const initialValues = {
   name: '',
 };
@@ -45,11 +45,11 @@ export default function Catalogue() {
   /**Sort the data array by createAt value */
   data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
 
-  /** Track openUpdateModal and openDeleteConfirmModal */
+  /** rack openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  /** State to set the row data when click on table row */
+  /**State to set the row data when click on table row */
   const [rowData, setRowData] = useState({});
 
   /**Handler function to open/close modal and set the row data */
@@ -63,7 +63,7 @@ export default function Catalogue() {
     setOpenConfirm(true);
   };
 
-  /** Get catalogues data from server */
+  /**Get catalogues data from server */
   useEffect(() => {
     getData(`catalogues`, user.token, dispatch).then((result) => {
       setData(result.data.data);
@@ -71,6 +71,7 @@ export default function Catalogue() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
 
+  /**Define the columns for react-table */
   const columns = useMemo(
     () => [
       {

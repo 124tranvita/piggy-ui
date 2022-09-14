@@ -25,7 +25,7 @@ import {
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
 
-/** Configure for Add item Formik */
+/**Formik initial settings for adding income item */
 const initialValues = {
   name: '',
   createAt: dateFormat(new Date(), 'yyyy-mm-dd'),
@@ -43,22 +43,25 @@ const validationSchema = Yup.object({
 });
 
 export default function Income() {
+  /**Get contexts states */
   const { user } = useAuthContext();
   const { filterIncome } = useFilterContext();
   const { isLoading, dispatch } = useNotificationContext();
 
+  /**State to set data from API response */
   const [data, setData] = useState([]);
 
-  /** Re-sort the data by data createAt */
+  /**Sort the data array by createAt value */
   data.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
 
-  /** Track openUpdateModal and openDeleteConfirmModal */
+  /**Track openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  /** Set the row data when click on table row */
+  /**State to set the row data when click on table row */
   const [rowData, setRowData] = useState({});
 
+  /**Handler function to open/close modal and set the row data */
   const handleOpenUpdateModal = (row) => {
     setRowData(row);
     setOpenModal(true);
@@ -69,7 +72,7 @@ export default function Income() {
     setOpenConfirm(true);
   };
 
-  /** Get data from the DB when the component is first load */
+  /** Get incomes data from server */
   useEffect(() => {
     getData(
       `incomes/from/${filterIncome.from}/to/${filterIncome.to}`,
@@ -79,7 +82,7 @@ export default function Income() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterIncome.from, filterIncome.to, user.token]);
 
-  /** Define the table columns for incomes data */
+  /**Define the columns for react-table */
   const columns = useMemo(
     () => [
       {

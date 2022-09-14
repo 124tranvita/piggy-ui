@@ -7,7 +7,6 @@ import { MdOutlineTrendingDown } from 'react-icons/md';
 import EditMenu from '../components/EditMenu';
 import SelectBox from '../components/SelectBox';
 import { Loader } from '../components/Loader';
-import { NoCatalogueError } from '../components/Error';
 import { TableAdvanced } from '../components/Table';
 import { AddDialogForm } from '../components/DialogForm';
 import { UpdateModalForm, ConfirmModal } from '../components/ModalForm';
@@ -26,7 +25,7 @@ import {
   updateDataAfterDELETE,
 } from '../utils/updateDataAfterFetch';
 
-/** Formik initial configuration */
+/**Formik initial settings for adding spending item */
 const initialValues = {
   name: '',
   createAt: dateFormat(new Date(), 'yyyy-mm-dd'),
@@ -48,24 +47,29 @@ const validationSchema = Yup.object({
 });
 
 export default function Spending() {
+  /**Get contexts states */
   const { user } = useAuthContext();
   const { isLoading, dispatch } = useNotificationContext();
   const { filterSpending } = useFilterContext();
 
+  /**State to set data from API response */
   const [spendingData, setSpendingData] = useState([]);
   const [catalogueData, setCatalogueData] = useState([]);
+
+  /**State to check if user already have an item in catalogues or not */
   const [isNoCatalogue, setIsNoCatalogue] = useState(true);
 
-  /** Re-sort the data by data createAt */
+  /**Sort the data array by createAt value */
   spendingData.sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
 
-  /** Track openUpdateModal and openDeleteConfirmModal */
+  /**Track openUpdateModal and openDeleteConfirmModal */
   const [openModal, setOpenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  /** Set the row data when click on table row */
+  /**State to set the row data when click on table row */
   const [rowData, setRowData] = useState({});
 
+  /**Handler function to open/close modal and set the row data */
   const handleOpenUpdateModal = (row) => {
     setRowData(row);
     setOpenModal(true);
@@ -76,47 +80,33 @@ export default function Spending() {
     setOpenConfirm(true);
   };
 
+  /** Get spendings data from server */
   useEffect(() => {
-    dispatch({ type: 'SET_ISLOADING', payload: true });
     const fetchData = async () => {
       /** Chanining the request to both of Catalogues and Spendings
        * Catalogues list is need when add spending
        */
-      try {
-        const [catalogues, spendings] = await Promise.all([
-          getData(`catalogues`, user.token, dispatch),
-          getData(
-            `spendings/from/${filterSpending.from}/to/${filterSpending.to}`,
-            user.token,
-            dispatch
-          ),
-        ]);
+      const [catalogues, spendings] = await Promise.all([
+        getData(`catalogues`, user.token, dispatch),
+        getData(
+          `spendings/from/${filterSpending.from}/to/${filterSpending.to}`,
+          user.token,
+          dispatch
+        ),
+      ]);
 
-        if (catalogues.result === 0) setIsNoCatalogue(false);
+      /**Check user's catalogue's item */
+      if (catalogues.result === 0) setIsNoCatalogue(false);
 
-        setSpendingData(spendings.data.data);
-        setCatalogueData(catalogues.data.data);
-
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      } catch (error) {
-        /** Add some more information for failed object then dispatch to NotificationContext */
-        const data = {
-          status: 'failed',
-          timestamp: new Date().toISOString(),
-          unread: true,
-          message: `Server unavailable. ${error.message} data.`,
-        };
-
-        dispatch({ type: 'ADD', payload: data });
-        dispatch({ type: 'SET_ISLOADING', payload: false });
-      }
+      setSpendingData(spendings.data.data);
+      setCatalogueData(catalogues.data.data);
     };
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSpending.from, filterSpending.to]);
 
-  /** Define the table columns for incomes data */
+  /**Define the columns for react-table */
   const columns = useMemo(
     () => [
       {
@@ -202,13 +192,12 @@ export default function Spending() {
 
   return (
     <div className="relative">
-      {/* Banner */}
       <PageTransition>
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            {/* Warning */}
+            {/* Catalogue's item warning */}
             <div
               className={`flex justify-center ${
                 isNoCatalogue ? 'hidden' : 'block'
@@ -218,6 +207,8 @@ export default function Spending() {
                 You must have at least one catalogue item to continue.
               </h2>
             </div>
+
+            {/* Main div */}
             <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}
               <AddDialogForm

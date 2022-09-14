@@ -27,6 +27,8 @@ export const notificationReducer = (state, action) => {
       return { ...state, notif: [] };
     case 'SET_ISLOADING':
       return { ...state, isLoading: action.payload };
+    case 'SET_ISTOASTOPEN':
+      return { ...state, isToastOpen: action.payload };
     default:
       return state;
   }
@@ -35,10 +37,11 @@ export const notificationReducer = (state, action) => {
 export const NotificationContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notificationReducer, {
     notif: [],
+    isToastOpen: false,
     isLoading: false,
   });
 
-  // console.log('NotificationContext state: ', state);
+  console.log('NotificationContext state: ', state);
 
   return (
     <NotificationContext.Provider value={{ ...state, dispatch }}>

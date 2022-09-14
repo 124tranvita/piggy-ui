@@ -26,10 +26,6 @@ export default function UserForm() {
       .min(4, 'Must be 4 characters or more. ')
       .required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
-    passwordCurrent: Yup.string().required('Required'),
-    password: Yup.string()
-      .min(8, 'Must be 8 characters or more.')
-      .required('Required'),
     passwordConfirm: Yup.string().oneOf(
       [Yup.ref('password'), null],
       'Passwords must match'
