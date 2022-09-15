@@ -116,12 +116,18 @@ export default function Catalogue() {
     []
   );
 
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
+
   return (
     <div className="relative">
       <PageTransition>
-        {isLoading ? (
-          <Loader />
-        ) : (
+        {data[0] && (
           <>
             <div className="flex justify-end absolute right-0 top-10">
               {/* Add item button */}

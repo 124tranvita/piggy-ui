@@ -57,7 +57,7 @@ export default function LineChartCard({ incomes, spendings }) {
         <div className="text-4xl mr-3 text-orange-500">
           <RiLineChartLine />
         </div>
-        <h2 className="font-semibold text-slate-800">Income/Spendings</h2>
+        <h2 className="font-semibold text-slate-800">Incomes/Spendings</h2>
         <div className="text-xs text-slate-400  px-2">(Last 15 days)</div>
       </header>
       {/* Chart built with Chart.js 3 */}

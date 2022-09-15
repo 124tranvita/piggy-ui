@@ -190,12 +190,18 @@ export default function Spending() {
     []
   );
 
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+      </>
+    );
+  }
+
   return (
     <div className="relative">
       <PageTransition>
-        {isLoading ? (
-          <Loader />
-        ) : (
+        {spendingData[0] && (
           <>
             {/* Catalogue's item warning */}
             <div
