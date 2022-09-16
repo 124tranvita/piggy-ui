@@ -28,12 +28,8 @@ export default function SummaryCard({ title, amount, icon, iconColor }) {
             <div className="flex items-start">
               <div className="text-3xl font-bold mr-2 text-slate-800 dark:text-slate-200">
                 {amount
-                  ? numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-                      amount
-                    )
-                  : numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-                      0
-                    )}
+                  ? numberFormat().format(amount)
+                  : numberFormat().format(0)}
               </div>
               {title.toLowerCase() === 'balance' && (
                 <div className={balanceBadge}>{balanceBadgeIcon}</div>

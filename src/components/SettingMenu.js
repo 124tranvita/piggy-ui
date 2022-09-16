@@ -11,13 +11,16 @@ export default function SettingMenu() {
   const [darkTheme, setDarkTheme] = useState(
     localStorage.getItem('theme') === 'dark' ? true : false
   );
+  const [isDollar, setIsDollar] = useState(
+    localStorage.getItem('currency') === 'usd' ? true : false
+  );
   const [enabled, setEnabled] = useState(false);
-
-  console.log('SETTING ENABLED: ', darkTheme);
 
   const handleSubmit = () => {
     localStorage.setItem('theme', darkTheme ? 'dark' : 'light');
-    alert('Save');
+    localStorage.setItem('currency', isDollar ? 'usd' : 'vnd');
+
+    window.location.reload();
   };
 
   return (
@@ -32,16 +35,16 @@ export default function SettingMenu() {
         <NavMenuTransition>
           <Menu.Items className="absolute right-0 mt-2 w-52 origin-top-right rounded-md text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="flex justify-between items-center mx-4">
-              <p className="text-sm mx-4 font-semibold">Dark theme</p>
+              <p className="text-sm font-semibold">Dark theme</p>
               <Toggle enabled={darkTheme} setEnabled={setDarkTheme} />
             </div>
             <div className="flex justify-between items-center mx-4">
-              <p className="text-sm mx-4 font-semibold">English</p>
+              <p className="text-sm font-semibold">English</p>
               <Toggle enabled={enabled} setEnabled={setEnabled} />
             </div>
             <div className="flex justify-between items-center mx-4">
-              <p className="text-sm mx-4 font-semibold">Currency</p>
-              <Toggle enabled={enabled} setEnabled={setEnabled} />
+              <p className="text-sm font-semibold">Currency ($)</p>
+              <Toggle enabled={isDollar} setEnabled={setIsDollar} />
             </div>
             <div className="flex flex-col items-center p-4">
               <button

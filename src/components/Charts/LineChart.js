@@ -49,10 +49,7 @@ export default function LineChart({ data, width, height }) {
             },
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) =>
-                numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-                  value
-                ),
+              callback: (value) => numberFormat().format(value),
             },
           },
           x: {
@@ -82,10 +79,7 @@ export default function LineChart({ data, width, height }) {
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              label: (context) =>
-                numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-                  context.parsed.y
-                ),
+              label: (context) => numberFormat().format(context.parsed.y),
             },
           },
         },

@@ -6,7 +6,7 @@ import { MdOutlineImportExport } from 'react-icons/md';
 export default function TableCard({ title, data, textColor }) {
   return (
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-slate-800">
-      <header className="flex items-center px-5 py-4 border-b border-slate-200">
+      <header className="flex items-center px-5 py-4 border-b border-slate-200 dark:border-slate-600">
         <div
           className={`text-4xl mr-3 ${
             title.toLowerCase() === 'incomes'
@@ -44,7 +44,7 @@ export default function TableCard({ title, data, textColor }) {
               </tr>
             </thead>
             {/* Table body */}
-            <tbody className="text-sm font-medium divide-y divide-slate-100 text-slate-800 dark:text-slate-200">
+            <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-600 text-slate-800 dark:text-slate-200">
               {/* Row */}
               {data &&
                 data.slice(0, 5).map((el) => (
@@ -71,10 +71,7 @@ export default function TableCard({ title, data, textColor }) {
                     <td className="p-2">
                       <div className={`text-center ${textColor}`}>
                         {el.amount === 0 || el.total === 0
-                          ? numberFormat({
-                              locale: 'vi-VN',
-                              currency: 'VND',
-                            }).format(0)
+                          ? numberFormat().format(0)
                           : numberFormat({
                               locale: 'vi-VN',
                               currency: 'VND',

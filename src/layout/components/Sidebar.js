@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: 'Dashboard', icon: <GoDashboard />, path: '/' },
+    { title: 'Dashboard', icon: <GoDashboard />, path: '/dashboard' },
     { title: 'Profile', icon: <CgProfile />, path: '/profile' },
     {
       title: 'Catalogues',

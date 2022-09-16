@@ -23,5 +23,4 @@ export const privatePages = [
   { page: <Income />, path: 'incomes' },
   { page: <Spending />, path: 'spendings' },
   { page: <Report />, path: 'reports' },
-  { page: <Error />, path: '*' },
 ];

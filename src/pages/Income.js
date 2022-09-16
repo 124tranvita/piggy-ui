@@ -104,13 +104,7 @@ export default function Income() {
         Header: 'Amount',
         accessor: 'amount',
         sortType: 'basic',
-        Cell: (props) => (
-          <div>
-            {numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
-              props.value
-            )}
-          </div>
-        ),
+        Cell: (props) => <div>{numberFormat().format(props.value)}</div>,
       },
       {
         Header: 'EDIT',

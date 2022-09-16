@@ -1,8 +1,16 @@
 // Create our number formatter.
-const numberFormat = ({ locale, currency }) => {
-  return new Intl.NumberFormat(locale, {
+const numberFormat = () => {
+  const isDollar = localStorage.getItem('currency') === 'usd' ? true : false;
+
+  // console.log('NUMBER FORMAT ISDOLLAR: ', isDollar);
+
+  const options = {
+    locale: isDollar ? 'en-US' : 'vi-VN',
+    currency: isDollar ? 'USD' : 'VND',
+  };
+  return new Intl.NumberFormat(options.locale, {
     style: 'currency',
-    currency: currency,
+    currency: options.currency,
   });
 };
 
