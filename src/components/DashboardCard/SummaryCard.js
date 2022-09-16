@@ -9,20 +9,24 @@ export default function SummaryCard({ title, amount, icon, iconColor }) {
   const balanceBadgeIcon = amount > 0 ? '\u2713' : 'x';
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white ">
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 ">
       <div className="px-5 pt-5 pb-2">
-        <div className="flex justify-between items-start mb-2 border-b-1">
+        <div className="flex justify-between items-start mb-2 border-b-1 dark:border-slate-600">
           {/* Icon */}
           <span className={`text-5xl ${iconColor}`}>{icon}</span>
           {/* Infor menu*/}
-          <div className="text-right text-slate-400 mb-3">
+          <div className="text-right mb-3 text-slate-400 dark:text-slate-200">
             <div className="mb-3">
-              <h2 className=" font-semibold text-slate-800">{title}</h2>
-              <p className="text-sm text-slate-400">(Latest 30 days)</p>
+              <h2 className=" font-semibold text-slate-800 dark:text-slate-200">
+                {title}
+              </h2>
+              <p className="text-sm text-slate-400 dark:text-slate-300">
+                (Latest 30 days)
+              </p>
             </div>
 
             <div className="flex items-start">
-              <div className="text-3xl font-bold text-slate-800 mr-2">
+              <div className="text-3xl font-bold mr-2 text-slate-800 dark:text-slate-200">
                 {amount
                   ? numberFormat({ locale: 'vi-VN', currency: 'VND' }).format(
                       amount

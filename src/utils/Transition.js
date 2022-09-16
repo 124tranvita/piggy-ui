@@ -29,10 +29,10 @@ export const DiaglogTransition = ({ children, isOpen, title }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg text-center mb-4 font-medium leading-6 text-gray-900"
+                    className="text-lg text-center mb-4 font-medium leading-6 text-gray-900 dark:text-gray-200"
                   >
                     {title}
                   </Dialog.Title>
@@ -49,17 +49,37 @@ export const DiaglogTransition = ({ children, isOpen, title }) => {
 
 export const PageTransition = ({ children }) => {
   return (
-    <Transition
-      appear={true}
-      show={true}
-      enter="transition-opacity ease-linear duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity ease-linear duration-300"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      {children}
-    </Transition>
+    <>
+      <Transition
+        appear={true}
+        show={true}
+        enter="transition-opacity ease-linear duration-300"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity ease-linear duration-300"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        {children}
+      </Transition>
+    </>
+  );
+};
+
+export const NavMenuTransition = ({ children }) => {
+  return (
+    <>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        {children}
+      </Transition>
+    </>
   );
 };

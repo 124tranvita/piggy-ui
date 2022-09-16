@@ -10,11 +10,6 @@ import {
 
 import { useAuthContext } from '../hooks/useAuthContext';
 
-const buttonGoToClassName =
-  'rounded-full bg-gray-200 px-2 py-1 mx-2 hover:bg-gray-400 cursor-pointer';
-const buttonNextClassName =
-  'rounded-full bg-gray-200 px-3 py-1 mx-2 hover:bg-gray-400 cursor-pointer';
-
 // Define a default UI for filtering
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -36,7 +31,7 @@ function GlobalFilter({
           onChange(e.target.value);
         }}
         placeholder={'Search'}
-        className="appearance-none border-b-1 block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+        className="appearance-none border-b-1 dark:border-slate-600 block pl-8 pr-6 py-2 w-full bg-white dark:bg-slate-800 text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
       />
     </span>
   );
@@ -68,7 +63,7 @@ export const TableBasic = ({ columns, data }) => {
     // Apply the table props
     <table
       {...getTableProps()}
-      className="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+      className="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:bg-slate-800"
     >
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         {
@@ -107,7 +102,7 @@ export const TableBasic = ({ columns, data }) => {
               // Apply the row props
               <tr
                 {...row.getRowProps()}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-800"
+                className="bg-white border-b dark:bg-slate-800 dark:border-gray-800"
               >
                 {
                   // Loop over the rows cells
@@ -270,28 +265,24 @@ export const TablePagination = ({ columns, catalogueId }) => {
         <button
           onClick={() => gotoPage(0)}
           disabled={!canPreviousPage}
-          className={buttonGoToClassName}
+          className=""
         >
           {'<<'}
         </button>{' '}
         <button
           onClick={() => previousPage()}
           disabled={!canPreviousPage}
-          className={buttonNextClassName}
+          className=""
         >
           {'<'}
         </button>{' '}
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className={buttonNextClassName}
-        >
+        <button onClick={() => nextPage()} disabled={!canNextPage} className="">
           {'>'}
         </button>{' '}
         <button
           onClick={() => gotoPage(pageCount - 1)}
           disabled={!canNextPage}
-          className={buttonGoToClassName}
+          className=""
         >
           {'>>'}
         </button>{' '}
@@ -351,8 +342,8 @@ export const TableAdvanced = ({
     canPreviousPage,
     canNextPage,
     pageOptions,
-    // pageCount,
-    // gotoPage,
+    pageCount,
+    gotoPage,
     nextPage,
     previousPage,
     setPageSize,
@@ -419,8 +410,8 @@ export const TableAdvanced = ({
       </pre> */}
 
       {/* Header of the table */}
-      <header className="flex items-center py-4 border-b border-slate-200">
-        <div className="flex items-center">
+      <header className="flex items-center py-4 border-b border-slate-200 dark:border-slate-600">
+        <div className="flex items-center text-slate-800 dark:text-slate-200">
           <div className={`text-4xl mr-3 ${iconTextColor}`}>{icon}</div>
           <h2 className="font-semibold">{title.toUpperCase()}</h2>
         </div>
@@ -452,7 +443,7 @@ export const TableAdvanced = ({
           {/* Select showing page */}
           <div className="relative mr-3">
             <select
-              className=" appearance-none h-full border-b-1 block w-full bg-white text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-slate-100"
+              className=" appearance-none h-full border-b-1 dark:border-slate-600 block w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-slate-100"
               value={pageSize}
               onChange={(e) => {
                 setPageSize(Number(e.target.value));
@@ -480,7 +471,7 @@ export const TableAdvanced = ({
       <div className="inline-block min-w-full overflow-hidden py-2">
         {/* w-full text-sm text-left text-gray-500 dark:text-gray-400 */}
         <table {...getTableProps()} className="table-auto w-full">
-          <thead className="text-xs uppercase text-slate-500 bg-slate-50 rounded-sm">
+          <thead className="text-xs uppercase text-slate-500 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 rounded-sm">
             {
               // Loop over the header rows
               headerGroups.map((headerGroup) => (
@@ -518,7 +509,7 @@ export const TableAdvanced = ({
           {/* Apply the table body props */}
           <tbody
             {...getTableBodyProps()}
-            className="text-sm font-medium divide-y divide-slate-100"
+            className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-600"
           >
             {
               // Loop over the table rows
@@ -529,7 +520,7 @@ export const TableAdvanced = ({
                   // Apply the row props
                   <tr
                     {...row.getRowProps()}
-                    className="bg-white hover:bg-slate-100"
+                    className="bg-white dark:bg-slate-800  hover:bg-slate-100 dark:text-slate-200"
                   >
                     {
                       // Loop over the rows cells
@@ -555,33 +546,47 @@ export const TableAdvanced = ({
           </tbody>
         </table>
 
-        <div className="px-5 py-5 bg-white flex flex-col xs:flex-row items-center xs:justify-between">
+        <div className="px-5 py-5 bg-white dark:bg-slate-800 flex flex-col xs:flex-row items-center xs:justify-between">
           {!data[0] && (
-            <div className="text-sm mb-3 text-slate-800">
+            <div className="text-sm mb-3 text-slate-800 dark:text-slate-200">
               No record was found!
             </div>
           )}
-          <span className="text-xs xs:text-sm text-gray-900">
+          <span className="text-xs xs:text-sm text-slate-800 dark:text-slate-200">
             Showing{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>{' '}
             entries
           </span>
-          <div className="inline-flex mt-2 xs:mt-0">
+          <div className="inline-flex mt-2 xs:mt-0 text-slate-800 dark:text-slate-200">
+            <button
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
+            >
+              {'<<'}
+            </button>{' '}
             <button
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
-              className="text-sm border-b-1 mx-2 cursor-pointer hover:text-gray-400 text-gray-800 font-semibold py-2 px-4"
+              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400  font-semibold py-2 px-4"
             >
               {'Prev'}
             </button>{' '}
             <button
               onClick={() => nextPage()}
               disabled={!canNextPage}
-              className="text-sm border-b-1 mx-2 cursor-pointer hover:text-gray-400 text-gray-800 font-semibold py-2 px-4"
+              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
             >
               {'Next'}
+            </button>
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
+            >
+              {'>>'}
             </button>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { MdOutlineImportExport } from 'react-icons/md';
 
 export default function TableCard({ title, data, textColor }) {
   return (
-    <div className="col-span-full xl:col-span-6 bg-white">
+    <div className="col-span-full xl:col-span-6 bg-white dark:bg-slate-800">
       <header className="flex items-center px-5 py-4 border-b border-slate-200">
         <div
           className={`text-4xl mr-3 ${
@@ -20,15 +20,17 @@ export default function TableCard({ title, data, textColor }) {
             <TbTableExport />
           )}
         </div>
-        <h2>{title}</h2>
-        <div className="text-xs text-slate-400  px-2">(last 5 records)</div>
+        <h2 className="dark:text-slate-200">{title}</h2>
+        <div className="text-xs px-2 text-slate-400 dark:text-slate-300">
+          (last 5 records)
+        </div>
       </header>
       <div className="p-3">
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="table-auto w-full">
             {/* Table header */}
-            <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
+            <thead className="text-xs uppercase rounded-sm text-slate-400 bg-slate-50 dark:text-slate-200 dark:bg-slate-800">
               <tr>
                 <th className="p-2">
                   <div className="font-semibold text-left">Source</div>
@@ -42,7 +44,7 @@ export default function TableCard({ title, data, textColor }) {
               </tr>
             </thead>
             {/* Table body */}
-            <tbody className="text-sm font-medium divide-y divide-slate-100">
+            <tbody className="text-sm font-medium divide-y divide-slate-100 text-slate-800 dark:text-slate-200">
               {/* Row */}
               {data &&
                 data.slice(0, 5).map((el) => (
@@ -58,7 +60,7 @@ export default function TableCard({ title, data, textColor }) {
                         >
                           <MdOutlineImportExport />
                         </div>
-                        <div className="text-slate-800">{el.name}</div>
+                        <div>{el.name}</div>
                       </div>
                     </td>
                     <td className="p-2">

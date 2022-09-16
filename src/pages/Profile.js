@@ -8,12 +8,14 @@ export default function Profile() {
   return (
     <div className="relative">
       <PageTransition>
-        <header className="flex items-center pt-8 pb-4 border-b border-slate-200">
+        <header className="flex items-center pt-8 pb-4 border-b border-slate-200 dark:border-slate-600">
           <div className="flex items-center">
             <div className="text-4xl mr-3 text-violet-500">
               <CgProfile />
             </div>
-            <h2 className="font-semibold">EDIT PROFILE</h2>
+            <h2 className="font-semibold text-slate-800 dark:text-slate-200">
+              EDIT PROFILE
+            </h2>
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-5">

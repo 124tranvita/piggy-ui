@@ -65,13 +65,15 @@ export default function SelectBox({ filter, actionType, ...props }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 mt-1 right-0 max-h-60 w-52 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 mt-1 right-0 max-h-60 w-52 overflow-auto rounded-md bg-white dark:bg-slate-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {options.map((el, index) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-green-100' : 'text-gray-900'
+                      active
+                        ? 'bg-green-100 dark:bg-slate-800'
+                        : 'text-gray-900'
                     }`
                   }
                   value={el}
@@ -81,7 +83,9 @@ export default function SelectBox({ filter, actionType, ...props }) {
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? 'font-semibold' : 'font-normal'
+                          selected
+                            ? 'font-semibold'
+                            : 'font-normal dark:text-slate-200'
                         }`}
                       >
                         {el.period}

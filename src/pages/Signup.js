@@ -2,11 +2,8 @@ import { Link } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import images from '../assets/images';
 import { LoaderButton } from '../components/Loader';
-
 import { useSignup } from '../hooks/useSignup';
-
 import { MyTextInput, MyPasswordInput } from '../utils/FormikField';
 
 /** Formik initial settings */
@@ -47,15 +44,10 @@ const Signup = () => {
   return (
     <>
       <div className="flex justify-between items-center pt-5 fixed inset-0">
-        <div className="w-full mb:w-1/2 hidden md:block duration-300">
-          <img src={images.signup} alt="login" className="w-full" />
-        </div>
-        <div className="w-full mb:w-1/2 flex justify-center">
-          <div className="w-2/3 lg:w-1/2">
+        <div className="w-full flex justify-center">
+          <div className=" w-72">
             <header className="flex justify-center text-center font-bold text-2xl mb-10 text-violet-500">
-              <h1>
-                PiGGY, <br /> the happiness!
-              </h1>
+              <h1>Sign in, to begin</h1>
             </header>
             {/* Display error */}
             {error && (

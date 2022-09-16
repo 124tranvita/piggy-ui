@@ -8,7 +8,7 @@ import {
 import TableCard from '../components/DashboardCard/TableCard';
 import SummaryCard from '../components/DashboardCard/SummaryCard';
 import LineChartCard from '../components/DashboardCard/LineChartCard';
-import DoughnutChartCard from '../components/DashboardCard/DoughnutChartCard';
+// import DoughnutChartCard from '../components/DashboardCard/DoughnutChartCard';
 import { Loader } from '../components/Loader';
 import { NoDataError } from '../components/Error';
 
@@ -84,7 +84,7 @@ export default function Dashboard() {
             />
 
             {/* Doughnut Chart */}
-            <DoughnutChartCard />
+            {/* <DoughnutChartCard /> */}
           </div>
         )}
       </PageTransition>

@@ -59,7 +59,7 @@ export default function EditMenu({ children, ...rest }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute z-10 top-8 -right-2 mt-2 w-40 origin-top-right rounded-md divide-y divide-gray-100 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute z-10 top-8 -right-2 mt-2 w-40 origin-top-right rounded-md divide-y divide-slate-200 dark:divide-slate-600 bg-white dark:bg-slate-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           {children}
         </Menu.Items>
       </Transition>

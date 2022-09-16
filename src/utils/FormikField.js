@@ -89,7 +89,7 @@ export const MyPasswordInput = ({ label, eyeColor, ...props }) => {
 
         <span
           className={`absolute right-1 cursor-pointer top-10 ${
-            eyeColor ? eyeColor : 'text-violet-600'
+            eyeColor ? eyeColor : 'text-violet-600 dark:text-slate-200'
           }`}
           onClick={() => setShowPassword(!showPassword)}
         >

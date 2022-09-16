@@ -13,7 +13,7 @@ function App() {
           <Route
             key={index}
             path={page.path}
-            element={!user ? <>{page.page}</> : <Navigate to="/" />}
+            element={!user ? <>{page.page}</> : <Navigate to="/dashboard" />}
           />
         ))}
 

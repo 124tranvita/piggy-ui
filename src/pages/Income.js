@@ -161,7 +161,7 @@ export default function Income() {
                 fn={(result) => updateDataAfterPOST(result, setData, data)}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
+                className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center"
               >
                 <MyTextInput
                   label="Name"
@@ -177,7 +177,7 @@ export default function Income() {
               <SelectBox
                 filter={filterIncome}
                 actionType={'SET_INCOME'}
-                className="bg-white text-slate-500 hover:text-slate-600 flex items-center mx-4"
+                className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center mx-4"
               />
             </div>
 

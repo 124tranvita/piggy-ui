@@ -7,6 +7,8 @@ import { TbTableImport, TbTableExport, TbReport } from 'react-icons/tb';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 
 export default function Sidebar() {
+  const theme = localStorage.getItem('theme');
+
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: 'Dashboard', icon: <GoDashboard />, path: '/' },
@@ -26,7 +28,7 @@ export default function Sidebar() {
     <div
       className={`${
         open ? 'w-20 md:w-64 ' : 'w-20 -ml-20 md:ml-0'
-      } duration-300 h-screen p-5 pt-5 relative bg-white z-20 border-r-1`}
+      } duration-300 h-screen p-5 pt-5 relative bg-white dark:bg-slate-900 z-20 border-r-1 dark:border-slate-800`}
     >
       {/* <img
         src={images.control}
@@ -37,7 +39,7 @@ export default function Sidebar() {
         onClick={() => setOpen(!open)}
       /> */}
       <div
-        className={`absolute cursor-pointer rounded-full -right-3 text-2xl text-blue-500 ${
+        className={`absolute cursor-pointer rounded-full -right-3 text-2xl text-blue-500 dark:text-slate-500 ${
           !open && 'rotate-180'
         }`}
         onClick={() => setOpen(!open)}
@@ -48,7 +50,7 @@ export default function Sidebar() {
       <div
         className={`flex gap-x-4 ${
           open ? 'justify-center' : ''
-        } items-center border-b-1 pb-2 duration-300`}
+        } items-center  pb-2 duration-300 border-b-1 dark:border-slate-500`}
       >
         <img
           src={images.logo}
@@ -69,12 +71,20 @@ export default function Sidebar() {
           <NavLink
             to={menu.path}
             key={index}
-            style={({ isActive }) => ({
-              color: '#1d4ed8',
-              opacity: isActive ? 1 : 0.7,
-              backgroundColor: isActive ? '#dbeafe' : '',
-            })}
-            className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 rounded-md ${
+            style={({ isActive }) =>
+              theme === 'dark'
+                ? {
+                    color: '#cbd5e1',
+                    opacity: isActive ? 1 : 0.7,
+                    backgroundColor: isActive ? '#334155' : '',
+                  }
+                : {
+                    color: '#6366f1',
+                    opacity: isActive ? 1 : 0.7,
+                    backgroundColor: isActive ? '#e2e8f0' : '',
+                  }
+            }
+            className={` text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-md ${
               menu.gap ? 'mt-9' : 'mt-2'
             }`}
           >

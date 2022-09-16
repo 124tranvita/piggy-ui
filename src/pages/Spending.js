@@ -224,7 +224,7 @@ export default function Spending() {
                 }
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="bg-white text-slate-500 hover:text-slate-600 flex items-center"
+                className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center"
                 disabled={isNoCatalogue}
               >
                 <MyTextInput
@@ -256,7 +256,7 @@ export default function Spending() {
               <SelectBox
                 filter={filterSpending}
                 actionType={'SET_SPENDING'}
-                className=" bg-white text-slate-500 hover:text-slate-600 flex items-center mx-4"
+                className=" bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center mx-4"
               />
             </div>
 
