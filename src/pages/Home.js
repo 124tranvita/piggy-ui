@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
 import {
   TbLayoutDashboard,
   TbTrendingUp,
   TbList,
   TbReport,
 } from 'react-icons/tb';
+
+import Login from '../components/Login';
+import Signup from '../components/Signup';
 
 import images from '../assets/images';
 
@@ -43,22 +45,8 @@ export default function Home() {
 
             {/* Login/Signup buttons */}
             <div>
-              <Link to="/login">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                >
-                  Sign in
-                </button>
-              </Link>
-              <Link to="/signup">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center items-center mt-4 ml-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                >
-                  Sign up
-                </button>
-              </Link>
+              <Login className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-500 text-sm font-medium text-blue-900 hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" />
+              <Signup className="inline-flex justify-center items-center ml-4 rounded-md border border-slate-500 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" />
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 import Layout from './layout';
 import { publicPages, privatePages } from './pages';
@@ -8,25 +8,27 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        {publicPages.map((page, index) => (
-          <Route
-            key={index}
-            path={page.path}
-            element={!user ? <>{page.page}</> : <Navigate to="/dashboard" />}
-          />
-        ))}
+      <HashRouter>
+        <Routes>
+          {publicPages.map((page, index) => (
+            <Route
+              key={index}
+              path={page.path}
+              element={!user ? <>{page.page}</> : <Navigate to="/dashboard" />}
+            />
+          ))}
 
-        {privatePages.map((page, index) => (
-          <Route
-            key={index}
-            path={page.path}
-            element={
-              user ? <Layout>{page.page}</Layout> : <Navigate to="/login" />
-            }
-          />
-        ))}
-      </Routes>
+          {privatePages.map((page, index) => (
+            <Route
+              key={index}
+              path={page.path}
+              element={
+                user ? <Layout>{page.page}</Layout> : <Navigate to="/login" />
+              }
+            />
+          ))}
+        </Routes>
+      </HashRouter>
     </div>
   );
 }

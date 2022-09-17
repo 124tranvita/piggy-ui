@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,15 +11,13 @@ import { FilterContextProvider } from './context/FilterContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HashRouter>
-      <AuthContextProvider>
-        <NotificationContextProvider>
-          <FilterContextProvider>
-            <App />
-          </FilterContextProvider>
-        </NotificationContextProvider>
-      </AuthContextProvider>
-    </HashRouter>
+    <AuthContextProvider>
+      <NotificationContextProvider>
+        <FilterContextProvider>
+          <App />
+        </FilterContextProvider>
+      </NotificationContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
