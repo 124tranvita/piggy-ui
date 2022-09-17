@@ -1,4 +1,5 @@
-export const PREFIX = 'http://192.168.1.236:4000/api/v1/';
+// export const PREFIX = 'http://192.168.1.236:4000/api/v1/';
+export const PREFIX = 'http://nezumi.asia:4000/api/v1/';
 
 /**GET REQUEST */
 export const getData = async (path, token, dispatch) => {

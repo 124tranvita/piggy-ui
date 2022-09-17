@@ -33,11 +33,10 @@ export const getDataByLabel = (labels, data) => {
   const dataArray = [];
   const matchByCreateAtArr = [];
 
-  console.log('FUNCTION DATA: ', data);
+  // console.log('FUNCTION DATA: ', data);
   // console.log('FUNCTION LABEL: ', labels);
 
   const matchByCreateAtObj = data.reduce((obj, { createAt, amount, price }) => {
-    console.log(createAt, amount, price);
     if (amount) {
       obj[createAt] = obj[createAt] || { createAt, amount: 0 };
       obj[createAt].amount = obj[createAt].amount + amount;
@@ -51,13 +50,13 @@ export const getDataByLabel = (labels, data) => {
     return obj;
   }, {});
 
-  console.log('MATCHED DATA OBJ: ', matchByCreateAtObj);
+  // console.log('MATCHED DATA OBJ: ', matchByCreateAtObj);
 
   for (const property in matchByCreateAtObj) {
     matchByCreateAtArr.push(matchByCreateAtObj[property]);
   }
 
-  console.log('MATCHED DATA ARR: ', matchByCreateAtArr);
+  // console.log('MATCHED DATA ARR: ', matchByCreateAtArr);
 
   for (let value of labels) {
     value = dateFormat(value, 'yyyy-mm-dd');
