@@ -127,70 +127,64 @@ export default function Catalogue() {
   return (
     <div className="relative">
       <PageTransition>
-        {data[0] && (
-          <>
-            <div className="flex justify-end absolute right-0 top-10">
-              {/* Add item button */}
-              <AddDialogForm
-                path={'catalogues'}
-                fn={(result) => updateDataAfterPOST(result, setData, data)}
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                className="bg-slate-50 text-slate-500 hover:text-slate-600 flex items-center dark:bg-slate-800 dark:text-slate-200 dark:hover:text-slate-500"
-              >
-                <MyTextInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Salary, Save, Loan..."
-                />
-              </AddDialogForm>
-            </div>
-
-            {/* Table data */}
-            <TableAdvanced
-              columns={columns}
-              data={data}
-              title={'Catalogues'}
-              icon={<MdOutlineList />}
-              iconTextColor={'text-orange-500'}
+        <div className="flex justify-end absolute right-0 top-10">
+          {/* Add item button */}
+          <AddDialogForm
+            path={'catalogues'}
+            fn={(result) => updateDataAfterPOST(result, setData, data)}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            className="bg-slate-50 text-slate-500 hover:text-slate-600 flex items-center dark:bg-slate-800 dark:text-slate-200 dark:hover:text-slate-500"
+          >
+            <MyTextInput
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="Salary, Save, Loan..."
             />
+          </AddDialogForm>
+        </div>
 
-            {/* Edit and Remove Modal */}
-            <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
-              {/* Edit modal */}
-              <UpdateModalForm
-                isOpen={openModal}
-                setIsOpen={setOpenModal}
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                path={'catalogues'}
-                data={rowData}
-                fn={(result) => updateDataAfterPATCH(result, setData, data)}
-              >
-                <MyTextInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Salary, Save, Loan..."
-                />
-              </UpdateModalForm>
-            </div>
+        {/* Table data */}
+        <TableAdvanced
+          columns={columns}
+          data={data}
+          title={'Catalogues'}
+          icon={<MdOutlineList />}
+          iconTextColor={'text-orange-500'}
+        />
 
-            {/* Delete modal */}
-            <div
-              className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}
-            >
-              <ConfirmModal
-                isOpen={openConfirm}
-                setIsOpen={setOpenConfirm}
-                path={'catalogues'}
-                id={rowData.id}
-                fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
-              />
-            </div>
-          </>
-        )}
+        {/* Edit and Remove Modal */}
+        <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
+          {/* Edit modal */}
+          <UpdateModalForm
+            isOpen={openModal}
+            setIsOpen={setOpenModal}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            path={'catalogues'}
+            data={rowData}
+            fn={(result) => updateDataAfterPATCH(result, setData, data)}
+          >
+            <MyTextInput
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="Salary, Save, Loan..."
+            />
+          </UpdateModalForm>
+        </div>
+
+        {/* Delete modal */}
+        <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
+          <ConfirmModal
+            isOpen={openConfirm}
+            setIsOpen={setOpenConfirm}
+            path={'catalogues'}
+            id={rowData.id}
+            fn={() => updateDataAfterDELETE(rowData.id, setData, data)}
+          />
+        </div>
       </PageTransition>
     </div>
   );
