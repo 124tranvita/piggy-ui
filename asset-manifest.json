@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/124tranvita/piggy-ui/static/css/main.a521a599.css",
-    "main.js": "/124tranvita/piggy-ui/static/js/main.fd055357.js",
-    "static/js/787.eeeca393.chunk.js": "/124tranvita/piggy-ui/static/js/787.eeeca393.chunk.js",
-    "static/media/signup.svg": "/124tranvita/piggy-ui/static/media/signup.ee70138ab93b05888d453b54280fd8ac.svg",
-    "static/media/error.svg": "/124tranvita/piggy-ui/static/media/error.4a2ab0d45519b2b077504f9531669300.svg",
-    "static/media/profile.svg": "/124tranvita/piggy-ui/static/media/profile.ad40cffe84b4b3e60bb8ca20b8f7aed9.svg",
-    "static/media/logo.svg": "/124tranvita/piggy-ui/static/media/logo.c3f02fc9c86706ca78eaaff5928b3042.svg",
-    "index.html": "/124tranvita/piggy-ui/index.html",
-    "main.a521a599.css.map": "/124tranvita/piggy-ui/static/css/main.a521a599.css.map",
-    "main.fd055357.js.map": "/124tranvita/piggy-ui/static/js/main.fd055357.js.map",
-    "787.eeeca393.chunk.js.map": "/124tranvita/piggy-ui/static/js/787.eeeca393.chunk.js.map"
+    "main.css": "/piggy-ui/static/css/main.a521a599.css",
+    "main.js": "/piggy-ui/static/js/main.5e3fce14.js",
+    "static/js/787.eeeca393.chunk.js": "/piggy-ui/static/js/787.eeeca393.chunk.js",
+    "static/media/signup.svg": "/piggy-ui/static/media/signup.ee70138ab93b05888d453b54280fd8ac.svg",
+    "static/media/error.svg": "/piggy-ui/static/media/error.4a2ab0d45519b2b077504f9531669300.svg",
+    "static/media/profile.svg": "/piggy-ui/static/media/profile.ad40cffe84b4b3e60bb8ca20b8f7aed9.svg",
+    "static/media/logo.svg": "/piggy-ui/static/media/logo.c3f02fc9c86706ca78eaaff5928b3042.svg",
+    "index.html": "/piggy-ui/index.html",
+    "main.a521a599.css.map": "/piggy-ui/static/css/main.a521a599.css.map",
+    "main.5e3fce14.js.map": "/piggy-ui/static/js/main.5e3fce14.js.map",
+    "787.eeeca393.chunk.js.map": "/piggy-ui/static/js/787.eeeca393.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a521a599.css",
-    "static/js/main.fd055357.js"
+    "static/js/main.5e3fce14.js"
   ]
 }
