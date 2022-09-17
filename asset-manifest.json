@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/124tranvita/piggy-ui/static/css/main.a521a599.css",
-    "main.js": "/124tranvita/piggy-ui/static/js/main.61ff3670.js",
+    "main.js": "/124tranvita/piggy-ui/static/js/main.fd055357.js",
     "static/js/787.eeeca393.chunk.js": "/124tranvita/piggy-ui/static/js/787.eeeca393.chunk.js",
     "static/media/signup.svg": "/124tranvita/piggy-ui/static/media/signup.ee70138ab93b05888d453b54280fd8ac.svg",
     "static/media/error.svg": "/124tranvita/piggy-ui/static/media/error.4a2ab0d45519b2b077504f9531669300.svg",
@@ -9,11 +9,11 @@
     "static/media/logo.svg": "/124tranvita/piggy-ui/static/media/logo.c3f02fc9c86706ca78eaaff5928b3042.svg",
     "index.html": "/124tranvita/piggy-ui/index.html",
     "main.a521a599.css.map": "/124tranvita/piggy-ui/static/css/main.a521a599.css.map",
-    "main.61ff3670.js.map": "/124tranvita/piggy-ui/static/js/main.61ff3670.js.map",
+    "main.fd055357.js.map": "/124tranvita/piggy-ui/static/js/main.fd055357.js.map",
     "787.eeeca393.chunk.js.map": "/124tranvita/piggy-ui/static/js/787.eeeca393.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a521a599.css",
-    "static/js/main.61ff3670.js"
+    "static/js/main.fd055357.js"
   ]
 }
