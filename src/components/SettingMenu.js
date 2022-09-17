@@ -27,7 +27,7 @@ export default function SettingMenu() {
     <>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="flex items-center bg-blue-500 dark:bg-slate-800 w-8 h-8 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
+          <Menu.Button className="flex items-center bg-slate-50 dark:bg-slate-800 w-8 h-8 text-2xl text-slate-800 dark:text-slate-200 rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
             <BsGear className="ml-1" />
           </Menu.Button>
         </div>

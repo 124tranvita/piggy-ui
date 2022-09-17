@@ -1,10 +1,4 @@
-import resolveConfig from 'tailwindcss/resolveConfig';
 import dateFormat from 'dateformat';
-
-export const tailwindConfig = () => {
-  // Tailwind config
-  return resolveConfig('./src/css/tailwind.config.js');
-};
 
 export const hexToRGB = (h) => {
   let r = 0;
@@ -21,14 +15,6 @@ export const hexToRGB = (h) => {
   }
   return `${+r},${+g},${+b}`;
 };
-
-export const formatValue = (value) =>
-  Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumSignificantDigits: 3,
-    notation: 'compact',
-  }).format(value);
 
 export const getDatesInRange = (startDate, endDate) => {
   const date = new Date(startDate.getTime());
@@ -47,24 +33,31 @@ export const getDataByLabel = (labels, data) => {
   const dataArray = [];
   const matchByCreateAtArr = [];
 
-  // console.log('FUNCTION DATA: ', data);
+  console.log('FUNCTION DATA: ', data);
   // console.log('FUNCTION LABEL: ', labels);
 
   const matchByCreateAtObj = data.reduce((obj, { createAt, amount, price }) => {
+    console.log(createAt, amount, price);
     if (amount) {
-      obj[createAt] = obj[createAt] || { createAt, amount };
+      obj[createAt] = obj[createAt] || { createAt, amount: 0 };
       obj[createAt].amount = obj[createAt].amount + amount;
-    } else {
-      obj[createAt] = obj[createAt] || { createAt, price };
+    }
+
+    if (price) {
+      obj[createAt] = obj[createAt] || { createAt, price: 0 };
       obj[createAt].price = obj[createAt].price + price;
     }
 
     return obj;
   }, {});
 
+  console.log('MATCHED DATA OBJ: ', matchByCreateAtObj);
+
   for (const property in matchByCreateAtObj) {
     matchByCreateAtArr.push(matchByCreateAtObj[property]);
   }
+
+  console.log('MATCHED DATA ARR: ', matchByCreateAtArr);
 
   for (let value of labels) {
     value = dateFormat(value, 'yyyy-mm-dd');

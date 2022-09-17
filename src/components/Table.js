@@ -31,7 +31,7 @@ function GlobalFilter({
           onChange(e.target.value);
         }}
         placeholder={'Search'}
-        className="appearance-none border-b-1 dark:border-slate-600 block pl-8 pr-6 py-2 w-full bg-white dark:bg-slate-800 text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+        className="appearance-none border-b-1 border-slate-300 dark:border-slate-600 block pl-8 pr-6 py-2 w-full bg-slate-50 dark:bg-slate-800 text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
       />
     </span>
   );
@@ -410,7 +410,7 @@ export const TableAdvanced = ({
       </pre> */}
 
       {/* Header of the table */}
-      <header className="flex items-center py-4 border-b border-slate-200 dark:border-slate-600">
+      <header className="flex items-center py-4 border-b border-slate-300 dark:border-slate-600">
         <div className="flex items-center text-slate-800 dark:text-slate-200">
           <div className={`text-4xl mr-3 ${iconTextColor}`}>{icon}</div>
           <h2 className="font-semibold">{title.toUpperCase()}</h2>
@@ -443,7 +443,7 @@ export const TableAdvanced = ({
           {/* Select showing page */}
           <div className="relative mr-3">
             <select
-              className=" appearance-none h-full border-b-1 dark:border-slate-600 block w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-slate-100"
+              className=" appearance-none h-full border-b-1 border-slate-300 dark:border-slate-600 block w-full bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-slate-100"
               value={pageSize}
               onChange={(e) => {
                 setPageSize(Number(e.target.value));
@@ -471,7 +471,7 @@ export const TableAdvanced = ({
       <div className="inline-block min-w-full overflow-hidden py-2">
         {/* w-full text-sm text-left text-gray-500 dark:text-gray-400 */}
         <table {...getTableProps()} className="table-auto w-full">
-          <thead className="text-xs uppercase text-slate-500 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 rounded-sm">
+          <thead className="text-xs uppercase text-slate-800 dark:text-slate-200 bg-slate-200 dark:bg-slate-900 rounded-sm">
             {
               // Loop over the header rows
               headerGroups.map((headerGroup) => (
@@ -509,7 +509,7 @@ export const TableAdvanced = ({
           {/* Apply the table body props */}
           <tbody
             {...getTableBodyProps()}
-            className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-600"
+            className="text-sm font-medium divide-y divide-slate-200 dark:divide-slate-600"
           >
             {
               // Loop over the table rows
@@ -520,7 +520,7 @@ export const TableAdvanced = ({
                   // Apply the row props
                   <tr
                     {...row.getRowProps()}
-                    className="bg-white dark:bg-slate-800  hover:bg-slate-100 dark:text-slate-200"
+                    className="bg-slate-50 dark:bg-slate-800  hover:bg-slate-50 dark:text-slate-200"
                   >
                     {
                       // Loop over the rows cells
@@ -546,7 +546,7 @@ export const TableAdvanced = ({
           </tbody>
         </table>
 
-        <div className="px-5 py-5 bg-white dark:bg-slate-800 flex flex-col xs:flex-row items-center xs:justify-between">
+        <div className="px-5 py-5 bg-slate-50 dark:bg-slate-800 flex flex-col xs:flex-row items-center xs:justify-between">
           {!data[0] && (
             <div className="text-sm mb-3 text-slate-800 dark:text-slate-200">
               No record was found!
@@ -563,28 +563,28 @@ export const TableAdvanced = ({
             <button
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
-              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
+              className="text-sm border-b-1 border-slate-300 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
             >
               {'<<'}
             </button>{' '}
             <button
               onClick={() => previousPage()}
               disabled={!canPreviousPage}
-              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400  font-semibold py-2 px-4"
+              className="text-sm border-b-1 border-slate-300 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400  font-semibold py-2 px-4"
             >
               {'Prev'}
             </button>{' '}
             <button
               onClick={() => nextPage()}
               disabled={!canNextPage}
-              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
+              className="text-sm border-b-1 border-slate-300 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
             >
               {'Next'}
             </button>
             <button
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
-              className="text-sm border-b-1 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
+              className="text-sm border-b-1 border-slate-300 dark:border-slate-600 mx-2 cursor-pointer hover:text-gray-400 font-semibold py-2 px-4"
             >
               {'>>'}
             </button>

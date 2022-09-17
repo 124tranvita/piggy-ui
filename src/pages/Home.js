@@ -19,7 +19,7 @@ export default function Home() {
           <div className="w-2/3 lg:w-1/2">
             <header className="">
               <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 text-violet-500">
-                The happiness PiGGY!
+                The happy PiGGY!
               </h1>
               <p className="text-slate-500">
                 Simple and easy budget management project
@@ -43,18 +43,22 @@ export default function Home() {
 
             {/* Login/Signup buttons */}
             <div>
-              <button
-                type="submit"
-                className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                <Link to="/login">Sign in</Link>
-              </button>
-              <button
-                type="submit"
-                className="inline-flex justify-center items-center mt-4 ml-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                <Link to="/signup">Sign up</Link>
-              </button>
+              <Link to="/login">
+                <button
+                  type="submit"
+                  className="inline-flex justify-center items-center mt-4 rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                >
+                  Sign in
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button
+                  type="submit"
+                  className="inline-flex justify-center items-center mt-4 ml-4 rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                >
+                  Sign up
+                </button>
+              </Link>
             </div>
           </div>
         </div>

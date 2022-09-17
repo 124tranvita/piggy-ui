@@ -79,7 +79,7 @@ export default function Sidebar() {
                     backgroundColor: isActive ? '#334155' : '',
                   }
                 : {
-                    color: '#6366f1',
+                    color: '#4f46e5',
                     opacity: isActive ? 1 : 0.7,
                     backgroundColor: isActive ? '#e2e8f0' : '',
                   }

@@ -9,7 +9,7 @@ export default function SummaryCard({ title, amount, icon, iconColor }) {
   const balanceBadgeIcon = amount > 0 ? '\u2713' : 'x';
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 ">
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-slate-50 dark:bg-slate-800 ">
       <div className="px-5 pt-5 pb-2">
         <div className="flex justify-between items-start mb-2 border-b-1 dark:border-slate-600">
           {/* Icon */}

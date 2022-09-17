@@ -8,7 +8,6 @@ import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthContext';
 import { NotificationContextProvider } from './context/NotificationContext';
 import { FilterContextProvider } from './context/FilterContext';
-import { IsLoadingContextProvider } from './context/IsLoadingContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,11 +15,9 @@ root.render(
     <BrowserRouter>
       <AuthContextProvider>
         <NotificationContextProvider>
-          <IsLoadingContextProvider>
-            <FilterContextProvider>
-              <App />
-            </FilterContextProvider>
-          </IsLoadingContextProvider>
+          <FilterContextProvider>
+            <App />
+          </FilterContextProvider>
         </NotificationContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

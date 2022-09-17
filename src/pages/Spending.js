@@ -189,131 +189,117 @@ export default function Spending() {
   return (
     <div className="relative">
       <PageTransition>
-        {spendingData[0] && (
-          <>
-            {/* Catalogue's item warning */}
-            <div
-              className={`flex justify-center ${
-                isNoCatalogue ? 'block' : 'hidden'
-              } duration-300`}
-            >
-              <h2 className="rounded-md px-2 text-sm text-white bg-rose-500">
-                You must have at least one catalogue item to continue.
-              </h2>
-            </div>
+        {/* Catalogue's item warning */}
+        <div
+          className={`flex justify-center ${
+            isNoCatalogue ? 'block' : 'hidden'
+          } duration-300`}
+        >
+          <h2 className="rounded-md px-2 text-sm text-white bg-rose-500">
+            You must have at least one catalogue item to continue.
+          </h2>
+        </div>
 
-            {/* Main div */}
-            <div className="flex justify-end absolute right-0 top-10">
-              {/* Add item button */}
-              <AddDialogForm
-                path={'spendings'}
-                fn={(result) =>
-                  updateDataAfterPOST(result, setSpendingData, spendingData)
-                }
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center"
-                disabled={isNoCatalogue}
-              >
-                <MyTextInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Coca, Bill, Payment..."
-                />
-                <MySelect label="Catalogues" name="catalogue">
-                  <option value="">Catalogues</option>
-                  {catalogueData.map((el) => (
-                    <option value={el.id} key={el.id}>
-                      {el.name}
-                    </option>
-                  ))}
-                </MySelect>
-                <MyTextInput
-                  label="Description"
-                  name="description"
-                  type="text"
-                  placeholder="Description..."
-                />
-                <MyTextInput label="Date" name="createAt" type="date" />
-                <MyTextInput label="Price" name="price" type="number" />
-                <MyTextInput label="Quantity" name="quantity" type="number" />
-              </AddDialogForm>
-
-              {/* Period time SelectBox */}
-              <SelectBox
-                filter={filterSpending}
-                actionType={'SET_SPENDING'}
-                className=" bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center mx-4"
-              />
-            </div>
-
-            {/* Table area */}
-            <TableAdvanced
-              columns={columns}
-              data={spendingData}
-              title={'Spendings'}
-              icon={<MdOutlineTrendingDown />}
-              iconTextColor={'text-rose-500'}
+        {/* Main div */}
+        <div className="flex justify-end absolute right-0 top-10">
+          {/* Add item button */}
+          <AddDialogForm
+            path={'spendings'}
+            fn={(result) =>
+              updateDataAfterPOST(result, setSpendingData, spendingData)
+            }
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            className="bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center"
+            disabled={isNoCatalogue}
+          >
+            <MyTextInput
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="Coca, Bill, Payment..."
             />
+            <MySelect label="Catalogues" name="catalogue">
+              <option value="">Catalogues</option>
+              {catalogueData.map((el) => (
+                <option value={el.id} key={el.id}>
+                  {el.name}
+                </option>
+              ))}
+            </MySelect>
+            <MyTextInput
+              label="Description"
+              name="description"
+              type="text"
+              placeholder="Description..."
+            />
+            <MyTextInput label="Date" name="createAt" type="date" />
+            <MyTextInput label="Price" name="price" type="number" />
+            <MyTextInput label="Quantity" name="quantity" type="number" />
+          </AddDialogForm>
 
-            {/* Edit and Remove Modal */}
-            <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
-              <UpdateModalForm
-                isOpen={openModal}
-                setIsOpen={setOpenModal}
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                path={'spendings'}
-                data={rowData}
-                fn={(result) =>
-                  updateDataAfterPATCH(result, setSpendingData, spendingData)
-                }
-              >
-                <MyTextInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Coca, Bill, Payment..."
-                />
-                <MySelect label="Catalogues" name="catalogue">
-                  <option value="">Catalogues</option>
-                  {catalogueData.map((el) => (
-                    <option value={el.id} key={el.id}>
-                      {el.name}
-                    </option>
-                  ))}
-                </MySelect>
-                <MyTextInput
-                  label="Description"
-                  name="description"
-                  type="text"
-                />
-                <MyTextInput label="Date" name="createAt" type="date" />
-                <MyTextInput label="Price" name="price" type="number" />
-                <MyTextInput label="Quantity" name="quantity" type="number" />
-              </UpdateModalForm>
-            </div>
+          {/* Period time SelectBox */}
+          <SelectBox
+            filter={filterSpending}
+            actionType={'SET_SPENDING'}
+            className=" bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-200 hover:text-slate-600 dark:hover:text-slate-700 flex items-center mx-4"
+          />
+        </div>
 
-            <div
-              className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}
-            >
-              <ConfirmModal
-                isOpen={openConfirm}
-                setIsOpen={setOpenConfirm}
-                path={'spendings'}
-                id={rowData._id}
-                fn={() =>
-                  updateDataAfterDELETE(
-                    rowData._id,
-                    setSpendingData,
-                    spendingData
-                  )
-                }
-              />
-            </div>
-          </>
-        )}
+        {/* Table area */}
+        <TableAdvanced
+          columns={columns}
+          data={spendingData}
+          title={'Spendings'}
+          icon={<MdOutlineTrendingDown />}
+          iconTextColor={'text-rose-500'}
+        />
+
+        {/* Edit and Remove Modal */}
+        <div className={`${!openModal ? 'hidden' : 'block'} duration-200`}>
+          <UpdateModalForm
+            isOpen={openModal}
+            setIsOpen={setOpenModal}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            path={'spendings'}
+            data={rowData}
+            fn={(result) =>
+              updateDataAfterPATCH(result, setSpendingData, spendingData)
+            }
+          >
+            <MyTextInput
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="Coca, Bill, Payment..."
+            />
+            <MySelect label="Catalogues" name="catalogue">
+              <option value="">Catalogues</option>
+              {catalogueData.map((el) => (
+                <option value={el.id} key={el.id}>
+                  {el.name}
+                </option>
+              ))}
+            </MySelect>
+            <MyTextInput label="Description" name="description" type="text" />
+            <MyTextInput label="Date" name="createAt" type="date" />
+            <MyTextInput label="Price" name="price" type="number" />
+            <MyTextInput label="Quantity" name="quantity" type="number" />
+          </UpdateModalForm>
+        </div>
+
+        <div className={`${!openConfirm ? 'hidden' : 'block'} duration-200`}>
+          <ConfirmModal
+            isOpen={openConfirm}
+            setIsOpen={setOpenConfirm}
+            path={'spendings'}
+            id={rowData._id}
+            fn={() =>
+              updateDataAfterDELETE(rowData._id, setSpendingData, spendingData)
+            }
+          />
+        </div>
       </PageTransition>
     </div>
   );

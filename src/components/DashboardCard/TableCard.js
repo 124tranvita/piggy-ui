@@ -5,7 +5,7 @@ import { MdOutlineImportExport } from 'react-icons/md';
 
 export default function TableCard({ title, data, textColor }) {
   return (
-    <div className="col-span-full xl:col-span-6 bg-white dark:bg-slate-800">
+    <div className="col-span-full xl:col-span-6 bg-slate-50 dark:bg-slate-800">
       <header className="flex items-center px-5 py-4 border-b border-slate-200 dark:border-slate-600">
         <div
           className={`text-4xl mr-3 ${

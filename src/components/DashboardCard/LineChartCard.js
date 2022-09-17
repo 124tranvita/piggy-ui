@@ -52,7 +52,7 @@ export default function LineChartCard({ incomes, spendings }) {
   };
 
   return (
-    <div className="flex flex-col col-span-full bg-white dark:bg-slate-800">
+    <div className="flex flex-col col-span-full bg-slate-50 dark:bg-slate-800">
       <header className="px-5 py-4 border-b border-slate-200 dark:border-slate-600 flex items-center">
         <div className="text-4xl mr-3 text-orange-500">
           <RiLineChartLine />

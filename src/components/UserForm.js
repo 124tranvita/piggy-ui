@@ -49,30 +49,30 @@ export default function UserForm() {
             name="email"
             type="email"
             disabled={true}
-            className="bg-white dark:bg-slate-800 appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"
+            className="bg-slate-50 dark:bg-slate-800 appearance-none border-b-1 border-gray-200 mb-3 w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none focus:bg-slate-100 focus:border-indigo-500"
           />
           <MyTextInput
             label="Name"
             name="name"
             type="text"
-            className="bg-white dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
+            className="bg-slate-50 dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-slate-100 focus:border-violet-600"
           />
 
           {/* Password */}
           <MyPasswordInput
             label="Current Password"
             name="passwordCurrent"
-            className="bg-white dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
+            className="bg-slate-50 dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-slate-100 focus:border-violet-600"
           />
           <MyPasswordInput
             label="Password"
             name="password"
-            className="bg-white dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
+            className="bg-slate-50 dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-slate-100 focus:border-violet-600"
           />
           <MyPasswordInput
             label="Passwor Confirm"
             name="passwordConfirm"
-            className="bg-white dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-white focus:border-violet-600"
+            className="bg-slate-50 dark:bg-slate-800 appearance-none border-b-1 border-slate-200 dark:border-slate-600 mb-3 w-full py-2 px-4 text-slate-800 dark:text-slate-200 leading-tight focus:outline-none focus:bg-slate-100 focus:border-violet-600"
           />
           {/* Password */}
 

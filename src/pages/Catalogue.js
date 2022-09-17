@@ -136,7 +136,7 @@ export default function Catalogue() {
                 fn={(result) => updateDataAfterPOST(result, setData, data)}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                className="bg-white text-slate-500 hover:text-slate-600 flex items-center dark:bg-slate-800 dark:text-slate-200 dark:hover:text-slate-500"
+                className="bg-slate-50 text-slate-500 hover:text-slate-600 flex items-center dark:bg-slate-800 dark:text-slate-200 dark:hover:text-slate-500"
               >
                 <MyTextInput
                   label="Name"

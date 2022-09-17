@@ -1,6 +1,6 @@
 const images = {
   logo: require('./logo.svg').default,
-  login: require('./login.svg').default,
+  profile: require('./profile.svg').default,
   signup: require('./signup.svg').default,
   error: require('./error.svg').default,
 };

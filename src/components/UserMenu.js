@@ -1,9 +1,12 @@
 import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
+
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import { useClearNotification } from '../hooks/useClearNotification';
+
+import images from '../assets/images';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -28,7 +31,7 @@ export default function UserMenu() {
         <div>
           <Menu.Button className="flex items-center w-8 h-8 mr-3 text-2xl text-white rounded-full md:mr-0 hover:ring-1 hover:ring-gray-200">
             <img
-              src="assets/images/user.svg"
+              src={images.profile}
               className="w-8 h-8 rounded-full"
               alt="user profile"
             />
@@ -57,18 +60,18 @@ export default function UserMenu() {
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
-                  <a
-                    href="#0"
+                  <Link
+                    to="/profile"
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'block px-4 py-2 text-sm'
                     )}
                   >
                     Account settings
-                  </a>
+                  </Link>
                 )}
               </Menu.Item>
-              <Menu.Item>
+              {/* <Menu.Item>
                 {({ active }) => (
                   <a
                     href="#0"
@@ -93,23 +96,21 @@ export default function UserMenu() {
                     License
                   </a>
                 )}
+              </Menu.Item> */}
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="submit"
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'block w-full px-4 py-2 text-left text-sm'
+                    )}
+                    onClick={handleClick}
+                  >
+                    Sign out
+                  </button>
+                )}
               </Menu.Item>
-              <form method="POST" action="#">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      type="submit"
-                      className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block w-full px-4 py-2 text-left text-sm'
-                      )}
-                      onClick={handleClick}
-                    >
-                      Sign out
-                    </button>
-                  )}
-                </Menu.Item>
-              </form>
             </div>
           </Menu.Items>
         </Transition>
