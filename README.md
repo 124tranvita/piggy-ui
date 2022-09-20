@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# The happy PIGGY- ReactJS App
+Simple and easy budget management with modern UI and rich feature.
+## Table of content
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Supported Features](#supported-features)
+* [Limitation](#limitations-of-phase-1)
+* [To do](#to-do)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General info
+This project is a simple budget management app which is created by ReactJS (Frontend) and NodeJS (Backend). Come with the modern UI dashboard will help user easy to track and manage their budget in monthly. Users also able to track their incomes, spendings (group by catalogues) and easy to manage them by the flexible period times.
 
-## Available Scripts
+## Technologies
+Project is created with ReactJS using modules as below:
+* @headlessui/react: 1.6.6
+* chart.js: 3.9.1
+* formik: 2.2.9
+* react-table: 7.8.0
+* tailwincss: 3.1.8
+* react-redux-dom: 6
+* ...
 
-In the project directory, you can run:
+## Supported Features
+### Dashboard:
+* Manage amount of Balance, Incomes and Spendings. Listed of last 5 records of Incomes and Spendings and come up with compare line chart.
+### Catalogues:
+* List of all items in catalogues.
+### Incomes:
+* List of all user's incomes.
+### Spendings:
+* List of all user's spendings.
+### Reports:
+* Report the status of all user's activity (current in-development)
 
-### `npm start`
+## Limitations of phase-1
+* Reports page is current development and not available yet.
+* Edit user's profile feature.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## To Do
+* Detail and helpful report page.
+* Let user check thoes spendings belong to specific catalogue's item in Catalogues page.
+* Improve UI so smooth so far
+* ...
