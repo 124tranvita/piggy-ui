@@ -1,5 +1,10 @@
 # The happy PIGGY- ReactJS App
 Simple and easy budget management with modern UI and rich feature.
+
+## Live Demo
+Live page: [PiGGY-Save your money](https://124tranvita.github.io/piggy-ui/)
+
+Login info: `user = demo@mail.com` | `password = P@ssword12345`
 ## Table of content
 * [General info](#general-info)
 * [Technologies](#technologies)
