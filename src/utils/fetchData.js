@@ -1,5 +1,5 @@
 // export const PREFIX = 'http://192.168.1.236:4000/api/v1/';
-export const PREFIX = 'https://filthy-hare-uniform.cyclic.app/api/v1/';
+export const PREFIX = 'https://piggy-api.onrender.com/api/v1/';
 
 /**GET REQUEST */
 export const getData = async (path, token, dispatch) => {

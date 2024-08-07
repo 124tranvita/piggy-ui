@@ -21,7 +21,6 @@ const Login = () => {
   const { login, error, isLoading } = useLogin();
 
   const handleSubmit = async (value) => {
-    // console.log(email, password);
     login(value.email, value.password);
   };
 
